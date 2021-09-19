@@ -11,7 +11,7 @@ class DialogBuilder {
   const DialogBuilder(this.context);
   final BuildContext context;
 
-  Future<void> showLoadingIndicator() async => showDialog(
+  void showLoadingIndicator() => showDialog(
         context: context,
         barrierDismissible: false,
         builder: (BuildContext context) => WillPopScope(

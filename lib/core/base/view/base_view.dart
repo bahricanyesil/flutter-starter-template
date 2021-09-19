@@ -1,54 +1,47 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../model/base_view_model.dart';
+
+import '../../constants/enums/view_states.dart';
+import '../../widgets/appbars/app_bar.dart';
+import '../view-model/base_view_model.dart';
 
 class BaseView<T extends BaseViewModel> extends StatefulWidget {
+  final Widget Function(BuildContext) bodyBuilder;
+  final List<Widget>? appBarChildren;
+  final double? appBarSize;
+
   const BaseView({
-    required this.vmBuilder,
-    required this.onPageBuilder,
-    this.onDispose,
+    required this.bodyBuilder,
+    this.appBarChildren,
+    this.appBarSize,
     Key? key,
   }) : super(key: key);
 
-  final Widget Function(BuildContext context, T value) onPageBuilder;
-  final T Function(BuildContext context) vmBuilder;
-
-  final VoidCallback? onDispose;
-
   @override
-  _BaseViewState<T> createState() => _BaseViewState<T>();
+  State<BaseView<T>> createState() => _BaseViewState<T>();
 }
 
 class _BaseViewState<T extends BaseViewModel> extends State<BaseView<T>> {
   @override
-  void dispose() {
-    super.dispose();
-    if (widget.onDispose != null) {
-      widget.onDispose!();
-    }
+  void initState() {
+    context.read<T>().context = context;
+    super.initState();
   }
 
   @override
-  Widget build(BuildContext context) => ChangeNotifierProvider<T>.value(
-        value: widget.vmBuilder(context),
-        child: Consumer<T>(
-          builder: _buildScreenContent,
-        ),
-      );
-
-  Widget _buildScreenContent(
-          BuildContext context, T viewModel, Widget? child) =>
-      !viewModel.isInitialized
-          ? Container()
-          : Stack(
-              children: <Widget>[
-                widget.onPageBuilder(context, viewModel),
-                Visibility(
-                  visible: viewModel.isLoading,
-                  child: const Center(
-                    child: Center(child: CircularProgressIndicator()),
-                  ),
-                )
-              ],
+  Widget build(BuildContext context) =>
+      context.watch<T>().state == ViewStates.uninitialized
+          ? const Center(
+              child: CircularProgressIndicator(),
+            )
+          : Scaffold(
+              appBar: _getAppBar(),
+              body: SafeArea(child: widget.bodyBuilder(context)),
             );
+
+  DefaultAppBar? _getAppBar() =>
+      widget.appBarChildren != null && widget.appBarSize != null
+          ? DefaultAppBar(
+              size: widget.appBarSize!, children: widget.appBarChildren!)
+          : null;
 }

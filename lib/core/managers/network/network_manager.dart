@@ -7,6 +7,7 @@ import 'package:flutter/foundation.dart';
 
 import '../../base/model/base_models_shelf.dart';
 import '../../constants/constants_shelf.dart';
+import '../../models/error/error_model.dart';
 import '../../models/models_shelf.dart';
 import '../navigation/navigation_manager.dart';
 import 'authentication/authentication_shelf.dart';
@@ -55,7 +56,7 @@ class NetworkManager extends INetworkManager with DioMixin implements Dio {
       return errorReturn<R>(error);
     } on Exception catch (_) {
       return ResponseModel<R>(
-        error: BaseError(customMessage: 'Exception Is Occurred'),
+        error: ErrorModel(customMessage: 'Exception Is Occurred'),
       );
     }
   }
@@ -105,6 +106,6 @@ class NetworkManager extends INetworkManager with DioMixin implements Dio {
     DioError? dioError,
   }) =>
       ResponseModel<R>(
-        error: BaseError(customMessage: message, dioError: dioError),
+        error: ErrorModel(customMessage: message, dioError: dioError),
       );
 }

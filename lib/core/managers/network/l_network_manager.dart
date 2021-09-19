@@ -2,6 +2,7 @@ import 'package:dio/dio.dart';
 
 import '../../base/model/base_models_shelf.dart';
 import '../../constants/enums/request_types.dart';
+import '../../models/error/error_model.dart';
 import '../../models/response/l_response_model.dart';
 import '../local/local_manager.dart';
 
@@ -26,9 +27,9 @@ abstract class INetworkManager {
   IResponseModel<R> errorReturn<R extends BaseModel<R>>(DioError error);
 
   IResponseModel<R> unauthenticatedError<R>() => ResponseModel<R>(
-        error: BaseError(
+        error: ErrorModel(
           customMessage: 'Token is not valid anymore.',
-          authenticated: false,
+          isAuthentication: false,
         ),
       );
 

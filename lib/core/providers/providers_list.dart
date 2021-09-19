@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:provider/single_child_widget.dart';
 
+import '../../features/home_view_models_shelf.dart';
 import '../managers/navigation/navigation_manager.dart';
-import 'lang/language_provider.dart';
 import 'providers_shelf.dart';
 
 class ApplicationProvider {
@@ -20,6 +20,9 @@ class ApplicationProvider {
     ),
     ChangeNotifierProvider<LanguageProvider>(
       create: (BuildContext context) => LanguageProvider(),
+    ),
+    ChangeNotifierProvider<HomeViewModel>(
+      create: (BuildContext context) => HomeViewModel(),
     ),
     Provider<NavigationManager>.value(value: NavigationManager.instance)
   ];

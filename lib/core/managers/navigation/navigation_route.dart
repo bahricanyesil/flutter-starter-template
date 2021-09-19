@@ -17,7 +17,7 @@ class NavigationRoute {
       case NavigationConstants.home:
         return normalNavigate(const HomeScreen());
       default:
-        return normalNavigate(const LoginScreen());
+        return normalNavigate(const HomeScreen());
     }
   }
 

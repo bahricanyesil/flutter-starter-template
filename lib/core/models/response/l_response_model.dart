@@ -2,7 +2,7 @@ import '../../base/model/base_error.dart';
 
 abstract class IResponseModel<T> {
   T? data;
-  BaseError? error;
+  IErrorModel? error;
 }
 
 class ResponseModel<T> implements IResponseModel<T> {
@@ -11,11 +11,11 @@ class ResponseModel<T> implements IResponseModel<T> {
   @override
   final T? data;
   @override
-  final BaseError? error;
+  final IErrorModel? error;
 
   @override
   set data(T? _data) => data = _data;
 
   @override
-  set error(BaseError? _error) => error = _error;
+  set error(IErrorModel? _error) => error = _error;
 }

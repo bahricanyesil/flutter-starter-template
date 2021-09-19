@@ -5,7 +5,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter/material.dart';
 
-import '../../../base/provider/base_provider.dart';
 import '../../../constants/border/shape_borders.dart';
 import '../../../constants/duration/durations.dart';
 import '../../../extensions/context/context_extensions_shelf.dart';
@@ -18,7 +17,6 @@ class CustomDialog extends PlatformSensitiveWidget {
     this.title,
     this.rightButtonText = 'OK',
     this.action,
-    this.provider,
     this.leftButtonText,
     this.leftButtonAction,
     this.rightButtonTextColor,
@@ -35,7 +33,6 @@ class CustomDialog extends PlatformSensitiveWidget {
   final String? leftButtonText;
   final Function()? action;
   final Function()? leftButtonAction;
-  final BaseProvider<dynamic>? provider;
   final Color? leftButtonTextColor;
   final Color? rightButtonTextColor;
   final Color? rightButtonColor;
