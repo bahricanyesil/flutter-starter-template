@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:provider/provider.dart';
+import '../../providers/theme_provider.dart';
 
 class BarsUiHelper {
   final BuildContext context;
   const BarsUiHelper(this.context);
 
-  static void setSystemUi() {
-    // TODO(bahrican): Determine isDark with real value
-    final bool isDark = true;
+  void setSystemUi() {
+    final bool isDark = context.read<ThemeProvider>().isDark();
     SystemChrome.setSystemUIOverlayStyle(
       SystemUiOverlayStyle(
         statusBarBrightness: Brightness.dark,

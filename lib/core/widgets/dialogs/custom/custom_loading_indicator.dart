@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../../extensions/context/context_extensions_shelf.dart';
-
-// TODO(bahrican): All texts should be wrapped with FittedBox, fontSize should be numerical value.
+import '../../texts/base_text.dart';
 
 class LoadingIndicator extends StatelessWidget {
   const LoadingIndicator({Key? key}) : super(key: key);
@@ -36,12 +35,9 @@ class LoadingIndicator extends StatelessWidget {
 
   Widget _getHeading(BuildContext context) => Padding(
         padding: context.bottomLow,
-        child: FittedBox(
-          child: Text(
-            'Please Wait...',
-            style: TextStyle(color: context.primaryColor),
-            textAlign: TextAlign.center,
-          ),
+        child: BaseText(
+          'Please Wait...',
+          textStyle: context.headline4.copyWith(color: context.primaryColor),
         ),
       );
 }

@@ -8,15 +8,17 @@ extension NetworkManagerOperations on NetworkManager {
     if (accessExpires.isBefore(compareDate)) {
       final DateTime refreshExpires =
           await _getTokenExpires(LocalManagerKeys.refreshTokenExpires);
-      if (refreshExpires.isBefore(compareDate)) return false;
-      await _refreshToken();
+      final String? oldRefreshToken =
+          localManager.getString(LocalManagerKeys.refreshToken);
+      if (refreshExpires.isBefore(compareDate) || oldRefreshToken == null) {
+        return false;
+      }
+      await _refreshToken(oldRefreshToken);
     }
     return true;
   }
 
-  Future<void> _refreshToken() async {
-    final String oldRefreshToken =
-        await localManager.getString(LocalManagerKeys.refreshToken);
+  Future<void> _refreshToken(String oldRefreshToken) async {
     final IResponseModel<RefreshTokenResponse> response =
         await _authenticationService
             .refreshToken(RefreshTokenRequest(refreshToken: oldRefreshToken));
@@ -48,8 +50,8 @@ extension NetworkManagerOperations on NetworkManager {
   }
 
   Future<DateTime> _getTokenExpires(LocalManagerKeys key) async {
-    final String expireString = await localManager.getString(key);
-    return expireString == ''
+    final String? expireString = localManager.getString(key);
+    return expireString == null
         ? DateTime.now().subtract(const Duration(minutes: 1))
         : DateTime.parse(expireString);
   }

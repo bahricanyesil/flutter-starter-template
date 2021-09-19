@@ -1,15 +1,17 @@
 import 'package:flutter/material.dart';
 
+import '../../extensions/context/theme_extension.dart';
+
 class BaseText extends StatelessWidget {
   final String text;
-  final TextStyle textStyle;
+  final TextStyle? textStyle;
   final bool highlight;
   final TextAlign textAlign;
   final Color? color;
   final TextDecoration? decoration;
   const BaseText(
     this.text, {
-    required this.textStyle,
+    this.textStyle,
     this.highlight = false,
     this.textAlign = TextAlign.center,
     this.color,
@@ -21,7 +23,7 @@ class BaseText extends StatelessWidget {
   Widget build(BuildContext context) => FittedBox(
         child: Text(
           text,
-          style: textStyle,
+          style: textStyle ?? context.headline5,
           textAlign: textAlign,
         ),
       );

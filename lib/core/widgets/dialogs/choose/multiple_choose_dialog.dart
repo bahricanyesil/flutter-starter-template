@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../../../constants/border/shape_borders.dart';
 import '../../../decoration/texts/text_form_styles.dart';
 import '../../../extensions/context/context_extensions_shelf.dart';
+import '../../texts/base_text.dart';
 
 class MultipleChooseDialog extends StatefulWidget {
   final List<String> elements;
@@ -39,8 +40,10 @@ class _MultipleChooseDialogState extends State<MultipleChooseDialog> {
     return Padding(
       padding: context.verticalMed,
       child: AlertDialog(
-        title: Text(widget.title,
-            style: context.headline4.copyWith(color: context.primaryColor)),
+        title: BaseText(
+          widget.title,
+          textStyle: context.headline4.copyWith(color: context.primaryColor),
+        ),
         shape: ShapedBorders.roundedMedium,
         backgroundColor: context.canvasColor,
         contentPadding: context.lowMedEdgeInsets,
@@ -73,10 +76,9 @@ class _MultipleChooseDialogState extends State<MultipleChooseDialog> {
 
   Widget _getActionButton() => TextButton(
         onPressed: () => Navigator.of(context).pop(selectedTexts),
-        child: Text(
+        child: BaseText(
           'OK',
-          style: context.headline5.copyWith(color: context.primaryColor),
-          textAlign: TextAlign.center,
+          textStyle: context.headline5.copyWith(color: context.primaryColor),
         ),
       );
 
@@ -118,10 +120,7 @@ class _MultipleChooseDialogState extends State<MultipleChooseDialog> {
         onTap: () => selectedTexts.contains(localList[index])
             ? selectedTexts.remove(localList[index])
             : selectedTexts.add(localList[index]),
-        child: Text(
-          localList[index],
-          style: context.headline5,
-        ),
+        child: BaseText(localList[index], textStyle: context.headline5),
       );
 
   Widget _getSearchForm() => Padding(

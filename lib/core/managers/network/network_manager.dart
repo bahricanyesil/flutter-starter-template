@@ -17,7 +17,7 @@ part 'network_manager_operations.dart';
 // ignore: prefer_mixin
 class NetworkManager extends INetworkManager with DioMixin implements Dio {
   factory NetworkManager() => _instance;
-  static late final NetworkManager _instance = NetworkManager._init();
+  static final NetworkManager _instance = NetworkManager._init();
   static NetworkManager get instance => _instance;
   NetworkManager._init() {
     options = BaseOptions(

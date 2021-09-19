@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../extensions/context/context_extensions_shelf.dart';
+import '../texts/base_text.dart';
 
 class TextsWithButton extends StatelessWidget {
   const TextsWithButton({
@@ -17,19 +18,17 @@ class TextsWithButton extends StatelessWidget {
   Widget build(BuildContext context) => Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
-          FittedBox(child: Text(firstText)),
+          BaseText(firstText, textStyle: context.headline4),
           SizedBox(width: context.width),
-          registerTextButton(context),
+          _textButton(context),
         ],
       );
 
-  Widget registerTextButton(BuildContext context) => TextButton(
+  Widget _textButton(BuildContext context) => TextButton(
         onPressed: action,
-        child: FittedBox(
-          child: Text(
-            secondText,
-            style: context.headline4.copyWith(color: context.primaryColor),
-          ),
+        child: BaseText(
+          secondText,
+          textStyle: context.headline4.copyWith(color: context.primaryColor),
         ),
       );
 }

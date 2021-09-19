@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import '../../../constants/border/shape_borders.dart';
 
+import '../../../constants/border/shape_borders.dart';
 import '../../../extensions/context/context_extensions_shelf.dart';
+import '../../texts/base_text.dart';
 
 class SingleChooseDialog<T> extends StatelessWidget {
   final String title;
@@ -14,9 +15,9 @@ class SingleChooseDialog<T> extends StatelessWidget {
   Widget build(BuildContext context) => SimpleDialog(
         shape: ShapedBorders.roundedMedium,
         backgroundColor: context.canvasColor,
-        title: Text(
+        title: BaseText(
           title,
-          style: context.headline4.copyWith(color: context.primaryColor),
+          textStyle: context.headline4.copyWith(color: context.primaryColor),
         ),
         children: _getDialogChildren(elements, context),
       );
@@ -37,11 +38,10 @@ class SingleChooseDialog<T> extends StatelessWidget {
           int index, List<T> elements, BuildContext context) =>
       SimpleDialogOption(
         onPressed: () => Navigator.of(context).pop(index),
-        child: Text(
+        child: BaseText(
           elements[index].toString(),
-          style: context.headline5
+          textStyle: context.headline5
               .copyWith(color: context.primaryLightColor.withOpacity(.8)),
-          textAlign: TextAlign.center,
         ),
       );
 

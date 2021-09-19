@@ -9,6 +9,7 @@ import '../../../base/provider/base_provider.dart';
 import '../../../constants/border/shape_borders.dart';
 import '../../../constants/duration/durations.dart';
 import '../../../extensions/context/context_extensions_shelf.dart';
+import '../../texts/base_text.dart';
 import 'platform_sensitive_dialog.dart';
 
 class CustomDialog extends PlatformSensitiveWidget {
@@ -67,11 +68,9 @@ class CustomDialog extends PlatformSensitiveWidget {
 
   Widget _getTitle(BuildContext context) => title == null
       ? Container()
-      : FittedBox(
-          child: Text(
-            title!,
-            style: context.headline4.copyWith(color: context.primaryColor),
-          ),
+      : BaseText(
+          title!,
+          textStyle: context.headline4.copyWith(color: context.primaryColor),
         );
 
   Widget _androidWebDialog() => LayoutBuilder(
@@ -139,11 +138,10 @@ class CustomDialog extends PlatformSensitiveWidget {
     if (action != null) await action!();
   }
 
-  Widget _buttonText(String text, BuildContext context) => Text(
+  Widget _buttonText(String text, BuildContext context) => BaseText(
         text,
-        style: context.headline5
+        textStyle: context.headline5
             .copyWith(color: leftButtonTextColor ?? context.primaryColor),
-        textAlign: TextAlign.center,
       );
 
   EdgeInsets getButtonPadding(BuildContext context) =>

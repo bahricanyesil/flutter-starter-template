@@ -2,5 +2,7 @@ enum LocalManagerKeys {
   accessToken,
   accessTokenExpires,
   refreshToken,
-  refreshTokenExpires
+  refreshTokenExpires,
+  langCode,
+  theme,
 }

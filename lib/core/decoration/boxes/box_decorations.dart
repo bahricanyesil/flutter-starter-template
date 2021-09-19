@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
 import '../../constants/border/border_radii.dart';
-import '../../constants/colors/color_constants.dart';
 import '../../extensions/context/theme_extension.dart';
+import '../../theme/color/color_manager.dart';
 
 class BoxDecorations {
   const BoxDecorations(this.context);
@@ -22,11 +22,11 @@ class BoxDecorations {
 
   static BoxDecoration roundedInfoDeco() => const BoxDecoration(
         borderRadius: BorderRadii.lowMedCircular,
-        color: ColorConstants.drawerColor,
+        color: AppColors.lightGrey,
       );
 
   BoxDecoration tableDeco() => BoxDecoration(
-        color: ColorConstants.drawerColor,
+        color: AppColors.lightGrey,
         border: Border.all(
             color: context.primaryLightColor.withOpacity(.1), width: 1.5),
       );

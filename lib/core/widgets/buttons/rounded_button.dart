@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import '../../decoration/buttons/button_styles.dart';
 
+import '../../decoration/buttons/button_styles.dart';
 import '../../extensions/extensions_shelf.dart';
+import '../texts/base_text.dart';
 
 class RoundedButton extends StatelessWidget {
   const RoundedButton({
@@ -43,8 +44,7 @@ class RoundedButton extends StatelessWidget {
             Expanded(child: Container())
           else
             preImage(context),
-          FittedBox(
-              child: Text(buttonText, style: textStyle ?? context.headline4)),
+          BaseText(buttonText, textStyle: textStyle ?? context.headline4),
           Expanded(child: Container()),
         ],
       );

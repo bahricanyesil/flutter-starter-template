@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../../constants/border/shape_borders.dart';
 import '../../decoration/texts/text_form_styles.dart';
 import '../../extensions/context/context_extensions_shelf.dart';
+import '../texts/base_text.dart';
 import 'custom/custom_dialogs_shelf.dart';
 import 'dialogs_shelf.dart';
 
@@ -68,10 +69,7 @@ class DialogBuilder {
     await CustomDialog(
       content: Padding(
         padding: EdgeInsets.all(context.width),
-        child: FittedBox(
-          child:
-              Text(text, textAlign: TextAlign.center, style: context.headline5),
-        ),
+        child: BaseText(text, textStyle: context.headline5),
       ),
     ).show(context);
   }

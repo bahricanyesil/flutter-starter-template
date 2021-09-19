@@ -1,4 +1,8 @@
+import '../../providers/lang/app_localizations.dart';
+
 extension UtilExtension on String {
+  String get tr => AppLocalizations.instance?.translate(this) ?? this;
+
   String get trToEn => replaceAll(RegExp('Ğ'), 'G')
       .replaceAll(RegExp('Ü'), 'U')
       .replaceAll(RegExp('Ş'), 'S')

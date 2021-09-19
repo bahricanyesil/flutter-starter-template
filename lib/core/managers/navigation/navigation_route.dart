@@ -10,7 +10,6 @@ class NavigationRoute {
   NavigationRoute._init();
 
   Route<dynamic> generateRoute(RouteSettings args) {
-    //TODO: Will be used
     final Map<String, dynamic> arguments = getArguments(args);
     switch (args.name) {
       case NavigationConstants.login:
