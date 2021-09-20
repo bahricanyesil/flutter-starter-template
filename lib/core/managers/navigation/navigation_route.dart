@@ -16,6 +16,7 @@ class NavigationRoute {
         return normalNavigate(const LoginScreen());
       case NavigationConstants.home:
         return normalNavigate(const HomeScreen());
+      // TODO(bahrican):
       default:
         return normalNavigate(const HomeScreen());
     }

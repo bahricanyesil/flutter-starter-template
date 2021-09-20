@@ -27,10 +27,7 @@ abstract class INetworkManager {
   IResponseModel<R> errorReturn<R extends BaseModel<R>>(DioError error);
 
   IResponseModel<R> unauthenticatedError<R>() => ResponseModel<R>(
-        error: ErrorModel(
-          customMessage: 'Token is not valid anymore.',
-          isAuthentication: false,
-        ),
+        error: ErrorModel(customMessage: 'Token is not valid anymore.'),
       );
 
   R? responseParser<R>(
