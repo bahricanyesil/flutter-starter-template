@@ -1,0 +1,4 @@
+enum UserPreferencesKeys {
+  theme,
+  language,
+}

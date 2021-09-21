@@ -1,22 +1,23 @@
-import 'package:json_annotation/json_annotation.dart';
 import '../../../../core/base/model/base_model.dart';
-part 'message_model.g.dart';
 
-@JsonSerializable()
 class MessageModel implements BaseModel<MessageModel> {
-  const MessageModel({required this.en, required this.tr});
+  const MessageModel({this.en = '', this.tr});
 
   final String en;
   final String? tr;
 
   @override
   MessageModel fromJson(Map<String, dynamic> json) =>
-      _$MessageModelFromJson(json);
+      MessageModel.fromJson(json);
 
-  MessageModel.fromJson(Map<String, dynamic> json)
-      : en = json['en'] as String,
-        tr = json['tr'] as String?;
+  factory MessageModel.fromJson(Map<String, dynamic> json) => MessageModel(
+        en: BaseModel.getWithDefault<String>(json['en'], ''),
+        tr: BaseModel.getByType<String>(json["tr"]),
+      );
 
   @override
-  Map<String, dynamic> toJson() => _$MessageModelToJson(this);
+  Map<String, dynamic> toJson() => <String, dynamic>{
+        "en": en,
+        "tr": tr,
+      };
 }

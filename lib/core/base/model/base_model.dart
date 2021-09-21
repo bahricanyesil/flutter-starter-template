@@ -4,6 +4,9 @@ abstract class BaseModel<T> {
 
   static R? getByType<R>(dynamic data) => data is R ? data : null;
 
+  static R getWithDefault<R>(dynamic data, R defaultValue) =>
+      data is R ? data : defaultValue;
+
   static List<R>? embeddedListFromJson<R extends BaseModel<R>>(
       dynamic json, R model) {
     if (json is List<Map<String, dynamic>>) {

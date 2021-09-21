@@ -2,13 +2,13 @@ import 'package:flutter/material.dart';
 
 import '../constants/constants_shelf.dart';
 import '../constants/enums/app_themes.dart';
-import '../helpers/enum-helpers/enum_helpers.dart';
+import '../extensions/string/nullable_extensions.dart';
 import '../managers/local/local_manager.dart';
 import '../theme/app_theme.dart';
 
 class ThemeProvider extends ChangeNotifier {
   ThemeData? _theme;
-  AppThemes _themeEnum = AppThemes.lightTheme;
+  AppThemes _themeEnum = AppThemes.light;
 
   AppThemes get currenThemeEnum => _themeEnum;
 
@@ -20,38 +20,37 @@ class ThemeProvider extends ChangeNotifier {
   }
 
   void _getStoredTheme() {
-    final String? storedTheme =
-        LocalManager.instance.getString(LocalManagerKeys.theme);
-    if (storedTheme != null) {
-      _themeEnum = EnumHelpers.themeFromString(storedTheme);
-    }
-    if (_themeEnum == AppThemes.lightTheme) {
+    final AppThemes? storedTheme = LocalManager.instance
+        .getUserPreference(UserPreferencesKeys.theme)
+        .toEnum<AppThemes>(AppThemes.values);
+    if (storedTheme != null) _themeEnum = storedTheme;
+    _assignTheme(_themeEnum);
+  }
+
+  void _assignTheme(AppThemes themeEnum) {
+    if (themeEnum == AppThemes.light) {
       _theme = LightAppTheme().createTheme();
-    } else {
+    } else if (themeEnum == AppThemes.dark) {
       _theme = DarkAppTheme().createTheme();
     }
   }
 
-  Future<void> setTheme(AppThemes theme) async {
-    if (theme == AppThemes.lightTheme) {
-      _theme = LightAppTheme().createTheme();
-    } else {
-      _theme = DarkAppTheme().createTheme();
-    }
-    _themeEnum = theme;
+  Future<void> setTheme(AppThemes themeEnum) async {
+    _assignTheme(themeEnum);
+    _themeEnum = themeEnum;
     await LocalManager.instance
-        .setString(LocalManagerKeys.theme, _themeEnum.value);
+        .setUserPreference(UserPreferencesKeys.theme, _themeEnum);
     notifyListeners();
   }
 
   Future<void> switchTheme() async {
-    if (_themeEnum == AppThemes.lightTheme) {
-      await setTheme(AppThemes.darkTheme);
-    } else {
-      await setTheme(AppThemes.lightTheme);
+    if (_themeEnum == AppThemes.light) {
+      await setTheme(AppThemes.dark);
+    } else if (_themeEnum == AppThemes.dark) {
+      await setTheme(AppThemes.light);
     }
     notifyListeners();
   }
 
-  bool isDark() => _themeEnum == AppThemes.darkTheme;
+  bool isDark() => _themeEnum == AppThemes.dark;
 }

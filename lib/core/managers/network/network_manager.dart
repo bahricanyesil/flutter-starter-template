@@ -7,10 +7,10 @@ import 'package:flutter/foundation.dart';
 
 import '../../base/model/base_models_shelf.dart';
 import '../../constants/constants_shelf.dart';
-import '../../models/error/error_model.dart';
+import '../../extensions/enum/enum_extensions.dart';
 import '../../models/models_shelf.dart';
 import '../navigation/navigation_manager.dart';
-import 'authentication/authentication_shelf.dart';
+import 'authentication/service/authentication_services_shelf.dart';
 import 'l_network_manager.dart';
 
 part 'network_manager_operations.dart';

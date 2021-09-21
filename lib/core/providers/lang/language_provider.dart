@@ -1,8 +1,10 @@
+import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 
 import '../../constants/enums/language_options.dart';
-import '../../constants/enums/local_manager_keys.dart';
-import '../../helpers/enum-helpers/enum_helpers.dart';
+import '../../constants/enums/local-storage/user_preferences_keys.dart';
+import '../../extensions/enum/enum_extensions.dart';
+import '../../extensions/string/nullable_extensions.dart';
 import '../../managers/local/local_manager.dart';
 import 'app_localizations.dart';
 
@@ -14,10 +16,11 @@ class LanguageProvider extends ChangeNotifier {
   LanguageOptions get language => _lang;
 
   Locale? getStoredLang() {
-    final String? langCode =
-        LocalManager.instance.getString(LocalManagerKeys.langCode);
-    if (langCode != null) {
-      _lang = EnumHelpers.langFromString(langCode);
+    final LanguageOptions? storedLangOption = LocalManager.instance
+        .getUserPreference(UserPreferencesKeys.language)
+        .toEnum(LanguageOptions.values);
+    if (storedLangOption != null) {
+      _lang = storedLangOption;
       if (_lang == LanguageOptions.en) {
         setLanguage(LanguageOptions.en);
       } else {
@@ -28,13 +31,15 @@ class LanguageProvider extends ChangeNotifier {
   }
 
   Future<void> setLanguage(LanguageOptions lang) async {
-    _lang = lang;
-    _appLocale = AppLocalizations.locales
-        .where((Locale e) => e.languageCode == lang.value)
-        .first;
-    await LocalManager.instance
-        .setString(LocalManagerKeys.langCode, lang.value);
-    notifyListeners();
+    final Locale? newLocale = AppLocalizations.locales
+        .firstWhereOrNull((Locale e) => e.languageCode == lang.value);
+    if (newLocale != null) {
+      _lang = lang;
+      _appLocale = newLocale;
+      await LocalManager.instance
+          .setUserPreference(UserPreferencesKeys.language, lang);
+      notifyListeners();
+    }
   }
 
   Future<void> switchLanguage() async {

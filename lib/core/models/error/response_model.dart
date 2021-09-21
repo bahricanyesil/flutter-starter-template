@@ -1,9 +1,6 @@
-import 'package:json_annotation/json_annotation.dart';
 import '../../../../core/base/model/base_model.dart';
 import 'message_model.dart';
-part 'response_model.g.dart';
 
-@JsonSerializable()
 class ResponseBodyModel implements BaseModel<ResponseBodyModel> {
   const ResponseBodyModel({this.message, this.resultCode, this.field});
 
@@ -13,14 +10,20 @@ class ResponseBodyModel implements BaseModel<ResponseBodyModel> {
 
   @override
   ResponseBodyModel fromJson(Map<String, dynamic> json) =>
-      _$ResponseModelFromJson(json);
+      ResponseBodyModel.fromJson(json);
 
-  ResponseBodyModel.fromJson(Map<String, dynamic> json)
-      : message = json['message'] as MessageModel? ??
-            MessageModel(en: json['message'], tr: json['message']),
-        resultCode = json['resultCode'] as int?,
-        field = json['field'] as String?;
+  factory ResponseBodyModel.fromJson(Map<String, dynamic> json) =>
+      ResponseBodyModel(
+        message: BaseModel.embeddedModelFromJson(
+            json['message'], const MessageModel()),
+        resultCode: BaseModel.getByType<int>(json['resultCode']),
+        field: BaseModel.getByType<String>(json['field']),
+      );
 
   @override
-  Map<String, dynamic> toJson() => _$ResponseModelToJson(this);
+  Map<String, dynamic> toJson() => <String, dynamic>{
+        "message": BaseModel.embeddedModelToJson(message),
+        "resultCode": resultCode,
+        "field": field,
+      };
 }
