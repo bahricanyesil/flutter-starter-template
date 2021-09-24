@@ -1,7 +1,5 @@
-import '../../providers/lang/app_localizations.dart';
-
 extension UtilExtension on String {
-  String get tr => AppLocalizations.instance?.translate(this) ?? this;
+  String get capitalize => "${this[0].toUpperCase()}${substring(1)}";
 
   String get trToEn => replaceAll(RegExp('Ğ'), 'G')
       .replaceAll(RegExp('Ü'), 'U')

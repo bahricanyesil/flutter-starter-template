@@ -13,9 +13,7 @@ class ThemeProvider extends ChangeNotifier {
   AppThemes get currenThemeEnum => _themeEnum;
 
   ThemeData getCurrentTheme() {
-    if (_theme == null) {
-      _getStoredTheme();
-    }
+    if (_theme == null) _getStoredTheme();
     return _theme!;
   }
 
@@ -49,7 +47,6 @@ class ThemeProvider extends ChangeNotifier {
     } else if (_themeEnum == AppThemes.dark) {
       await setTheme(AppThemes.light);
     }
-    notifyListeners();
   }
 
   bool isDark() => _themeEnum == AppThemes.dark;

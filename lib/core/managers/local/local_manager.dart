@@ -20,8 +20,10 @@ class LocalManager implements ILocalManager {
       ..registerAdapter(HomeModelAdapter())
       ..registerAdapter(TokenResponseAdapter());
     await Hive.openBox<HomeModel>(_HiveBoxConfig.homeModels);
-    await Hive.openBox<TokenResponse>(_HiveBoxConfig.tokenResponse);
+    await Hive.openBox<dynamic>(_HiveBoxConfig.authentication);
     await Hive.openBox<String>(_HiveBoxConfig.userPreferences);
+    _userPreferences = Hive.box<String>(_HiveBoxConfig.userPreferences);
+    _authBox = Hive.box<dynamic>(_HiveBoxConfig.authentication);
   }
 
   @override
@@ -29,25 +31,23 @@ class LocalManager implements ILocalManager {
 
   Box<HomeModel>? _homeModels;
 
-  Box<TokenResponse>? _tokenResponse;
+  late final Box<dynamic> _authBox;
 
-  final Box<String> _userPreferences =
-      Hive.box<String>(_HiveBoxConfig.userPreferences);
+  late final Box<String> _userPreferences;
 
   Box<HomeModel> get homeModels =>
       _homeModels ??= Hive.box<HomeModel>(_HiveBoxConfig.homeModels);
 
-  Box<TokenResponse> get tokenResponse =>
-      _tokenResponse ??= Hive.box<TokenResponse>(_HiveBoxConfig.tokenResponse);
-
   String? getUserPreference(UserPreferencesKeys key) =>
-      _userPreferences.get(key.toString());
+      _userPreferences.get(key.value);
 
-  Future<void> setUserPreference(
-    UserPreferencesKeys key,
-    Enum enumValue,
-  ) async =>
-      _userPreferences.put(key.toString(), enumValue.value);
+  Future<void> setUserPreference(UserPreferencesKeys key, Enum data) async =>
+      _userPreferences.put(key.value, data.value);
+
+  dynamic getAuth(AuthKeys key) => _authBox.get(key.value);
+
+  Future<void> setAuth(AuthKeys key, dynamic data) async =>
+      _authBox.put(key.value, data);
 }
 
 class HiveTypeConfig {
@@ -58,5 +58,5 @@ class HiveTypeConfig {
 class _HiveBoxConfig {
   static const String homeModels = 'home_models';
   static const String userPreferences = 'user_preferences';
-  static const String tokenResponse = 'refresh_token_response';
+  static const String authentication = 'authentication';
 }

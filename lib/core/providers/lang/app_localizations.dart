@@ -2,8 +2,6 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:provider/provider.dart';
 
 import 'language_provider.dart';
 
@@ -16,32 +14,6 @@ class AppLocalizations {
 
   static const LocalizationsDelegate<AppLocalizations> delegate =
       _AppLocalizationsDelegate();
-
-  static AppLocalizations? get instance => _AppLocalizationsDelegate.instance;
-
-  static List<LocalizationsDelegate<dynamic>> get localDelegates =>
-      <LocalizationsDelegate<dynamic>>[
-        GlobalMaterialLocalizations.delegate,
-        GlobalWidgetsLocalizations.delegate,
-        GlobalCupertinoLocalizations.delegate,
-        AppLocalizations.delegate
-      ];
-
-  static List<Locale> get locales => <Locale>[
-        const Locale('en', 'US'),
-        const Locale('tr', 'TR'),
-      ];
-
-  static Locale localeCallback(List<Locale>? locales,
-      Iterable<Locale> supportedLocales, BuildContext context) {
-    for (final Locale locale in locales!) {
-      if (supportedLocales.contains(locale)) {
-        context.read<LanguageProvider>().setLanguageWithLocale(locale);
-        return locale;
-      }
-    }
-    return const Locale('en', 'US');
-  }
 
   Map<String, String> _localizedValues = <String, String>{};
 
@@ -61,10 +33,8 @@ class _AppLocalizationsDelegate
     extends LocalizationsDelegate<AppLocalizations> {
   const _AppLocalizationsDelegate();
 
-  static AppLocalizations? instance;
-
   @override
-  bool isSupported(Locale locale) => AppLocalizations.locales
+  bool isSupported(Locale locale) => LanguageProvider.supportedLocales
       .where((Locale el) => el.languageCode == locale.languageCode)
       .isNotEmpty;
 
@@ -72,7 +42,6 @@ class _AppLocalizationsDelegate
   Future<AppLocalizations> load(Locale locale) async {
     final AppLocalizations localization = AppLocalizations(locale);
     await localization.load();
-    instance = localization;
     return localization;
   }
 

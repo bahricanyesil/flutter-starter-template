@@ -12,6 +12,5 @@ class HomeScreen extends StatelessWidget {
         bodyBuilder: bodyBuilder,
       );
 
-  Widget bodyBuilder(BuildContext context) =>
-      const Center(child: BaseText(HomeViewModel.screenName));
+  Widget bodyBuilder(BuildContext context) => const Center(child: Text('ASD'));
 }

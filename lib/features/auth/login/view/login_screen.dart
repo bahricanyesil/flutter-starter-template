@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import '../../../../core/base/view/base_view.dart';
 import '../../../../core/constants/lang/lang_keys.dart';
-import '../../../../core/extensions/string/util_extensions.dart';
+import '../../../../core/providers/theme_provider.dart';
 import '../../../../core/widgets/texts/base_text.dart';
 import '../view-model/login_view_model.dart';
 
@@ -17,8 +18,17 @@ class LoginScreen extends StatelessWidget {
   Widget bodyBuilder(BuildContext context) => Center(
         child: Column(
           children: <Widget>[
-            BaseText(LangKeys.welcome.tr),
-            const BaseText(LoginViewModel.screenName),
+            // 'logo'.pngLogo,
+            const BaseText(LangKeys.welcome),
+            TextButton(
+              onPressed: () async =>
+                  context.read<ThemeProvider>().switchTheme(),
+              child: const Text('THEME'),
+            ),
+            TextButton(
+              onPressed: () async => context.read<LoginViewModel>().request(),
+              child: const Text('LANGUAGE'),
+            ),
           ],
         ),
       );

@@ -24,6 +24,9 @@ class ApplicationProvider {
     ChangeNotifierProvider<HomeViewModel>(
       create: (BuildContext context) => HomeViewModel(),
     ),
+    ChangeNotifierProvider<LoginViewModel>(
+      create: (BuildContext context) => LoginViewModel(),
+    ),
     Provider<NavigationManager>.value(value: NavigationManager.instance)
   ];
   List<SingleChildWidget> uiChangesItems = <SingleChildWidget>[];

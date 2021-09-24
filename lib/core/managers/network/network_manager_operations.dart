@@ -5,7 +5,7 @@ extension NetworkManagerOperations on NetworkManager {
     final DateTime compareDate =
         DateTime.now().add(const Duration(seconds: 10));
     final TokenResponse? tokenRes =
-        localManager.tokenResponse.get(AuthKeys.tokenResponse);
+        localManager.getAuth(AuthKeys.tokenResponse);
     if (tokenRes?.refreshToken == null) return false;
     if (tokenRes!.accessExpires.isBefore(compareDate) ||
         tokenRes.accessToken == null) {
@@ -23,7 +23,7 @@ extension NetworkManagerOperations on NetworkManager {
     final TokenResponse? data = response.data;
     if (data != null && data.accessToken != null && data.refreshToken != null) {
       options.headers['Authorization'] = data.accessToken;
-      await localManager.tokenResponse.put(AuthKeys.tokenResponse, data);
+      await localManager.setAuth(AuthKeys.tokenResponse, data);
       return true;
     }
     await NavigationManager.instance

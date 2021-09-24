@@ -54,7 +54,7 @@ class RoundedButton extends StatelessWidget {
           alignment: Alignment.centerLeft,
           child: Padding(
             padding: context.lowMedEdgeInsets,
-            child: iconPath.pngLogoAsset,
+            child: iconPath.pngLogo,
           ),
         ),
       );

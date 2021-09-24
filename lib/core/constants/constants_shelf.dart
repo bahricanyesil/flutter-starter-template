@@ -3,5 +3,6 @@ export 'app/app_constants.dart';
 export 'border/borders_shelf.dart';
 export 'duration/durations.dart';
 export 'enums/enums_shelf.dart';
+export 'lang/lang_keys.dart';
 export 'navigation/navigation_constants.dart';
 export 'size/size_shelf.dart';
