@@ -26,8 +26,7 @@ extension NetworkManagerOperations on NetworkManager {
       await localManager.setAuth(AuthKeys.tokenResponse, data);
       return true;
     }
-    await NavigationManager.instance
-        .navigateToPageClear(path: NavigationConstants.login);
+    // await NavigationManager.instance.setNewRoutePath(ScreenConfig.login());
     return false;
   }
 }

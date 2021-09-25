@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import '../../providers/theme_provider.dart';
 
 extension ThemeExtension on BuildContext {
-  ThemeData get theme => Theme.of(this);
+  ThemeData get theme => watch<ThemeProvider>().getCurrentTheme();
   Color get primaryColor => theme.primaryColor;
   Color get accentColor => theme.colorScheme.secondary;
   Color get canvasColor => theme.canvasColor.withOpacity(.8);

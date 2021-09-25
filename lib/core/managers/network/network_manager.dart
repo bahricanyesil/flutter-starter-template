@@ -9,7 +9,6 @@ import '../../base/model/base_models_shelf.dart';
 import '../../constants/constants_shelf.dart';
 import '../../extensions/enum/enum_extensions.dart';
 import '../../models/models_shelf.dart';
-import '../navigation/navigation_manager.dart';
 import 'authentication/service/authentication_services_shelf.dart';
 import 'l_network_manager.dart';
 

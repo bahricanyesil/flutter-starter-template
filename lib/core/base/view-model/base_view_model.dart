@@ -3,15 +3,16 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 
 import '../../constants/enums/view_states.dart';
-import '../../constants/navigation/navigation_constants.dart';
 import '../../managers/local/local_manager.dart';
-import '../../managers/navigation/navigation_manager.dart';
+import '../../managers/navigation/navigation_shelf.dart';
 import '../../models/response/l_response_model.dart';
 import '../../widgets/dialogs/dialog_builder.dart';
 import '../model/base_error.dart';
 
 abstract class BaseViewModel extends ChangeNotifier {
-  late final BuildContext context;
+  late BuildContext? _context;
+  set context(BuildContext context) => _context = context;
+  BuildContext get context => _context!;
 
   BaseViewModel() {
     _init();
@@ -68,8 +69,7 @@ abstract class BaseViewModel extends ChangeNotifier {
       Navigator.of(context).pop();
       if (response.error!.isAuthenticationError) {
         dispose();
-        await navigationManager.navigateToPageClear(
-            path: NavigationConstants.login);
+        await NavigationManager.instance.setNewRoutePath(ScreenConfig.login());
       } else {
         await DialogBuilder(context)
             .showTextDialog(response.error!.errorMessage);

@@ -1,11 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_web_plugins/flutter_web_plugins.dart';
 import 'package:provider/provider.dart';
 
 import 'core/managers/managers_shelf.dart';
+import 'core/managers/navigation/my_route_info_parser.dart';
+import 'core/managers/navigation/my_router_delegate.dart';
 import 'core/providers/providers_shelf.dart';
 
 class Init extends StatelessWidget {
-  const Init({Key? key}) : super(key: key);
+  Init({Key? key}) : super(key: key);
+
+  final NavigationManager _routerDelegate = NavigationManager();
+  final MyRouteInfoParser _routeInfoParser = MyRouteInfoParser();
 
   @override
   Widget build(BuildContext context) => FutureBuilder<void>(
@@ -16,29 +22,42 @@ class Init extends StatelessWidget {
           }
           return MultiProvider(
             providers: ApplicationProvider.instance.dependItems,
-            child: const _App(),
+            child: _App(
+              routerDelegate: _routerDelegate,
+              routeInfoParser: _routeInfoParser,
+            ),
           );
         },
       );
 
   Future<void> _initialize() async {
+    setUrlStrategy(PathUrlStrategy());
     await LocalManager().initLocalStorage();
+    _routeInfoParser.defaultScreen = ScreenConfig.login();
+    await _routerDelegate.setInitialRoutePath(_routeInfoParser.defaultScreen);
   }
 }
 
 class _App extends StatelessWidget {
-  const _App({Key? key}) : super(key: key);
+  final NavigationManager routerDelegate;
+  final MyRouteInfoParser routeInfoParser;
+  const _App({
+    required this.routerDelegate,
+    required this.routeInfoParser,
+    Key? key,
+  }) : super(key: key);
 
   @override
-  Widget build(BuildContext context) => MaterialApp(
+  Widget build(BuildContext context) => MaterialApp.router(
         title: 'Flutter Starter Template',
         debugShowCheckedModeBanner: false,
         theme: context.watch<ThemeProvider>().getCurrentTheme(),
         localizationsDelegates: LanguageProvider.delegates,
         supportedLocales: LanguageProvider.supportedLocales,
         locale: context.watch<LanguageProvider>().appLocal,
-        onGenerateRoute: NavigationRoute.instance.generateRoute,
-        navigatorKey: NavigationManager.instance.navigatorKey,
+        routerDelegate: routerDelegate,
+        backButtonDispatcher: RootBackButtonDispatcher(),
+        routeInformationParser: routeInfoParser,
         localeListResolutionCallback: (List<Locale>? locales, _) =>
             context.read<LanguageProvider>().localeCallback(locales),
       );

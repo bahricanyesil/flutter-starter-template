@@ -3,7 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:provider/single_child_widget.dart';
 
 import '../../features/home_view_models_shelf.dart';
-import '../managers/navigation/navigation_manager.dart';
+import '../managers/navigation/my_router_delegate.dart';
 import 'providers_shelf.dart';
 
 class ApplicationProvider {
@@ -27,7 +27,9 @@ class ApplicationProvider {
     ChangeNotifierProvider<LoginViewModel>(
       create: (BuildContext context) => LoginViewModel(),
     ),
-    Provider<NavigationManager>.value(value: NavigationManager.instance)
+    ChangeNotifierProvider<NavigationManager>(
+      create: (BuildContext context) => NavigationManager(),
+    ),
   ];
   List<SingleChildWidget> uiChangesItems = <SingleChildWidget>[];
 }

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
 import '../../../core/base/view/base_view.dart';
-import '../../../core/widgets/texts/base_text.dart';
 import '../view-model/home_view_model.dart';
 
 class HomeScreen extends StatelessWidget {
