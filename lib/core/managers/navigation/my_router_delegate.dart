@@ -61,6 +61,20 @@ class NavigationManager extends RouterDelegate<ScreenConfig>
     notifyListeners();
   }
 
+  void popUntilOneLeft() {
+    if (_pages.isEmpty) return;
+    _pages.removeRange(1, _pages.length);
+    notifyListeners();
+  }
+
+  void popUntil(ScreenConfig untilScreen) {
+    final int pageIndex = _pages
+        .indexWhere((Page<dynamic> screen) => screen.name == untilScreen.path);
+    if (_pages.isEmpty || pageIndex == -1) return;
+    _pages.removeRange(pageIndex + 1, _pages.length);
+    notifyListeners();
+  }
+
   bool _onPopPage(Route<dynamic> route, dynamic result) {
     final bool didPop = route.didPop(result);
     if (!didPop) return false;

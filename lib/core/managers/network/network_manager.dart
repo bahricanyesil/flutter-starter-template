@@ -4,6 +4,7 @@ import 'package:dio/adapter.dart';
 import 'package:dio/adapter_browser.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
+import 'package:template/core/managers/navigation/navigation_shelf.dart';
 
 import '../../base/model/base_models_shelf.dart';
 import '../../constants/constants_shelf.dart';

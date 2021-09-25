@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import '../../extensions/context/class_helpers.dart';
 
 import '../../extensions/context/theme_extension.dart';
-import '../../providers/lang/app_localizations.dart';
 
 class BaseText extends StatelessWidget {
   final String textKey;
@@ -23,7 +23,7 @@ class BaseText extends StatelessWidget {
   @override
   Widget build(BuildContext context) => FittedBox(
         child: Text(
-          AppLocalizations.of(context)!.translate(textKey),
+          context.tr(textKey),
           style: textStyle ?? context.headline5,
           textAlign: textAlign,
         ),

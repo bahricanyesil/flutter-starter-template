@@ -34,7 +34,7 @@ class TextFormDeco {
           {required String hintText, double? verticalPadding}) =>
       InputDecoration(
         contentPadding: EdgeInsets.symmetric(
-          vertical: context.height * (verticalPadding ?? 3),
+          vertical: context.height * (verticalPadding ?? 2),
           horizontal: context.width * 1.8,
         ),
         hintText: hintText,
