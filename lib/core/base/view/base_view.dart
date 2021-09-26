@@ -9,11 +9,13 @@ class BaseView<T extends BaseViewModel> extends StatefulWidget {
   final Widget Function(BuildContext) bodyBuilder;
   final List<Widget>? appBarChildren;
   final double? appBarSize;
+  final bool safeArea;
 
   const BaseView({
     required this.bodyBuilder,
     this.appBarChildren,
     this.appBarSize,
+    this.safeArea = true,
     Key? key,
   }) : super(key: key);
 
@@ -22,10 +24,18 @@ class BaseView<T extends BaseViewModel> extends StatefulWidget {
 }
 
 class _BaseViewState<T extends BaseViewModel> extends State<BaseView<T>> {
+  late final T model = context.read<T>();
+
   @override
   void initState() {
-    context.read<T>().context = context;
+    model.context = context;
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    model.disposeLocal();
+    super.dispose();
   }
 
   @override
@@ -36,7 +46,9 @@ class _BaseViewState<T extends BaseViewModel> extends State<BaseView<T>> {
             )
           : Scaffold(
               appBar: _getAppBar(),
-              body: SafeArea(child: widget.bodyBuilder(context)),
+              body: widget.safeArea
+                  ? SafeArea(child: widget.bodyBuilder(context))
+                  : widget.bodyBuilder(context),
             );
 
   DefaultAppBar? _getAppBar() =>

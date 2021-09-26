@@ -10,7 +10,7 @@ abstract class ITextTheme {
     required this.secondaryTextColor,
   });
 
-  String get fontFamily => GoogleFonts.arvo().fontFamily ?? 'Arvo';
+  String get fontFamily => GoogleFonts.montserrat().fontFamily ?? 'Arvo';
 
   TextTheme get data => TextTheme(
         bodyText1: bodyText1,

@@ -15,17 +15,17 @@ class BoxDecorations {
         ),
       );
 
-  BoxDecoration listItemDeco() => BoxDecoration(
+  BoxDecoration get listItemDeco => BoxDecoration(
         borderRadius: BorderRadii.mediumCircular,
         color: context.primaryDarkColor.withOpacity(.2),
       );
 
-  static BoxDecoration roundedInfoDeco() => const BoxDecoration(
+  static BoxDecoration get roundedInfoDeco => const BoxDecoration(
         borderRadius: BorderRadii.lowMedCircular,
         color: AppColors.lightGrey,
       );
 
-  BoxDecoration tableDeco() => BoxDecoration(
+  BoxDecoration get tableDeco => BoxDecoration(
         color: AppColors.lightGrey,
         border: Border.all(
             color: context.primaryLightColor.withOpacity(.1), width: 1.5),
@@ -39,7 +39,7 @@ class BoxDecorations {
         ),
       );
 
-  BoxDecoration listDeco() => BoxDecoration(
+  BoxDecoration get listDeco => BoxDecoration(
         border: Border.all(color: context.primaryLightColor.withOpacity(.12)),
       );
 }

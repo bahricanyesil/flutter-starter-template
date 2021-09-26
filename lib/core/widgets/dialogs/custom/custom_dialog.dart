@@ -67,7 +67,7 @@ class CustomDialog extends PlatformSensitiveWidget {
       ? Container()
       : BaseText(
           title!,
-          textStyle: context.headline4.copyWith(color: context.primaryColor),
+          style: context.headline4.copyWith(color: context.primaryColor),
         );
 
   Widget _androidWebDialog() => LayoutBuilder(
@@ -137,7 +137,7 @@ class CustomDialog extends PlatformSensitiveWidget {
 
   Widget _buttonText(String text, BuildContext context) => BaseText(
         text,
-        textStyle: context.headline5
+        style: context.headline5
             .copyWith(color: leftButtonTextColor ?? context.primaryColor),
       );
 

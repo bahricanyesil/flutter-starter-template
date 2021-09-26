@@ -17,7 +17,7 @@ class SingleChooseDialog<T> extends StatelessWidget {
         backgroundColor: context.canvasColor,
         title: BaseText(
           title,
-          textStyle: context.headline4.copyWith(color: context.primaryColor),
+          style: context.headline4.copyWith(color: context.primaryColor),
         ),
         children: _getDialogChildren(elements, context),
       );
@@ -40,7 +40,7 @@ class SingleChooseDialog<T> extends StatelessWidget {
         onPressed: () => Navigator.of(context).pop(index),
         child: BaseText(
           elements[index].toString(),
-          textStyle: context.headline5
+          style: context.headline5
               .copyWith(color: context.primaryLightColor.withOpacity(.8)),
         ),
       );

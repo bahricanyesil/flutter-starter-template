@@ -69,7 +69,7 @@ class DialogBuilder {
     await CustomDialog(
       content: Padding(
         padding: EdgeInsets.all(context.width),
-        child: BaseText(text, textStyle: context.headline5),
+        child: BaseText(text, style: context.headline5),
       ),
     ).show(context);
   }

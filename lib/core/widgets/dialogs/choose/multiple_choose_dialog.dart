@@ -42,7 +42,7 @@ class _MultipleChooseDialogState extends State<MultipleChooseDialog> {
       child: AlertDialog(
         title: BaseText(
           widget.title,
-          textStyle: context.headline4.copyWith(color: context.primaryColor),
+          style: context.headline4.copyWith(color: context.primaryColor),
         ),
         shape: ShapedBorders.roundedMedium,
         backgroundColor: context.canvasColor,
@@ -78,7 +78,7 @@ class _MultipleChooseDialogState extends State<MultipleChooseDialog> {
         onPressed: () => Navigator.of(context).pop(selectedTexts),
         child: BaseText(
           'OK',
-          textStyle: context.headline5.copyWith(color: context.primaryColor),
+          style: context.headline5.copyWith(color: context.primaryColor),
         ),
       );
 
@@ -120,7 +120,7 @@ class _MultipleChooseDialogState extends State<MultipleChooseDialog> {
         onTap: () => selectedTexts.contains(localList[index])
             ? selectedTexts.remove(localList[index])
             : selectedTexts.add(localList[index]),
-        child: BaseText(localList[index], textStyle: context.headline5),
+        child: BaseText(localList[index], style: context.headline5),
       );
 
   Widget _getSearchForm() => Padding(

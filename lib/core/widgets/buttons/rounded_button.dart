@@ -44,7 +44,7 @@ class RoundedButton extends StatelessWidget {
             Expanded(child: Container())
           else
             preImage(context),
-          BaseText(buttonText, textStyle: textStyle ?? context.headline4),
+          BaseText(buttonText, style: textStyle ?? context.headline4),
           Expanded(child: Container()),
         ],
       );

@@ -11,6 +11,10 @@ extension ResponsiveExtension on BuildContext {
   EdgeInsets get mediaPadding => mediaQuery.padding;
   double get mediaTopPad => mediaPadding.top;
   double get mediaBottomPad => mediaPadding.bottom;
+  double get mediaLeftPad => mediaPadding.left;
+  double get mediaRightPad => mediaPadding.right;
+  double get mediaVerticalPad => mediaTopPad + mediaBottomPad;
+  double get mediaHorizontalPad => mediaLeftPad + mediaRightPad;
 
   EdgeInsets get mediaViewInsets => mediaQuery.viewInsets;
   double get viewTopPad => mediaViewInsets.top;

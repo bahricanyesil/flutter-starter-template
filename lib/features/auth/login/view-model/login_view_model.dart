@@ -3,12 +3,15 @@ import 'package:flutter/material.dart';
 import '../../../../core/base/view-model/base_view_model.dart';
 
 class LoginViewModel extends BaseViewModel {
-  final TextEditingController emailController = TextEditingController();
-  final TextEditingController passwordController = TextEditingController();
-  final GlobalKey<FormState> formKey = GlobalKey<FormState>();
+  // late final TextEditingController emailController;
+  // late final TextEditingController passwordController;
+  // late final GlobalKey<FormState> formKey;
 
   @override
   Future<void> init() async {
+    // emailController = TextEditingController();
+    // passwordController = TextEditingController();
+    // formKey = GlobalKey<FormState>();
     await Future<void>.delayed(const Duration(seconds: 2));
   }
 

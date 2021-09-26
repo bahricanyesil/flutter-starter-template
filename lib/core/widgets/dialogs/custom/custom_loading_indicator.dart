@@ -37,7 +37,7 @@ class LoadingIndicator extends StatelessWidget {
         padding: context.bottomLow,
         child: BaseText(
           'Please Wait...',
-          textStyle: context.headline4.copyWith(color: context.primaryColor),
+          style: context.headline4.copyWith(color: context.primaryColor),
         ),
       );
 }

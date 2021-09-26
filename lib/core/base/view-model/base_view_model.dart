@@ -25,6 +25,7 @@ abstract class BaseViewModel extends ChangeNotifier {
 
   Future<void> _init() async {
     await init();
+    if (_viewState == ViewStates.disposed) return;
     _viewState = ViewStates.loaded;
     notifyListeners();
   }
@@ -41,10 +42,8 @@ abstract class BaseViewModel extends ChangeNotifier {
     if (_viewState != ViewStates.disposed) scheduleMicrotask(notifyListeners);
   }
 
-  @override
-  void dispose() {
+  void disposeLocal() {
     _viewState = ViewStates.disposed;
-    super.dispose();
   }
 
   final LocalManager localManager = LocalManager.instance;

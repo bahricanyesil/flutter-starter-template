@@ -1,15 +1,15 @@
 import 'dart:io';
 
 import 'package:dio/adapter.dart';
-import 'package:dio/adapter_browser.dart';
+// import 'package:dio/adapter_browser.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
-import 'package:template/core/managers/navigation/navigation_shelf.dart';
 
 import '../../base/model/base_models_shelf.dart';
 import '../../constants/constants_shelf.dart';
 import '../../extensions/enum/enum_extensions.dart';
 import '../../models/models_shelf.dart';
+import '../navigation/navigation_shelf.dart';
 import 'authentication/service/authentication_services_shelf.dart';
 import 'l_network_manager.dart';
 
@@ -27,8 +27,9 @@ class NetworkManager extends INetworkManager with DioMixin implements Dio {
     );
     interceptors.add(InterceptorsWrapper());
     _authenticationService = AuthenticationService(networkManager: this);
-    httpClientAdapter =
-        kIsWeb ? BrowserHttpClientAdapter() : DefaultHttpClientAdapter();
+    // httpClientAdapter =
+    //     kIsWeb ? BrowserHttpClientAdapter() : DefaultHttpClientAdapter();
+    httpClientAdapter = DefaultHttpClientAdapter();
   }
 
   late IAuthenticationService _authenticationService;

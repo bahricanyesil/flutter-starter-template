@@ -1,5 +1,6 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_web_plugins/flutter_web_plugins.dart';
+// import 'package:flutter_web_plugins/flutter_web_plugins.dart';
 import 'package:provider/provider.dart';
 
 import 'core/managers/managers_shelf.dart';
@@ -31,7 +32,7 @@ class Init extends StatelessWidget {
       );
 
   Future<void> _initialize() async {
-    setUrlStrategy(PathUrlStrategy());
+    // if (kIsWeb) setUrlStrategy(PathUrlStrategy());
     await LocalManager().initLocalStorage();
     _routeInfoParser.defaultScreen = ScreenConfig.login();
     await _routerDelegate.setInitialRoutePath(_routeInfoParser.defaultScreen);

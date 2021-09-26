@@ -18,7 +18,7 @@ class TextsWithButton extends StatelessWidget {
   Widget build(BuildContext context) => Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
-          BaseText(firstText, textStyle: context.headline4),
+          BaseText(firstText, style: context.headline4),
           SizedBox(width: context.width),
           _textButton(context),
         ],
@@ -28,7 +28,7 @@ class TextsWithButton extends StatelessWidget {
         onPressed: action,
         child: BaseText(
           secondText,
-          textStyle: context.headline4.copyWith(color: context.primaryColor),
+          style: context.headline4.copyWith(color: context.primaryColor),
         ),
       );
 }

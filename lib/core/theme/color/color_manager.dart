@@ -51,4 +51,5 @@ class AppColors {
   static const Color darkerGrey = Color(0xff404e5a);
   static const Color darkGrey = Color(0xff4e5d6a);
   static const Color error = Color(0xffff3333);
+  static const Color lightSeaColor = Color(0xff20B2AA);
 }

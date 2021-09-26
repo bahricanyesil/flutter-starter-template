@@ -12,9 +12,12 @@ class LocalManager implements ILocalManager {
   static final LocalManager _instance = LocalManager._();
   static LocalManager get instance => _instance;
   LocalManager._();
+  bool _initialized = false;
 
   @override
   Future<void> initLocalStorage() async {
+    if (_initialized) return;
+    _initialized = true;
     await Hive.initFlutter();
     Hive
       ..registerAdapter(HomeModelAdapter())

@@ -5,6 +5,7 @@ extension ImagePathExtension on String {
 
   Image get pngImage => Image.asset('assets/images/$this.png');
   Image get pngLogo => Image.asset('assets/images/logo/$this.png');
+  Image get pngAuth => Image.asset('assets/images/auth/$this.png');
   Image get pngIcon => Image.asset('assets/icons/$this.png');
 
   Image get gifAsset => Image.asset('assets/gifs/$this.gif');
