@@ -1,3 +1,12 @@
 {
-  "welcome": "Hoş Geldin!"
+  "welcome": "Hoş Geldin!",
+  "welcome_description": "Bu template sana çok yararlı\nkod parçacıkları sağlayacak!",
+  "sign_up": "Kayıt Ol",
+  "sign_up_form_title": "Bir Hesap Oluştur",
+  "sign_up_use_email": "ya da kayıt olmak için emailini kullan:",
+  "welcome_back": "Tekrar Hoş Geldin!",
+  "welcome_back_description": "Sen zaten biliyorsun ki\nbu template senin için çok faydalı!",
+  "sign_in": "Giriş Yap",
+  "sign_in_form_title": "Template'e Giriş Yap",
+  "sign_in_use_email": "ya da email hesabını kullan:"
 }

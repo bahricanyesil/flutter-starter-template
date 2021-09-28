@@ -5,7 +5,8 @@ class DarkColors implements IColors {
   ColorScheme get colorScheme => const ColorScheme.dark().copyWith(
         onPrimary: AppColors.green,
         onSecondary: AppColors.darkGrey,
-        primary: AppColors.primaryDark,
+        onSurface: AppColors.mediumGreyBold,
+        primary: const Color(0xff20B2AA),
         secondary: AppColors.secondaryDark,
         brightness: brightness,
         error: AppColors.error,

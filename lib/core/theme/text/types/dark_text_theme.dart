@@ -5,7 +5,7 @@ import '../text_theme.dart';
 class DarkTextTheme extends ITextTheme {
   DarkTextTheme()
       : super(
-          primaryTextColor: const Color(0xffBDBDBD),
+          primaryTextColor: Colors.white,
           secondaryTextColor: const Color(0xff616161),
         );
 }

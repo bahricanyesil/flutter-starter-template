@@ -7,24 +7,26 @@ import '../texts/base_text.dart';
 class RoundedButton extends StatelessWidget {
   const RoundedButton({
     required this.buttonText,
-    required this.action,
+    required this.onPressed,
     this.backgroundColor,
     this.borderColor,
     this.iconPath = '',
     this.borderRadius,
-    this.borderWidth = 2.0,
+    this.borderWidth = 1.4,
     this.textStyle,
+    this.width,
     Key? key,
   }) : super(key: key);
 
   final String buttonText;
-  final Function() action;
+  final Function() onPressed;
   final Color? backgroundColor;
   final Color? borderColor;
   final String iconPath;
   final BorderRadius? borderRadius;
   final double borderWidth;
   final TextStyle? textStyle;
+  final double? width;
 
   @override
   Widget build(BuildContext context) => ElevatedButton(
@@ -33,20 +35,24 @@ class RoundedButton extends StatelessWidget {
           backgroundColor: backgroundColor,
           borderColor: borderColor,
           borderRadius: borderRadius,
+          width: width,
         ),
-        onPressed: action,
+        onPressed: onPressed,
         child: getRow(context),
       );
 
-  Widget getRow(BuildContext context) => Row(
-        children: <Widget>[
-          if (iconPath == '')
-            Expanded(child: Container())
-          else
-            preImage(context),
-          BaseText(buttonText, style: textStyle ?? context.headline4),
-          Expanded(child: Container()),
-        ],
+  Widget getRow(BuildContext context) => Padding(
+        padding: context.verticalLow,
+        child: Row(
+          children: <Widget>[
+            if (iconPath == '')
+              Expanded(child: Container())
+            else
+              preImage(context),
+            BaseText(buttonText, style: textStyle ?? context.headline4),
+            Expanded(child: Container()),
+          ],
+        ),
       );
 
   Widget preImage(BuildContext context) => Expanded(

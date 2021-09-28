@@ -10,7 +10,7 @@ abstract class ITextTheme {
     required this.secondaryTextColor,
   });
 
-  String get fontFamily => GoogleFonts.montserrat().fontFamily ?? 'Arvo';
+  String get fontFamily => GoogleFonts.poppins().fontFamily ?? 'Poppins';
 
   TextTheme get data => TextTheme(
         bodyText1: bodyText1,

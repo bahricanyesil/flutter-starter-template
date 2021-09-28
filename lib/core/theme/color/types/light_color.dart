@@ -6,7 +6,7 @@ class LightColors implements IColors {
         onPrimary: AppColors.green,
         onSecondary: AppColors.white,
         onSurface: AppColors.mediumGreyBold,
-        primary: AppColors.primaryLight,
+        primary: const Color(0xff20B2AA),
         secondary: AppColors.secondaryLight,
         brightness: brightness,
         error: AppColors.error,

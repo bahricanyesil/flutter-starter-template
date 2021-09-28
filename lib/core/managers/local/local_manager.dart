@@ -14,6 +14,8 @@ class LocalManager implements ILocalManager {
   LocalManager._();
   bool _initialized = false;
 
+  bool get isInitialized => _initialized;
+
   @override
   Future<void> initLocalStorage() async {
     if (_initialized) return;

@@ -13,10 +13,12 @@ class ButtonStyles {
     BorderRadius? borderRadius,
     double? borderWidth,
     EdgeInsets? padding,
+    double? width,
   }) =>
       ButtonStyle(
         padding: _all<EdgeInsets?>(padding),
         backgroundColor: _all<Color>(backgroundColor ?? context.canvasColor),
+        maximumSize: _all<Size>(Size.fromWidth(width ?? double.infinity)),
         shape: _all<RoundedRectangleBorder>(
           RoundedRectangleBorder(
             borderRadius: borderRadius ?? BorderRadii.mediumCircular,

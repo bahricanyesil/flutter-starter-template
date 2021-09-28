@@ -15,21 +15,17 @@ class Init extends StatelessWidget {
   final MyRouteInfoParser _routeInfoParser = MyRouteInfoParser();
 
   @override
-  Widget build(BuildContext context) => FutureBuilder<void>(
-        future: _initialize(),
-        builder: (BuildContext context, AsyncSnapshot<void> snapshot) {
-          if (snapshot.connectionState != ConnectionState.done) {
-            return const Center(child: CircularProgressIndicator());
-          }
-          return MultiProvider(
-            providers: ApplicationProvider.instance.dependItems,
-            child: _App(
-              routerDelegate: _routerDelegate,
-              routeInfoParser: _routeInfoParser,
-            ),
-          );
-        },
-      );
+  Widget build(BuildContext context) => LocalManager().isInitialized
+      ? _getApp()
+      : FutureBuilder<void>(
+          future: _initialize(),
+          builder: (BuildContext context, AsyncSnapshot<void> snapshot) {
+            if (snapshot.connectionState != ConnectionState.done) {
+              return const Center(child: CircularProgressIndicator());
+            }
+            return _getApp();
+          },
+        );
 
   Future<void> _initialize() async {
     // if (kIsWeb) setUrlStrategy(PathUrlStrategy());
@@ -37,6 +33,14 @@ class Init extends StatelessWidget {
     _routeInfoParser.defaultScreen = ScreenConfig.login();
     await _routerDelegate.setInitialRoutePath(_routeInfoParser.defaultScreen);
   }
+
+  Widget _getApp() => MultiProvider(
+        providers: ApplicationProvider.instance.dependItems,
+        child: _App(
+          routerDelegate: _routerDelegate,
+          routeInfoParser: _routeInfoParser,
+        ),
+      );
 }
 
 class _App extends StatelessWidget {

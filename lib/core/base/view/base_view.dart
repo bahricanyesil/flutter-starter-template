@@ -7,12 +7,14 @@ import '../view-model/base_view_model.dart';
 
 class BaseView<T extends BaseViewModel> extends StatefulWidget {
   final Widget Function(BuildContext) bodyBuilder;
+  final void Function()? customDispose;
   final List<Widget>? appBarChildren;
   final double? appBarSize;
   final bool safeArea;
 
   const BaseView({
     required this.bodyBuilder,
+    this.customDispose,
     this.appBarChildren,
     this.appBarSize,
     this.safeArea = true,
@@ -28,13 +30,14 @@ class _BaseViewState<T extends BaseViewModel> extends State<BaseView<T>> {
 
   @override
   void initState() {
-    model.context = context;
     super.initState();
+    model.context = context;
   }
 
   @override
   void dispose() {
     model.disposeLocal();
+    if (widget.customDispose != null) widget.customDispose!();
     super.dispose();
   }
 
