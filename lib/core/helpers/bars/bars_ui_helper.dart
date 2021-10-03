@@ -8,7 +8,7 @@ class BarsUiHelper {
   const BarsUiHelper(this.context);
 
   void setSystemUi() {
-    final bool isDark = context.read<ThemeProvider>().isDark();
+    final bool isDark = context.read<ThemeProvider>().isDark;
     SystemChrome.setSystemUIOverlayStyle(
       SystemUiOverlayStyle(
         statusBarBrightness: Brightness.dark,

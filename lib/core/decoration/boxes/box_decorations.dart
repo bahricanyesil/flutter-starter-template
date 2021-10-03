@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../constants/border/border_radii.dart';
+import '../../extensions/context/responsiveness_extension.dart';
 import '../../extensions/context/theme_extension.dart';
 import '../../theme/color/color_manager.dart';
 
@@ -41,5 +42,19 @@ class BoxDecorations {
 
   BoxDecoration get listDeco => BoxDecoration(
         border: Border.all(color: context.primaryLightColor.withOpacity(.12)),
+      );
+
+  BoxDecoration circleDeco({
+    Color color = Colors.white,
+    Color borderColor = Colors.black54,
+    double? borderWidthFactor,
+  }) =>
+      BoxDecoration(
+        shape: BoxShape.circle,
+        color: color,
+        border: Border.all(
+          color: borderColor,
+          width: context.width * (borderWidthFactor ?? .2),
+        ),
       );
 }

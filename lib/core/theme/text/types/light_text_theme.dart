@@ -6,6 +6,6 @@ class LightTextTheme extends ITextTheme {
   LightTextTheme()
       : super(
           primaryTextColor: Colors.white,
-          secondaryTextColor: const Color(0xffBDBDBD),
+          secondaryTextColor: const Color(0xff616161),
         );
 }

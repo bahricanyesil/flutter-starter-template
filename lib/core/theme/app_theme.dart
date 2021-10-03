@@ -13,7 +13,7 @@ abstract class ITheme {
   ITextTheme get textTheme;
   IColors get colors;
 
-  ThemeData createTheme() => ThemeData(
+  ThemeData get createTheme => ThemeData(
         fontFamily: textTheme.fontFamily,
         textTheme: textTheme.data,
         primaryTextTheme: textTheme.data,
@@ -37,11 +37,11 @@ abstract class ITheme {
         hintColor: textTheme.secondaryTextColor,
         errorColor: colors.colorScheme.error,
         toggleableActiveColor: colors.highlightColor,
-        buttonTheme: _buttonTheme(),
-        inputDecorationTheme: _inputDecoTheme(),
+        buttonTheme: _buttonTheme,
+        inputDecorationTheme: _inputDecoTheme,
       );
 
-  ButtonThemeData _buttonTheme() => ButtonThemeData(
+  ButtonThemeData get _buttonTheme => ButtonThemeData(
         shape: ShapedBorders.roundedLow,
         disabledColor: colors.disabledColor,
         highlightColor: colors.highlightColor,
@@ -50,29 +50,29 @@ abstract class ITheme {
         colorScheme: colors.colorScheme,
       );
 
-  InputDecorationTheme _inputDecoTheme() => InputDecorationTheme(
+  InputDecorationTheme get _inputDecoTheme => InputDecorationTheme(
         labelStyle: textTheme.labelStyle,
         helperStyle: textTheme.labelStyle,
         hintStyle: textTheme.hintStyle,
         errorStyle: textTheme.errorStyle,
-        enabledBorder: _enabledBorder(),
-        focusedBorder: _focusedBorder(),
-        errorBorder: _errorBorder(),
-        focusedErrorBorder: _focusedBorder(),
-        disabledBorder: _enabledBorder(),
+        enabledBorder: _enabledBorder,
+        focusedBorder: _focusedBorder,
+        errorBorder: _errorBorder,
+        focusedErrorBorder: _focusedBorder,
+        disabledBorder: _enabledBorder,
       );
 
-  InputBorder _enabledBorder() => OutlineInputBorder(
+  InputBorder get _enabledBorder => OutlineInputBorder(
         borderSide: BorderSide(color: colors.primaryColorLight),
         borderRadius: BorderRadii.highCircular,
       );
 
-  InputBorder _focusedBorder() => OutlineInputBorder(
+  InputBorder get _focusedBorder => OutlineInputBorder(
         borderSide: BorderSide(color: colors.colorScheme.primary, width: 1.8),
         borderRadius: BorderRadii.extremeCircular,
       );
 
-  InputBorder _errorBorder() => OutlineInputBorder(
+  InputBorder get _errorBorder => OutlineInputBorder(
         borderSide: BorderSide(color: colors.colorScheme.error, width: 1.8),
         borderRadius: BorderRadii.extremeCircular,
       );

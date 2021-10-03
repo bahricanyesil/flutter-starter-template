@@ -14,6 +14,8 @@ extension VerticalEdgeInsetsExtension on BuildContext {
 }
 
 extension HorizontalEdgeInsetsExtension on BuildContext {
+  EdgeInsets get horizontalExtremeLow =>
+      EdgeInsets.symmetric(horizontal: extremeLowWidth);
   EdgeInsets get horizontalLow => EdgeInsets.symmetric(horizontal: lowWidth);
   EdgeInsets get horizontalLowMed =>
       EdgeInsets.symmetric(horizontal: lowMedWidth);

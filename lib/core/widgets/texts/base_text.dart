@@ -24,8 +24,13 @@ class BaseText extends StatelessWidget {
         child: Text(
           context.tr(textKey),
           style: style ??
-              context.headline5.copyWith(color: color, decoration: decoration),
+              context.headline5.copyWith(
+                color: color,
+                decoration: decoration,
+                decorationColor: Colors.black,
+              ),
           textAlign: textAlign,
+          overflow: TextOverflow.clip,
         ),
       );
 }

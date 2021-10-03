@@ -1,5 +1,5 @@
 abstract class BaseModel<T> {
-  Map<String, dynamic> toJson();
+  Map<String, dynamic> get toJson;
   T fromJson(Map<String, dynamic> json);
 
   static R? getByType<R>(dynamic data) => data is R ? data : null;
@@ -20,7 +20,7 @@ abstract class BaseModel<T> {
       List<R>? list) {
     if (list is List<R>) {
       return List<Map<String, dynamic>>.from(
-          list.map((R model) => model.toJson()));
+          list.map((R model) => model.toJson));
     }
     return null;
   }
@@ -31,5 +31,5 @@ abstract class BaseModel<T> {
 
   static Map<String, dynamic>? embeddedModelToJson<R extends BaseModel<R>>(
           R? model) =>
-      model is R ? model.toJson() : null;
+      model is R ? model.toJson : null;
 }

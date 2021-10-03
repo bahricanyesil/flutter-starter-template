@@ -16,7 +16,7 @@ class DarkColors implements IColors {
   Color get appBarColor => AppColors.darkGrey;
 
   @override
-  Color get scaffoldBackgroundColor => AppColors.darkGrey;
+  Color get scaffoldBackgroundColor => AppColors.white;
 
   @override
   Color get tabBarColor => AppColors.green;

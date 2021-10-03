@@ -1,4 +1,4 @@
-import 'package:flutter/foundation.dart';
+// import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 // import 'package:flutter_web_plugins/flutter_web_plugins.dart';
 import 'package:provider/provider.dart';
@@ -16,14 +16,14 @@ class Init extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => LocalManager().isInitialized
-      ? _getApp()
+      ? _getApp
       : FutureBuilder<void>(
           future: _initialize(),
           builder: (BuildContext context, AsyncSnapshot<void> snapshot) {
             if (snapshot.connectionState != ConnectionState.done) {
               return const Center(child: CircularProgressIndicator());
             }
-            return _getApp();
+            return _getApp;
           },
         );
 
@@ -34,7 +34,7 @@ class Init extends StatelessWidget {
     await _routerDelegate.setInitialRoutePath(_routeInfoParser.defaultScreen);
   }
 
-  Widget _getApp() => MultiProvider(
+  Widget get _getApp => MultiProvider(
         providers: ApplicationProvider.instance.dependItems,
         child: _App(
           routerDelegate: _routerDelegate,
@@ -56,7 +56,7 @@ class _App extends StatelessWidget {
   Widget build(BuildContext context) => MaterialApp.router(
         title: 'Flutter Starter Template',
         debugShowCheckedModeBanner: false,
-        theme: context.watch<ThemeProvider>().getCurrentTheme(),
+        theme: context.watch<ThemeProvider>().currentTheme,
         localizationsDelegates: LanguageProvider.delegates,
         supportedLocales: LanguageProvider.supportedLocales,
         locale: context.watch<LanguageProvider>().appLocal,

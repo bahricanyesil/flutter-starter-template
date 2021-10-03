@@ -1,12 +1,13 @@
 {
   "welcome": "Welcome!",
-  "welcome_description": "This template will provide you\na lot of helpful material!",
+  "welcome_description": "This template will provide you a lot of helpful material!",
   "sign_up": "Sign Up",
   "sign_up_form_title": "Create an Account",
   "sign_up_use_email": "or use your email for registration:",
   "welcome_back": "Welcome Back!",
-  "welcome_back_description": "You have already know that\nthis template is so helpful!",
+  "welcome_back_description": "You have already know that this template is so helpful!",
   "sign_in": "Sign In",
   "sign_in_form_title": "Sign in to Template",
-  "sign_in_use_email": "or use your email account:"
+  "sign_in_use_email": "or use your email account:",
+  "forgot_password": "Forgot Password"
 }

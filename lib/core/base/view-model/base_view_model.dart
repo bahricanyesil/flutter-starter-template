@@ -13,6 +13,7 @@ abstract class BaseViewModel extends ChangeNotifier {
   late BuildContext? _context;
   set context(BuildContext context) => _context = context;
   BuildContext get context => _context!;
+  bool isLandscape = false;
 
   BaseViewModel() {
     _init();

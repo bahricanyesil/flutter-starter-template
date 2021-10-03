@@ -1,18 +1,27 @@
 import 'package:flutter/material.dart';
+
 import '../../constants/border/border_radii.dart';
-
 import '../../extensions/context/context_extensions_shelf.dart';
+import '../../helpers/helpers_shelf.dart';
+import '../../widgets/icons/base_icon.dart';
 
-class TextFormDeco {
-  const TextFormDeco(this.context);
+class InputDeco {
+  InputDeco(this.context) {
+    isLandscape = DeviceTypeHelper(context).isLandscape;
+  }
   final BuildContext context;
+  late final bool isLandscape;
 
-  InputDecoration loginDeco(
-          {String? hintText, IconData? prefixIcon, Color? backgroundColor}) =>
+  InputDecoration loginDeco({
+    String? hintText,
+    IconData? prefixIcon,
+    Color? backgroundColor,
+    double paddingFactor = .5,
+  }) =>
       InputDecoration(
-        contentPadding: EdgeInsets.all(context.width * 2),
+        contentPadding: EdgeInsets.all(context.width * paddingFactor),
         hintText: hintText,
-        hintStyle: context.headline5.copyWith(color: context.primaryDarkColor),
+        hintStyle: _hintTextStyle,
         enabledBorder: _getOutlineBorder(.5, 1),
         focusedBorder: _getOutlineBorder(1.1, 1),
         prefixIcon: getPrefixIcon(prefixIcon),
@@ -20,15 +29,7 @@ class TextFormDeco {
 
   Widget? getPrefixIcon(IconData? prefixIcon) => prefixIcon == null
       ? null
-      : FittedBox(
-          child: Padding(
-            padding: EdgeInsets.symmetric(horizontal: context.width * 1.5),
-            child: Icon(
-              prefixIcon,
-              color: context.primaryDarkColor,
-            ),
-          ),
-        );
+      : BaseIcon(prefixIcon, widthFactor: isLandscape ? 2.3 : 3);
 
   InputDecoration dialogText(
           {required String hintText, double? verticalPadding}) =>
@@ -52,4 +53,8 @@ class TextFormDeco {
           color: context.primaryLightColor.withOpacity(opacity),
         ),
       );
+
+  TextStyle get _hintTextStyle =>
+      (isLandscape ? context.headline4 : context.bodyText2)
+          .copyWith(color: context.primaryDarkColor);
 }

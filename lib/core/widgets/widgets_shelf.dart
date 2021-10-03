@@ -1,5 +1,6 @@
 export 'appbars/app_bar.dart';
 export 'buttons/buttons_shelf.dart';
+export 'customs/circle_widget.dart';
 export 'dialogs/dialogs_shelf.dart';
 export 'icons/icons_shelf.dart';
 export 'text-form-fields/text_form_fields_shelf.dart';

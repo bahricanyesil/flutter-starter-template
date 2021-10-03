@@ -1,14 +1,13 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-
-import '../../constants/enums/device_types.dart';
+import '../../constants/enums/view_types.dart';
 import '../../extensions/context/responsiveness_extension.dart';
 
 class DeviceTypeHelper {
   final BuildContext context;
   const DeviceTypeHelper(this.context);
 
-  DeviceType mobileOrWeb(BoxConstraints? constraints) {
+  ViewTypes viewType({BoxConstraints? constraints}) {
     final Orientation orientation = context.orientation;
     double maxWidth = context.maxPossibleWidth;
     double maxHeight = context.maxPossibleHeight;
@@ -18,9 +17,11 @@ class DeviceTypeHelper {
     }
     if ((orientation == Orientation.portrait && maxWidth < 900) ||
         (orientation == Orientation.landscape && maxHeight < 600 && !kIsWeb)) {
-      return DeviceType.mobile;
+      return ViewTypes.portrait;
     } else {
-      return DeviceType.web;
+      return ViewTypes.landscape;
     }
   }
+
+  bool get isLandscape => viewType() == ViewTypes.landscape;
 }

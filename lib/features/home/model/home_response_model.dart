@@ -20,7 +20,7 @@ class HomeResponseModel implements BaseModel<HomeResponseModel> {
       );
 
   @override
-  Map<String, dynamic> toJson() => <String, dynamic>{
+  Map<String, dynamic> get toJson => <String, dynamic>{
         "greeting": greeting,
         "instructions": instructions,
       };

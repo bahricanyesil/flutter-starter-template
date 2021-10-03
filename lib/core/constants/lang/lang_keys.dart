@@ -12,4 +12,5 @@ class LangKeys {
   static const String signIn = 'sign_in';
   static const String signInFormTitle = 'sign_in_form_title';
   static const String signInUseEmail = 'sign_in_use_email';
+  static const String forgotPassword = 'forgot_password';
 }

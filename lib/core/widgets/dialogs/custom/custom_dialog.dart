@@ -48,19 +48,16 @@ class CustomDialog extends PlatformSensitiveWidget {
       );
 
   @override
-  Widget androidDialog(BuildContext context) => _androidWebDialog();
+  Widget androidDialog(BuildContext context) => _androidWebDialog(context);
 
   @override
-  Widget webDialog(BuildContext context) => _androidWebDialog();
+  Widget webDialog(BuildContext context) => _androidWebDialog(context);
 
   @override
-  Widget iosDialog(BuildContext context) => LayoutBuilder(
-        builder: (BuildContext context, BoxConstraints constraints) =>
-            CupertinoAlertDialog(
-          title: _getTitle(context),
-          content: content,
-          actions: _setDialogButton(context),
-        ),
+  Widget iosDialog(BuildContext context) => CupertinoAlertDialog(
+        title: _getTitle(context),
+        content: content,
+        actions: _setDialogButton(context),
       );
 
   Widget _getTitle(BuildContext context) => title == null
@@ -70,16 +67,13 @@ class CustomDialog extends PlatformSensitiveWidget {
           style: context.headline4.copyWith(color: context.primaryColor),
         );
 
-  Widget _androidWebDialog() => LayoutBuilder(
-        builder: (BuildContext context, BoxConstraints constraints) =>
-            AlertDialog(
-          shape: ShapedBorders.roundedMedium,
-          elevation: 3,
-          backgroundColor: context.canvasColor,
-          title: _getTitle(context),
-          content: content,
-          actions: _setDialogButton(context),
-        ),
+  Widget _androidWebDialog(BuildContext context) => AlertDialog(
+        shape: ShapedBorders.roundedMedium,
+        elevation: 3,
+        backgroundColor: context.canvasColor,
+        title: _getTitle(context),
+        content: content,
+        actions: _setDialogButton(context),
       );
 
   List<Widget> _setDialogButton(BuildContext context) {

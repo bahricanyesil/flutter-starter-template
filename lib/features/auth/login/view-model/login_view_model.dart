@@ -4,65 +4,108 @@ import '../../../../core/base/view-model/base_view_model.dart';
 import '../../../../core/constants/curves/custom_curves.dart';
 import '../../../../core/constants/duration/durations.dart';
 import '../../../../core/constants/lang/lang_keys.dart';
-import '../../../../core/extensions/context/responsiveness_extension.dart';
 
 class LoginViewModel extends BaseViewModel {
   final Curve _curve = CustomCurves.fastMiddle;
+
   late final AnimationController animationController;
   late final Animation<double> leftWidgetAnimation;
   late final Animation<double> rightWidgetAnimation;
+  late Animation<double> offsetAnimation;
+
   late final AnimationController scaleAnimationController;
   late final Animation<double> scaleAnimation;
+
+  late final TextEditingController nameController;
+  late final TextEditingController emailController;
+  late final TextEditingController passwordController;
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  GlobalKey<FormState> get formKey => _formKey;
+
   String title = LangKeys.welcome;
   String description = LangKeys.welcomeDescription;
   String buttonText = LangKeys.signUp;
+  String reverseButtonText = LangKeys.signIn;
   String formTitle = LangKeys.signUpFormTitle;
   String useEmailText = LangKeys.signUpUseEmail;
 
+  List<Function()> socialLoginActions = <Function()>[
+    _facebookLogin,
+    _googleLogin,
+    _linkedinLogin,
+  ];
+  List<String> socialLoginIcons = <String>['facebook', 'google', 'linkedin'];
+
   @override
   Future<void> init() async {
-    // await Future<void>.delayed(const Duration(seconds: 2));
+    emailController = TextEditingController();
+    passwordController = TextEditingController();
+    nameController = TextEditingController();
   }
+
+  bool get isForwardAnimation => animationController.value <= .5;
+  bool get isReverseAnimation => animationController.value >= .5;
 
   void initializeAnimations(TickerProvider tickerProv) {
     scaleAnimationController =
         AnimationController(vsync: tickerProv, duration: Durations.fast);
-    scaleAnimation = Tween<double>(
-      begin: .8,
-      end: 1,
-    ).animate(CurvedAnimation(parent: scaleAnimationController, curve: _curve));
+    scaleAnimation = _animate(Tween<double>(begin: 1, end: 1.2),
+        controller: scaleAnimationController);
     animationController =
         AnimationController(vsync: tickerProv, duration: Durations.normal);
-    leftWidgetAnimation = Tween<double>(
-      begin: 0,
-      end: context.width * 60,
-    ).animate(CurvedAnimation(parent: animationController, curve: _curve));
-    rightWidgetAnimation = Tween<double>(
-      begin: context.width * 40,
-      end: 0,
+    leftWidgetAnimation = _animate(Tween<double>(begin: 0, end: 60));
+    rightWidgetAnimation = _animate(Tween<double>(begin: 40, end: 0));
+    offsetAnimation = TweenSequence<double>(
+      <TweenSequenceItem<double>>[
+        _tweenSequenceItem(end: 400),
+        _tweenSequenceItem(begin: -400),
+      ],
     ).animate(CurvedAnimation(parent: animationController, curve: _curve));
     _addAnimationListeners();
   }
 
+  Animation<double> _animate(Tween<double> tween,
+          {AnimationController? controller}) =>
+      tween.animate(CurvedAnimation(
+          parent: controller ?? animationController, curve: _curve));
+
+  TweenSequenceItem<double> _tweenSequenceItem(
+          {double begin = 0, double end = 0}) =>
+      TweenSequenceItem<double>(
+          tween: Tween<double>(begin: begin, end: end), weight: 1);
+
   void _addAnimationListeners() {
     animationController.addListener(() {
-      if (animationController.status == AnimationStatus.forward &&
-          animationController.value >= .5) {
+      if (isReverseAnimation && title != LangKeys.welcomeBack) {
         title = LangKeys.welcomeBack;
         description = LangKeys.welcomeBackDescription;
         buttonText = LangKeys.signIn;
+        reverseButtonText = LangKeys.signUp;
         formTitle = LangKeys.signInFormTitle;
         useEmailText = LangKeys.signInUseEmail;
-      } else if (animationController.status == AnimationStatus.reverse &&
-          animationController.value <= .5) {
+      } else if (isForwardAnimation && title != LangKeys.welcome) {
         title = LangKeys.welcome;
         description = LangKeys.welcomeDescription;
         buttonText = LangKeys.signUp;
+        reverseButtonText = LangKeys.signIn;
         formTitle = LangKeys.signUpFormTitle;
         useEmailText = LangKeys.signUpUseEmail;
       }
     });
   }
+
+  void animate() {
+    scaleAnimationController
+        .forward()
+        .then((void value) => scaleAnimationController.reverse());
+    animationController.isCompleted
+        ? animationController.reverse()
+        : animationController.forward();
+  }
+
+  static void _facebookLogin() {}
+  static void _googleLogin() {}
+  static void _linkedinLogin() {}
 
   @override
   void disposeLocal() {

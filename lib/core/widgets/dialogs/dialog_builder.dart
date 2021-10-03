@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../constants/border/shape_borders.dart';
-import '../../decoration/texts/text_form_styles.dart';
+import '../../decoration/input/input_decorations.dart';
 import '../../extensions/context/context_extensions_shelf.dart';
 import '../texts/base_text.dart';
 import 'custom/custom_dialogs_shelf.dart';
@@ -35,7 +35,7 @@ class DialogBuilder {
         action: action,
         content: TextField(
           controller: controller,
-          decoration: TextFormDeco(context).dialogText(hintText: hintText),
+          decoration: InputDeco(context).dialogText(hintText: hintText),
           style: context.headline5,
         ),
       ).show(context);

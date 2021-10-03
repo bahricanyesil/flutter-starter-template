@@ -35,7 +35,7 @@ class TokenResponse extends HiveObject implements BaseModel<TokenResponse> {
       );
 
   @override
-  Map<String, dynamic> toJson() => <String, dynamic>{
+  Map<String, dynamic> get toJson => <String, dynamic>{
         "accessToken": accessToken,
         "refreshToken": refreshToken,
       };

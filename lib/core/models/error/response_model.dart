@@ -21,7 +21,7 @@ class ResponseBodyModel implements BaseModel<ResponseBodyModel> {
       );
 
   @override
-  Map<String, dynamic> toJson() => <String, dynamic>{
+  Map<String, dynamic> get toJson => <String, dynamic>{
         "message": BaseModel.embeddedModelToJson(message),
         "resultCode": resultCode,
         "field": field,

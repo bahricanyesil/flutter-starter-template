@@ -17,7 +17,7 @@ class RefreshTokenRequest implements BaseModel<RefreshTokenRequest> {
       );
 
   @override
-  Map<String, dynamic> toJson() => <String, dynamic>{
+  Map<String, dynamic> get toJson => <String, dynamic>{
         "refreshToken": refreshToken,
       };
 }

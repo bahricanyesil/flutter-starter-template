@@ -31,30 +31,30 @@ abstract class ITextTheme {
 
   TextStyle get errorStyle => headline5.copyWith(color: AppColors.error);
 
-  TextStyle get bodyText1 => _textStyle(17);
+  TextStyle get bodyText1 => _textStyle(15);
 
-  TextStyle get bodyText2 => _textStyle(15);
+  TextStyle get bodyText2 => _textStyle(13);
 
   TextStyle get headline1 =>
-      _textStyle(25, fontWeight: FontWeight.w700, letterSpacing: 1.4);
+      _textStyle(22, fontWeight: FontWeight.w700, letterSpacing: 1.4);
 
   TextStyle get headline2 =>
-      _textStyle(22, fontWeight: FontWeight.w600, letterSpacing: 1.3);
+      _textStyle(20, fontWeight: FontWeight.w600, letterSpacing: 1.3);
 
   TextStyle get headline3 =>
-      _textStyle(20, fontWeight: FontWeight.w500, letterSpacing: 1.2);
+      _textStyle(18, fontWeight: FontWeight.w500, letterSpacing: 1.2);
 
-  TextStyle get headline4 => _textStyle(18);
+  TextStyle get headline4 => _textStyle(16);
 
-  TextStyle get headline5 => _textStyle(16);
+  TextStyle get headline5 => _textStyle(14);
 
   TextStyle get headline6 =>
-      _textStyle(14, customTextColor: secondaryTextColor);
-
-  TextStyle get subtitle1 =>
       _textStyle(12, customTextColor: secondaryTextColor);
 
-  TextStyle get subtitle2 => _textStyle(10,
+  TextStyle get subtitle1 =>
+      _textStyle(10, customTextColor: secondaryTextColor);
+
+  TextStyle get subtitle2 => _textStyle(8,
       fontWeight: FontWeight.w300,
       letterSpacing: .8,
       customTextColor: secondaryTextColor);

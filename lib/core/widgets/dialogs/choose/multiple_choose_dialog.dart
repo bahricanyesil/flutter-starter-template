@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../../constants/border/shape_borders.dart';
-import '../../../decoration/texts/text_form_styles.dart';
+import '../../../decoration/input/input_decorations.dart';
 import '../../../extensions/context/context_extensions_shelf.dart';
 import '../../texts/base_text.dart';
 
@@ -49,8 +49,8 @@ class _MultipleChooseDialogState extends State<MultipleChooseDialog> {
         contentPadding: context.lowMedEdgeInsets,
         actionsPadding: EdgeInsets.only(
             right: context.width * .3, bottom: context.height * 1),
-        content: getContent(),
-        actions: <Widget>[_getActionButton()],
+        content: content,
+        actions: <Widget>[_actionButton],
       ),
     );
   }
@@ -62,19 +62,19 @@ class _MultipleChooseDialogState extends State<MultipleChooseDialog> {
         .toList();
   }
 
-  Widget getContent() => SizedBox(
+  Widget get content => SizedBox(
         width: context.width * 22,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisSize: MainAxisSize.min,
           children: <Widget>[
-            if (widget.enableSearch) _getSearchForm(),
-            Expanded(child: _getList()),
+            if (widget.enableSearch) _searchForm,
+            Expanded(child: _list),
           ],
         ),
       );
 
-  Widget _getActionButton() => TextButton(
+  Widget get _actionButton => TextButton(
         onPressed: () => Navigator.of(context).pop(selectedTexts),
         child: BaseText(
           'OK',
@@ -82,7 +82,7 @@ class _MultipleChooseDialogState extends State<MultipleChooseDialog> {
         ),
       );
 
-  Widget _getList() => ListView.builder(
+  Widget get _list => ListView.builder(
         physics: const BouncingScrollPhysics(),
         shrinkWrap: true,
         itemCount: localList.length > 30 ? 30 : localList.length,
@@ -123,11 +123,11 @@ class _MultipleChooseDialogState extends State<MultipleChooseDialog> {
         child: BaseText(localList[index], style: context.headline5),
       );
 
-  Widget _getSearchForm() => Padding(
+  Widget get _searchForm => Padding(
         padding: context.bottomLowMed,
         child: TextField(
           onChanged: (String val) => setState(() => searchText = val),
-          decoration: TextFormDeco(context).dialogText(hintText: 'Search'),
+          decoration: InputDeco(context).dialogText(hintText: 'Search'),
           style: context.headline5,
         ),
       );

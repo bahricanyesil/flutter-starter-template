@@ -23,6 +23,8 @@ extension ResponsiveExtension on BuildContext {
   double get height => mediaQuery.size.height * 0.01;
   double get width => mediaQuery.size.width * 0.01;
 
+  double get extremeLowWidth => width;
+
   double get lowHeight => height * 1.5;
   double get lowWidth => width * 1.5;
 

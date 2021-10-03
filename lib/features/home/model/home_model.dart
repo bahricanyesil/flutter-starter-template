@@ -50,7 +50,7 @@ class HomeModel extends HiveObject implements BaseModel<HomeModel> {
       );
 
   @override
-  Map<String, dynamic> toJson() => <String, dynamic>{
+  Map<String, dynamic> get toJson => <String, dynamic>{
         "id": id,
         "greeting": greeting,
         "texts": texts,

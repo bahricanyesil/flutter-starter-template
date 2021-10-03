@@ -29,7 +29,7 @@ class LanguageProvider extends ChangeNotifier {
     GlobalCupertinoLocalizations.delegate,
   ];
 
-  Locale? getStoredLang() {
+  Locale? get storedLanguage {
     final LanguageOptions? storedLangOption = LocalManager.instance
         .getUserPreference(UserPreferencesKeys.language)
         .toEnum(LanguageOptions.values);
@@ -77,7 +77,7 @@ class LanguageProvider extends ChangeNotifier {
 
   Locale localeCallback(List<Locale>? locales) {
     if (_appLocale != null) return _appLocale!;
-    final Locale? storedLang = getStoredLang();
+    final Locale? storedLang = storedLanguage;
     if (storedLang != null) return storedLang;
     if (locales != null) {
       for (final Locale locale in locales) {

@@ -16,7 +16,7 @@ class MessageModel implements BaseModel<MessageModel> {
       );
 
   @override
-  Map<String, dynamic> toJson() => <String, dynamic>{
+  Map<String, dynamic> get toJson => <String, dynamic>{
         "en": en,
         "tr": tr,
       };

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
 import '../constants/constants_shelf.dart';
-import '../constants/enums/app_themes.dart';
 import '../extensions/string/nullable_extensions.dart';
 import '../managers/local/local_manager.dart';
 import '../theme/app_theme.dart';
@@ -12,7 +11,7 @@ class ThemeProvider extends ChangeNotifier {
 
   AppThemes get currenThemeEnum => _themeEnum;
 
-  ThemeData getCurrentTheme() {
+  ThemeData get currentTheme {
     if (_theme == null) _getStoredTheme();
     return _theme!;
   }
@@ -27,9 +26,9 @@ class ThemeProvider extends ChangeNotifier {
 
   void _assignTheme(AppThemes themeEnum) {
     if (themeEnum == AppThemes.light) {
-      _theme = LightAppTheme().createTheme();
+      _theme = LightAppTheme().createTheme;
     } else if (themeEnum == AppThemes.dark) {
-      _theme = DarkAppTheme().createTheme();
+      _theme = DarkAppTheme().createTheme;
     }
   }
 
@@ -49,5 +48,5 @@ class ThemeProvider extends ChangeNotifier {
     }
   }
 
-  bool isDark() => _themeEnum == AppThemes.dark;
+  bool get isDark => _themeEnum == AppThemes.dark;
 }
