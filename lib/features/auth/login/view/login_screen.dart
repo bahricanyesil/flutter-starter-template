@@ -79,7 +79,7 @@ class _LoginScreenState extends State<LoginScreen>
       );
 
   Widget get _welcomeTexts => Padding(
-        padding: context.horizontalMed,
+        padding: context.horizontalMedHigh,
         child: Column(
           children: <Widget>[
             const Spacer(flex: 10),
