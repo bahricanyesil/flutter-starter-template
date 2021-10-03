@@ -10,7 +10,7 @@ class CircleWidget extends StatelessWidget {
   final double? borderWidthFactor;
   const CircleWidget({
     required this.child,
-    this.widthFactor = 4.5,
+    this.widthFactor = 4,
     this.borderWidthFactor,
     this.onTap,
     Key? key,

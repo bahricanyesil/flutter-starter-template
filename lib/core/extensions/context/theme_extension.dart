@@ -1,5 +1,8 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import '../../helpers/device-type/device_type_helper.dart';
 import '../../providers/theme_provider.dart';
 
 extension ThemeExtension on BuildContext {
@@ -11,16 +14,23 @@ extension ThemeExtension on BuildContext {
   Color get primaryLightColor => theme.primaryColorLight;
   Color get primaryDarkColor => theme.primaryColorDark.withOpacity(.8);
 
-  TextStyle get headline1 => theme.textTheme.headline1!;
-  TextStyle get headline2 => theme.textTheme.headline2!;
-  TextStyle get headline3 => theme.textTheme.headline3!;
-  TextStyle get headline4 => theme.textTheme.headline4!;
-  TextStyle get headline5 => theme.textTheme.headline5!;
-  TextStyle get headline6 => theme.textTheme.headline6!;
+  TextStyle get headline1 => _getStyle(theme.textTheme.headline1!);
+  TextStyle get headline2 => _getStyle(theme.textTheme.headline2!);
+  TextStyle get headline3 => _getStyle(theme.textTheme.headline3!);
+  TextStyle get headline4 => _getStyle(theme.textTheme.headline4!);
+  TextStyle get headline5 => _getStyle(theme.textTheme.headline5!);
+  TextStyle get headline6 => _getStyle(theme.textTheme.headline6!);
 
-  TextStyle get subtitle1 => theme.textTheme.subtitle1!;
-  TextStyle get subtitle2 => theme.textTheme.subtitle2!;
+  TextStyle get subtitle1 => _getStyle(theme.textTheme.subtitle1!);
+  TextStyle get subtitle2 => _getStyle(theme.textTheme.subtitle2!);
 
-  TextStyle get bodyText1 => theme.textTheme.bodyText1!;
-  TextStyle get bodyText2 => theme.textTheme.bodyText2!;
+  TextStyle get bodyText1 => _getStyle(theme.textTheme.bodyText1!);
+  TextStyle get bodyText2 => _getStyle(theme.textTheme.bodyText2!);
+
+  TextStyle _getStyle(TextStyle style) {
+    final double oldSize = style.fontSize!;
+    return DeviceTypeHelper(this).isLandscape
+        ? style.copyWith(fontSize: pow(oldSize, 1.18) * 1)
+        : style;
+  }
 }

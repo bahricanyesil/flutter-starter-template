@@ -8,13 +8,11 @@ class BaseText extends StatelessWidget {
   final TextStyle? style;
   final TextAlign textAlign;
   final Color? color;
-  final TextDecoration? decoration;
   const BaseText(
     this.textKey, {
     this.style,
     this.textAlign = TextAlign.center,
     this.color,
-    this.decoration,
     Key? key,
   }) : super(key: key);
 
@@ -23,14 +21,12 @@ class BaseText extends StatelessWidget {
         fit: BoxFit.scaleDown,
         child: Text(
           context.tr(textKey),
-          style: style ??
-              context.headline5.copyWith(
-                color: color,
-                decoration: decoration,
-                decorationColor: Colors.black,
-              ),
+          style: _defaultStyle(context),
           textAlign: textAlign,
           overflow: TextOverflow.clip,
         ),
       );
+
+  TextStyle _defaultStyle(BuildContext context) =>
+      style ?? context.headline5.copyWith(color: color);
 }

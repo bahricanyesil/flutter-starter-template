@@ -46,8 +46,10 @@ class _LoginScreenState extends State<LoginScreen>
     );
   }
 
-  Widget get _backgroundImage =>
-      Image.asset('assets/images/auth/login_bg.png', fit: BoxFit.fill);
+  Widget get _backgroundImage => Image.asset(
+        'assets/images/auth/${model.isLandscape ? 'login_bg_vertical.png' : 'login_bg.png'}',
+        fit: BoxFit.fill,
+      );
 
   Widget get _leftTransformWidget => Transform.translate(
         offset: Offset(context.width * model.leftWidgetAnimation.value, 0),
@@ -77,7 +79,7 @@ class _LoginScreenState extends State<LoginScreen>
       );
 
   Widget get _welcomeTexts => Padding(
-        padding: context.horizontalMedHigh,
+        padding: context.horizontalMed,
         child: Column(
           children: <Widget>[
             const Spacer(flex: 10),
@@ -86,74 +88,64 @@ class _LoginScreenState extends State<LoginScreen>
               child: BaseText(model.title, style: context.headline1),
             ),
             SizedBox(height: context.height * 4),
-            Expanded(
-              flex: 4,
-              child: NotFittedText(model.description, maxLines: 2),
-            ),
+            Expanded(flex: 4, child: _description),
             SizedBox(height: context.height * 6),
-            Expanded(
-              flex: 3,
-              child: RoundedButton(
-                buttonText: model.reverseButtonText,
-                onPressed: model.animate,
-                borderColor: Colors.white,
-                backgroundColor: context.primaryColor.withOpacity(.8),
-                width: context.width * 15,
-              ),
-            ),
+            Expanded(flex: 3, child: _changeActionButton),
             const Spacer(flex: 10),
           ],
         ),
       );
 
+  Widget get _description => NotFittedText(
+        model.description,
+        maxLines: 2,
+        style: context.headline4,
+      );
+
+  Widget get _changeActionButton => RoundedButton(
+        buttonText: model.reverseButtonText,
+        onPressed: model.animate,
+        borderColor: Colors.white,
+        backgroundColor: context.primaryColor.withOpacity(.8),
+        width: context.width * 15,
+      );
+
   Widget get _formColumn => Transform.translate(
-        offset: Offset(model.offsetAnimation.value, 0),
+        offset: Offset(context.width * model.offsetAnimation.value, 0),
         child: Padding(
           padding: context.horizontalHigh,
           child: Column(
             children: <Widget>[
               const Spacer(flex: 2),
-              Expanded(
-                flex: 3,
-                child: BaseText(
-                  model.formTitle,
-                  style:
-                      context.headline1.copyWith(color: context.primaryColor),
-                ),
-              ),
+              Expanded(flex: 3, child: _formTitle),
               SizedBox(height: context.height * 2),
-              Expanded(
-                child: Wrap(
-                  spacing: context.width * 2,
-                  alignment: WrapAlignment.center,
-                  children: _socialLoginButtons,
-                ),
-              ),
-              SizedBox(height: context.height * 10),
-              Expanded(
-                flex: 2,
-                child: BaseText(model.useEmailText,
-                    style: context.headline6.copyWith(color: Colors.black)),
-              ),
+              Expanded(child: _socialLoginOptions),
+              SizedBox(height: context.height * 8),
+              Expanded(flex: 2, child: _useEmailText),
               SizedBox(height: context.height * 2),
-              Expanded(
-                flex: 15,
-                child: _form,
-              ),
+              Expanded(flex: 15, child: _form),
               SizedBox(height: context.height * 3),
-              Expanded(
-                flex: 4,
-                child: RoundedButton(
-                  buttonText: model.buttonText,
-                  onPressed: () {},
-                  backgroundColor: context.primaryColor.withOpacity(.8),
-                  width: context.width * 25,
-                ),
-              ),
+              Expanded(flex: 3, child: _actionButton),
               const Spacer(flex: 2),
             ],
           ),
         ),
+      );
+
+  Widget get _formTitle => BaseText(
+        model.formTitle,
+        style: context.headline1.copyWith(color: context.primaryColor),
+      );
+
+  Widget get _socialLoginOptions => Wrap(
+        spacing: context.width * 2,
+        alignment: WrapAlignment.center,
+        children: _socialLoginButtons,
+      );
+
+  Widget get _useEmailText => BaseText(
+        model.useEmailText,
+        style: context.headline6.copyWith(color: Colors.black),
       );
 
   List<Widget> get _socialLoginButtons => List<Widget>.generate(
@@ -164,23 +156,31 @@ class _LoginScreenState extends State<LoginScreen>
         ),
       );
 
+  Widget get _actionButton => RoundedButton(
+        buttonText: model.buttonText,
+        onPressed: () {},
+        backgroundColor: context.primaryColor.withOpacity(.8),
+        width: context.width * 25,
+      );
+
   Form get _form => Form(
         key: model.formKey,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+        child: Wrap(
+          direction: Axis.vertical,
+          alignment: WrapAlignment.center,
+          crossAxisAlignment: WrapCrossAlignment.center,
+          spacing: context.height * 2,
           children: <Widget>[
             CustomTextFormField(
               controller: model.nameController,
               hintText: 'Name',
               prefixIcon: Icons.person_outline,
             ),
-            SizedBox(height: context.height * 2),
             CustomTextFormField(
               controller: model.emailController,
               hintText: 'Email',
               prefixIcon: Icons.email_outlined,
             ),
-            SizedBox(height: context.height * 2),
             _lastFormElement,
           ],
         ),
@@ -197,7 +197,6 @@ class _LoginScreenState extends State<LoginScreen>
           child: const BaseText(
             LangKeys.forgotPassword,
             color: Colors.black87,
-            decoration: TextDecoration.underline,
           ),
         );
 }

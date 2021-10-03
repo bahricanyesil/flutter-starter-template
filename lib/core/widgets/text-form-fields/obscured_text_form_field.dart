@@ -67,7 +67,7 @@ class _ObscuredTextFormFieldState extends State<ObscuredTextFormField> {
   double get _suffixWidthFactor => widget.widthFactor / (isLandscape ? 4 : 6);
 
   TextStyle _textStyle(BuildContext context) =>
-      (isLandscape ? context.headline4 : context.bodyText2)
+      (isLandscape ? context.headline5 : context.bodyText2)
           .copyWith(color: Colors.black87);
 
   void _changeVisibility() => setState(() => _isVisible = !_isVisible);

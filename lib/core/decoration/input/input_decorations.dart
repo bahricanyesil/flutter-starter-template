@@ -16,10 +16,11 @@ class InputDeco {
     String? hintText,
     IconData? prefixIcon,
     Color? backgroundColor,
-    double paddingFactor = .5,
+    double paddingFactor = .7,
   }) =>
       InputDecoration(
-        contentPadding: EdgeInsets.all(context.width * paddingFactor),
+        contentPadding:
+            EdgeInsets.symmetric(horizontal: context.width * paddingFactor),
         hintText: hintText,
         hintStyle: _hintTextStyle,
         enabledBorder: _getOutlineBorder(.5, 1),
@@ -29,7 +30,7 @@ class InputDeco {
 
   Widget? getPrefixIcon(IconData? prefixIcon) => prefixIcon == null
       ? null
-      : BaseIcon(prefixIcon, widthFactor: isLandscape ? 2.3 : 3);
+      : BaseIcon(prefixIcon, widthFactor: isLandscape ? 2.1 : 3);
 
   InputDecoration dialogText(
           {required String hintText, double? verticalPadding}) =>
@@ -55,6 +56,6 @@ class InputDeco {
       );
 
   TextStyle get _hintTextStyle =>
-      (isLandscape ? context.headline4 : context.bodyText2)
+      (isLandscape ? context.headline5 : context.bodyText2)
           .copyWith(color: context.primaryDarkColor);
 }

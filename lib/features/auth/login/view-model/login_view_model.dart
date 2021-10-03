@@ -57,8 +57,9 @@ class LoginViewModel extends BaseViewModel {
     rightWidgetAnimation = _animate(Tween<double>(begin: 40, end: 0));
     offsetAnimation = TweenSequence<double>(
       <TweenSequenceItem<double>>[
-        _tweenSequenceItem(end: 400),
-        _tweenSequenceItem(begin: -400),
+        _tweenSequenceItem(end: 50),
+        _tweenSequenceItem(begin: 50, end: 50, weight: 10),
+        _tweenSequenceItem(begin: -50),
       ],
     ).animate(CurvedAnimation(parent: animationController, curve: _curve));
     _addAnimationListeners();
@@ -69,10 +70,13 @@ class LoginViewModel extends BaseViewModel {
       tween.animate(CurvedAnimation(
           parent: controller ?? animationController, curve: _curve));
 
-  TweenSequenceItem<double> _tweenSequenceItem(
-          {double begin = 0, double end = 0}) =>
+  TweenSequenceItem<double> _tweenSequenceItem({
+    double begin = 0,
+    double end = 0,
+    double weight = 30,
+  }) =>
       TweenSequenceItem<double>(
-          tween: Tween<double>(begin: begin, end: end), weight: 1);
+          tween: Tween<double>(begin: begin, end: end), weight: weight);
 
   void _addAnimationListeners() {
     animationController.addListener(() {

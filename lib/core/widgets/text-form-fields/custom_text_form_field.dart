@@ -48,7 +48,7 @@ class CustomTextFormField extends StatelessWidget {
 
   TextStyle _textStyle(BuildContext context) =>
       (DeviceTypeHelper(context).isLandscape
-              ? context.headline4
+              ? context.headline5
               : context.bodyText2)
           .copyWith(color: Colors.black87);
 }
