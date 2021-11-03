@@ -1,3 +1,6 @@
+import 'dart:convert';
+
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../core/base/view-model/base_view_model.dart';
@@ -105,6 +108,19 @@ class LoginViewModel extends BaseViewModel {
     animationController.isCompleted
         ? animationController.reverse()
         : animationController.forward();
+  }
+
+  Future<void> request() async {
+    try {
+      final res = await Dio().request(
+        'https://jetrikapi.azurewebsites.net/api/restaurantservices',
+        options: Options(contentType: 'application/json', method: 'GET'),
+        data: jsonEncode({"id": 1}),
+      );
+      print(res);
+    } on DioError catch (err) {
+      print(err.response);
+    }
   }
 
   static void _facebookLogin() {}
