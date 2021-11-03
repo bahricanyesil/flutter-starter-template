@@ -2,14 +2,8 @@ part of '../color_manager.dart';
 
 class DarkColors implements IColors {
   @override
-  ColorScheme get colorScheme => const ColorScheme.dark().copyWith(
-        onPrimary: AppColors.green,
-        onSecondary: AppColors.darkGrey,
-        onSurface: AppColors.mediumGreyBold,
-        primary: const Color(0xff20B2AA),
-        secondary: AppColors.secondaryDark,
-        brightness: brightness,
-        error: AppColors.error,
+  ColorScheme get colorScheme => ColorScheme.fromSwatch(
+      // TODO(bahrican):
       );
 
   @override

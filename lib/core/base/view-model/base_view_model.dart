@@ -71,8 +71,7 @@ abstract class BaseViewModel extends ChangeNotifier {
         dispose();
         await NavigationManager.instance.setNewRoutePath(ScreenConfig.login());
       } else {
-        await DialogBuilder(context)
-            .showTextDialog(response.error!.errorMessage);
+        DialogBuilder(context).showTextDialog(response.error!.errorMessage);
       }
     } else {
       if (afterFunction != null) await afterFunction();

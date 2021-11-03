@@ -7,8 +7,6 @@ import 'text/text_theme.dart';
 import 'text/types/dark_text_theme.dart';
 import 'text/types/light_text_theme.dart';
 
-// TODO(bahrican): When changing a color in app, don't forget to
-// check whether it has a parameter in ThemeData
 abstract class ITheme {
   ITextTheme get textTheme;
   IColors get colors;
@@ -23,10 +21,8 @@ abstract class ITheme {
         colorScheme: colors.colorScheme,
         primaryColor: colors.colorScheme.primary,
         backgroundColor: colors.scaffoldBackgroundColor,
-        brightness: colors.brightness,
-        primaryColorBrightness: colors.brightness,
-        primaryColorLight: textTheme.primaryTextColor,
-        primaryColorDark: textTheme.secondaryTextColor,
+        primaryColorLight: colors.colorScheme.primary,
+        primaryColorDark: colors.colorScheme.primary,
         canvasColor: colors.scaffoldBackgroundColor,
         dividerColor: AppColors.lightGrey,
         highlightColor: colors.highlightColor,

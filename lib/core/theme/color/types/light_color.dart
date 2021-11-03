@@ -2,14 +2,8 @@ part of '../color_manager.dart';
 
 class LightColors implements IColors {
   @override
-  ColorScheme get colorScheme => const ColorScheme.light().copyWith(
-        onPrimary: AppColors.green,
-        onSecondary: AppColors.white,
-        onSurface: AppColors.mediumGreyBold,
-        primary: const Color(0xff20B2AA),
-        secondary: AppColors.secondaryLight,
-        brightness: brightness,
-        error: AppColors.error,
+  ColorScheme get colorScheme => ColorScheme.fromSwatch(
+      // TODO(bahrican):
       );
 
   @override

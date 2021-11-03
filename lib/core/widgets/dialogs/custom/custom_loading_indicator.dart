@@ -1,14 +1,12 @@
 import 'package:flutter/material.dart';
 
-import '../../../extensions/context/context_extensions_shelf.dart';
-import '../../texts/base_text.dart';
-
+/// Loading indicator widget to show in processes.
 class LoadingIndicator extends StatelessWidget {
   const LoadingIndicator({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) => Container(
-        padding: context.medEdgeInsets,
+        padding: const EdgeInsets.all(10),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           mainAxisSize: MainAxisSize.min,
@@ -20,24 +18,21 @@ class LoadingIndicator extends StatelessWidget {
       );
 
   Padding _getLoadingIndicator(BuildContext context) => Padding(
-        padding: context.bottomMed,
+        padding: const EdgeInsets.only(bottom: 10),
         child: SizedBox(
-          width: context.height * 6,
-          height: context.height * 6,
+          width: 100,
+          height: 100,
           child: Center(
             child: CircularProgressIndicator(
-              color: context.accentColor,
+              color: Theme.of(context).primaryColor,
               strokeWidth: 3,
             ),
           ),
         ),
       );
 
-  Widget _getHeading(BuildContext context) => Padding(
-        padding: context.bottomLow,
-        child: BaseText(
-          'Please Wait...',
-          style: context.headline4.copyWith(color: context.primaryColor),
-        ),
+  Widget _getHeading(BuildContext context) => const Padding(
+        padding: EdgeInsets.only(bottom: 10),
+        child: Text('Please Wait...'),
       );
 }
