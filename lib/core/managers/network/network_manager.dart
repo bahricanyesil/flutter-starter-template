@@ -1,9 +1,11 @@
 import 'dart:io';
 
+// TODO(bahrican): Conditional import for web/mobile
+
 import 'package:dio/adapter.dart';
 // import 'package:dio/adapter_browser.dart';
 import 'package:dio/dio.dart';
-import 'package:flutter/foundation.dart';
+// import 'package:flutter/foundation.dart';
 
 import '../../base/model/base_models_shelf.dart';
 import '../../constants/constants_shelf.dart';

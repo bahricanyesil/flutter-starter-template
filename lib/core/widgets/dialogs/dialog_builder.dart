@@ -11,7 +11,7 @@ class DialogBuilder {
   const DialogBuilder(this.context);
   final BuildContext context;
 
-  Future<void> showLoadingIndicator() => showDialog(
+  void showLoadingIndicator() => showDialog(
         context: context,
         barrierDismissible: false,
         builder: (BuildContext context) => WillPopScope(
@@ -65,7 +65,7 @@ class DialogBuilder {
         ),
       );
 
-  Future<void> showTextDialog(String text) => CustomDialog(
+  Future<void> showTextDialog(String text) async => CustomDialog(
         content: Padding(
           padding: EdgeInsets.all(context.width),
           child: BaseText(text, style: context.headline5),
@@ -73,7 +73,7 @@ class DialogBuilder {
       ).show(context);
 
   /// Example result dialog
-  Future<void> showResultDialog(String text) => showDialog(
+  Future<void> showResultDialog(String text) async => showDialog(
         context: context,
         builder: (BuildContext context) => AlertDialog(
           shape: ShapedBorders.roundedMedium,

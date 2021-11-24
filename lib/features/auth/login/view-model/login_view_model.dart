@@ -24,7 +24,7 @@ class LoginViewModel extends BaseViewModel {
         DialogBuilder(context).showLoadingIndicator();
         await Future<void>.delayed(const Duration(seconds: 2));
         Navigator.of(context).pop();
-        DialogBuilder(context).showResultDialog('Successful login.');
+        unawaited(DialogBuilder(context).showResultDialog('Successful login.'));
         return null;
       });
 
@@ -33,10 +33,10 @@ class LoginViewModel extends BaseViewModel {
     DialogBuilder(context).showLoadingIndicator();
     await Future<void>.delayed(const Duration(seconds: 2));
     Navigator.of(context).pop();
-    DialogBuilder(context).showResultDialog("""
+    unawaited(DialogBuilder(context).showResultDialog("""
     Successfully logged in.\n
     Email: ${loginData.email}\n
-    Password: ${loginData.password}""");
+    Password: ${loginData.password}"""));
     return null;
   }
 
@@ -45,12 +45,12 @@ class LoginViewModel extends BaseViewModel {
     DialogBuilder(context).showLoadingIndicator();
     await Future<void>.delayed(const Duration(seconds: 2));
     Navigator.of(context).pop();
-    DialogBuilder(context).showResultDialog("""
+    unawaited(DialogBuilder(context).showResultDialog("""
     Successfully signed up.\n
     Username: ${signupData.name}\n
     Email: ${signupData.email}\n
     Password: ${signupData.password}\n
-    Confirm Password: ${signupData.confirmPassword}""");
+    Confirm Password: ${signupData.confirmPassword}"""));
     return null;
   }
 
@@ -60,8 +60,8 @@ class LoginViewModel extends BaseViewModel {
     DialogBuilder(context).showLoadingIndicator();
     await Future<void>.delayed(const Duration(seconds: 2));
     Navigator.of(context).pop();
-    DialogBuilder(context)
-        .showResultDialog('Successfully navigated. Email is $email');
+    unawaited(DialogBuilder(context)
+        .showResultDialog('Successfully navigated. Email is $email'));
     return null;
   }
 
@@ -70,8 +70,8 @@ class LoginViewModel extends BaseViewModel {
     DialogBuilder(context).showLoadingIndicator();
     await Future<void>.delayed(const Duration(seconds: 2));
     Navigator.of(context).pop();
-    DialogBuilder(context)
-        .showResultDialog('Successfully logged in with $type.');
+    unawaited(DialogBuilder(context)
+        .showResultDialog('Successfully logged in with $type.'));
     return null;
   }
 }

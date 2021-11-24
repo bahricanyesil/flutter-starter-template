@@ -38,14 +38,21 @@ abstract class BaseViewModel extends ChangeNotifier {
   }
 
   void toggleLoadingStatus() {
-    if (_viewState == ViewStates.loading) _viewState = ViewStates.loaded;
-    if (_viewState == ViewStates.loaded) _viewState = ViewStates.loading;
+    switch (_viewState) {
+      case ViewStates.loading:
+        _viewState = ViewStates.loaded;
+        break;
+      case ViewStates.loaded:
+        _viewState = ViewStates.loading;
+        break;
+      default:
+        break;
+    }
+
     if (_viewState != ViewStates.disposed) scheduleMicrotask(notifyListeners);
   }
 
-  void disposeLocal() {
-    _viewState = ViewStates.disposed;
-  }
+  void disposeLocal() => _viewState = ViewStates.disposed;
 
   final LocalManager localManager = LocalManager.instance;
   final NavigationManager navigationManager = NavigationManager.instance;
@@ -55,8 +62,10 @@ abstract class BaseViewModel extends ChangeNotifier {
     FutureOr<dynamic> Function()? afterRequest,
   }) async {
     final bool _showLoading = _viewState != ViewStates.disposed;
-    _viewState = ViewStates.loading;
-    if (_showLoading) DialogBuilder(context).showLoadingIndicator();
+    if (_showLoading) {
+      DialogBuilder(context).showLoadingIndicator();
+      _viewState = ViewStates.loading;
+    }
     final IResponseModel<T> response = await func();
     await errorCheck<T>(response: response, afterFunction: afterRequest);
   }
@@ -71,7 +80,8 @@ abstract class BaseViewModel extends ChangeNotifier {
         dispose();
         await NavigationManager.instance.setNewRoutePath(ScreenConfig.login());
       } else {
-        DialogBuilder(context).showTextDialog(response.error!.errorMessage);
+        unawaited(DialogBuilder(context)
+            .showTextDialog(response.error!.errorMessage));
       }
     } else {
       if (afterFunction != null) await afterFunction();

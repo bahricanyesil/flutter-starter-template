@@ -3,7 +3,7 @@ part of '../color_manager.dart';
 class LightColors implements IColors {
   @override
   ColorScheme get colorScheme => ColorScheme.fromSwatch(
-      // TODO(bahrican):
+      // TODO(bahrican): fill here
       );
 
   @override
