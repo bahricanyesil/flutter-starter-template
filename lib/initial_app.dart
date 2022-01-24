@@ -1,68 +1,27 @@
-// import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-// import 'package:flutter_web_plugins/flutter_web_plugins.dart';
-import 'package:provider/provider.dart';
 
-import 'core/managers/managers_shelf.dart';
-import 'core/managers/navigation/my_route_info_parser.dart';
-import 'core/managers/navigation/my_router_delegate.dart';
+import 'core/managers/navigation/navigation_shelf.dart';
 import 'core/providers/providers_shelf.dart';
 
-class Init extends StatelessWidget {
-  Init({Key? key}) : super(key: key);
+/// Material app widget of the app.
+class InitialApp extends StatelessWidget {
+  /// Default constructor for [InitialApp] widget.
+  const InitialApp({required this.appName, Key? key}) : super(key: key);
 
-  final NavigationManager _routerDelegate = NavigationManager();
-  final MyRouteInfoParser _routeInfoParser = MyRouteInfoParser();
-
-  @override
-  Widget build(BuildContext context) => LocalManager().isInitialized
-      ? _getApp
-      : FutureBuilder<void>(
-          future: _initialize(),
-          builder: (BuildContext context, AsyncSnapshot<void> snapshot) {
-            if (snapshot.connectionState != ConnectionState.done) {
-              return const Center(child: CircularProgressIndicator());
-            }
-            return _getApp;
-          },
-        );
-
-  Future<void> _initialize() async {
-    // if (kIsWeb) setUrlStrategy(PathUrlStrategy());
-    await LocalManager().initLocalStorage();
-    _routeInfoParser.defaultScreen = ScreenConfig.login();
-    await _routerDelegate.setInitialRoutePath(_routeInfoParser.defaultScreen);
-  }
-
-  Widget get _getApp => MultiProvider(
-        providers: ApplicationProvider.instance.dependItems,
-        child: _App(
-          routerDelegate: _routerDelegate,
-          routeInfoParser: _routeInfoParser,
-        ),
-      );
-}
-
-class _App extends StatelessWidget {
-  final NavigationManager routerDelegate;
-  final MyRouteInfoParser routeInfoParser;
-  const _App({
-    required this.routerDelegate,
-    required this.routeInfoParser,
-    Key? key,
-  }) : super(key: key);
+  /// Name of the app.
+  final String appName;
 
   @override
   Widget build(BuildContext context) => MaterialApp.router(
-        title: 'Flutter Starter Template',
+        title: appName,
         debugShowCheckedModeBanner: false,
         theme: context.watch<ThemeProvider>().currentTheme,
+        routerDelegate: NavigationManager(),
+        backButtonDispatcher: RootBackButtonDispatcher(),
+        routeInformationParser: CustomRouteInfoParser(),
         localizationsDelegates: LanguageProvider.delegates,
         supportedLocales: LanguageProvider.supportedLocales,
         locale: context.watch<LanguageProvider>().appLocal,
-        routerDelegate: routerDelegate,
-        backButtonDispatcher: RootBackButtonDispatcher(),
-        routeInformationParser: routeInfoParser,
         localeListResolutionCallback: (List<Locale>? locales, _) =>
             context.read<LanguageProvider>().localeCallback(locales),
       );

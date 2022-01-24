@@ -1,30 +1,41 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../../constants/enums/view_states.dart';
-import '../../helpers/device-type/device_type_helper.dart';
-import '../../widgets/appbars/app_bar.dart';
+import '../../constants/enums/view-enums/view_states.dart';
+import '../../extensions/context/responsiveness_extensions.dart';
+import '../../widgets/widgets_shelf.dart';
 import '../view-model/base_view_model.dart';
 
+/// Base view class to create customized view models using this.
 class BaseView<T extends BaseViewModel> extends StatefulWidget {
-  final Widget Function(BuildContext) bodyBuilder;
-  final void Function()? customDispose;
-  final void Function()? customInitState;
-  final List<Widget>? appBarChildren;
-  final double? appBarSize;
-  final bool safeArea;
-  final bool resize;
-
+  /// Default constructor for [BaseView].
   const BaseView({
     required this.bodyBuilder,
     this.customDispose,
     this.customInitState,
-    this.appBarChildren,
-    this.appBarSize,
+    this.appBar,
+    this.resizeToAvoidBottomInset = true,
     this.safeArea = true,
-    this.resize = true,
     Key? key,
   }) : super(key: key);
+
+  /// Function to build the body.
+  final Widget Function(BuildContext) bodyBuilder;
+
+  /// Custom dispose method to call on dispose.
+  final VoidCallback? customDispose;
+
+  /// Custom init state method to call on init state.
+  final VoidCallback? customInitState;
+
+  /// Custom app bar.
+  final DefaultAppBar? appBar;
+
+  /// Determines whether to resize to avoid bottom inset in [Scaffold].
+  final bool resizeToAvoidBottomInset;
+
+  /// Determines whether to wrap with [SafeArea].
+  final bool safeArea;
 
   @override
   State<BaseView<T>> createState() => _BaseViewState<T>();
@@ -48,30 +59,16 @@ class _BaseViewState<T extends BaseViewModel> extends State<BaseView<T>> {
 
   @override
   Widget build(BuildContext context) {
-    _initializeModel();
-    return context.watch<T>().state == ViewStates.uninitialized
-        ? const Center(
-            child: CircularProgressIndicator(),
-          )
-        : Scaffold(
-            resizeToAvoidBottomInset: widget.resize,
-            appBar: _appBar,
-            body: widget.safeArea
-                ? SafeArea(child: widget.bodyBuilder(context))
-                : widget.bodyBuilder(context),
-          );
-  }
-
-  DefaultAppBar? get _appBar =>
-      widget.appBarChildren != null && widget.appBarSize != null
-          ? DefaultAppBar(
-              size: widget.appBarSize!, children: widget.appBarChildren!)
-          : null;
-
-  void _initializeModel() {
     model = context.read<T>();
-    model
-      ..context = context
-      ..isLandscape = DeviceTypeHelper(context).isLandscape;
+    return Scaffold(
+      resizeToAvoidBottomInset: widget.resizeToAvoidBottomInset,
+      appBar: widget.appBar?.copyWithSize(context.height * 5.5),
+      body: widget.safeArea ? SafeArea(child: _child) : _child,
+    );
   }
+
+  Widget get _child => context.select<T, ViewStates>((T p) => p.state) ==
+          ViewStates.uninitialized
+      ? const Center(child: LoadingIndicator())
+      : widget.bodyBuilder(context);
 }

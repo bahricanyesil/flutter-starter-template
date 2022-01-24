@@ -1,27 +1,25 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import '../../constants/enums/view-enums/view_states.dart';
+import '../../managers/navigation/navigation_manager.dart';
 
-import '../../constants/enums/view_states.dart';
-import '../../managers/local/local_manager.dart';
-import '../../managers/navigation/navigation_shelf.dart';
-import '../../models/response/l_response_model.dart';
-import '../../widgets/dialogs/dialog_builder.dart';
-import '../model/base_error.dart';
-
+/// Base view model class to create customized view models extending this.
 abstract class BaseViewModel extends ChangeNotifier {
-  late BuildContext? _context;
-  set context(BuildContext context) => _context = context;
-  BuildContext get context => _context!;
-  bool isLandscape = false;
-
+  /// Default constructor of [BaseViewModel].
   BaseViewModel() {
     _init();
   }
 
   ViewStates _viewState = ViewStates.uninitialized;
+
+  /// Getter for [_viewState], shows the current state of the view.
   ViewStates get state => _viewState;
 
+  /// Singleton navigation manager to use across the view models.
+  final NavigationManager navigationManager = NavigationManager.instance;
+
+  /// Custom init method to call before the initialization process is completed.
   FutureOr<void> init();
 
   Future<void> _init() async {
@@ -31,13 +29,19 @@ abstract class BaseViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
+  /// Locally dispose the view and sets the [_viewState] property.
+  void disposeLocal() => _viewState = ViewStates.disposed;
+
+  /// Reloads the state.
   void reloadState() {
     if (_viewState != ViewStates.loading && _viewState != ViewStates.disposed) {
-      scheduleMicrotask(notifyListeners);
+      notifyListeners();
     }
   }
 
-  void toggleLoadingStatus() {
+  /// Switches the loading status between
+  /// [ViewStates.loaded] and [ViewStates.loading].
+  void toggleLoading() {
     switch (_viewState) {
       case ViewStates.loading:
         _viewState = ViewStates.loaded;
@@ -49,45 +53,6 @@ abstract class BaseViewModel extends ChangeNotifier {
         break;
     }
 
-    if (_viewState != ViewStates.disposed) scheduleMicrotask(notifyListeners);
-  }
-
-  void disposeLocal() => _viewState = ViewStates.disposed;
-
-  final LocalManager localManager = LocalManager.instance;
-  final NavigationManager navigationManager = NavigationManager.instance;
-
-  Future<void> apiRequestLoading<T>({
-    required Future<IResponseModel<T>> Function() func,
-    FutureOr<dynamic> Function()? afterRequest,
-  }) async {
-    final bool _showLoading = _viewState != ViewStates.disposed;
-    if (_showLoading) {
-      DialogBuilder(context).showLoadingIndicator();
-      _viewState = ViewStates.loading;
-    }
-    final IResponseModel<T> response = await func();
-    await errorCheck<T>(response: response, afterFunction: afterRequest);
-  }
-
-  Future<void> errorCheck<T>({
-    required IResponseModel<T> response,
-    FutureOr<dynamic> Function()? afterFunction,
-  }) async {
-    if (response.error is IErrorModel) {
-      Navigator.of(context).pop();
-      if (response.error!.isAuthenticationError) {
-        dispose();
-        await NavigationManager.instance.setNewRoutePath(ScreenConfig.login());
-      } else {
-        unawaited(DialogBuilder(context)
-            .showTextDialog(response.error!.errorMessage));
-      }
-    } else {
-      if (afterFunction != null) await afterFunction();
-      Navigator.of(context).pop();
-    }
-    _viewState = ViewStates.loaded;
-    reloadState();
+    if (_viewState != ViewStates.disposed) notifyListeners();
   }
 }

@@ -1,4 +1,0 @@
-enum ViewTypes {
-  portrait,
-  landscape,
-}

@@ -1,3 +1,5 @@
-export 'lang/language_provider.dart';
-export 'providers_list.dart';
-export 'theme_provider.dart';
+export 'package:provider/provider.dart';
+
+export 'language/language_provider.dart';
+export 'provider_list.dart';
+export 'theme/theme_provider.dart';
