@@ -20,7 +20,7 @@
   "info": "Bilgi",
   "info_subtitle": "Uygulamayı daha fazla öğrenmek ister misin?",
   "language_description": "Ana diline göre uygulama dili seçeneklerine bakabilirsin. Şu anda sadece Türkçe ve English seçeneklerimiz mevcut ancak yakında daha fazlası gelecek.",
-  "theme_description": "Uygulama temasını kendi zevkine göre değiştirebilirsin. İnsanlar ikiye ayrılı: gece moduna aşık olanlar ve olmayanlar.",
+  "theme_description": "Uygulama temasını kendi zevkine göre değiştirebilirsin. İnsanlar ikiye ayrılır: gece moduna aşık olanlar ve olmayanlar.",
   "dark_mode": "Gece Modu",
   "social_info": "Sosyal Medya",
   "social_info_subtitle": "Sosyal medya hesaplarım aracılığıyla iletişime geçebilirsiniz.",
@@ -29,5 +29,7 @@
   "instagram": "Instagram",
   "twitter": "Twitter",
   "title": "Flutter Başlangıç Şablonu",
-  "add_item": "Yeni Ekle"
+  "add_item": "Yeni Ekle",
+  "splash_error": "Beklenmeyen bir şeyler oldu!\nYeniden denemek için butona tıkla.",
+  "retry": "Yeniden Dene"
 }

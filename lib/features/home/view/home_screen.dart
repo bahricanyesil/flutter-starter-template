@@ -9,6 +9,7 @@ import '../../../core/extensions/extensions_shelf.dart';
 import '../../../core/helpers/material_state_helper.dart';
 import '../../../core/managers/navigation/navigation_shelf.dart';
 import '../../../core/theme/color/l_colors.dart';
+import '../../../core/widgets/buttons/default_icon_button.dart';
 import '../../../core/widgets/widgets_shelf.dart';
 import '../constants/home_texts.dart';
 import '../utilities/listen_home_value.dart';
@@ -35,17 +36,17 @@ class HomeScreen extends StatelessWidget
       );
 
   List<Widget> _appBarActions(BuildContext context) => <Widget>[
-        IconButton(
+        DefaultIconButton(
           onPressed: () => NavigationManager.instance
               .setNewRoutePath(ScreenConfig.settings()),
-          icon: const BaseIcon(Icons.settings_outlined, sizeFactor: 8),
-          splashRadius: 22,
+          icon: Icons.settings_outlined,
+          color: AppColors.white,
         ),
       ];
 
   Widget _bodyBuilder(BuildContext context) => Padding(
         padding: EdgeInsets.symmetric(
-            horizontal: context.medWidth, vertical: context.lowHeight),
+            horizontal: context.medWidth, vertical: context.extremeLowHeight),
         child: _body(context),
       );
 
@@ -58,7 +59,7 @@ class HomeScreen extends StatelessWidget
         physics: const BouncingScrollPhysics(),
         shrinkWrap: true,
         itemBuilder: (BuildContext ctx, int i) => Padding(
-          padding: context.topPadding(Sizes.low),
+          padding: context.topPadding(Sizes.extremeLow),
           child: _ListItem<String>(data: _texts[i]),
         ),
       ),

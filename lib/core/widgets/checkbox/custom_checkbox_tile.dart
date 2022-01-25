@@ -16,9 +16,10 @@ class CustomCheckboxTile extends StatefulWidget {
   /// Default constructor for [CheckboxListTile].
   const CustomCheckboxTile({
     required this.onTap,
-    required this.text,
+    this.text,
     this.initialValue = false,
     this.forcedValue,
+    this.customChild,
     Key? key,
   }) : super(key: key);
 
@@ -32,7 +33,10 @@ class CustomCheckboxTile extends StatefulWidget {
   final CheckboxCallback onTap;
 
   /// Text will be shown beside of the checkbox.
-  final String text;
+  final String? text;
+
+  /// Custom child instead of text widget.
+  final Widget? customChild;
 
   @override
   State<CustomCheckboxTile> createState() => _CustomCheckboxTileState();
@@ -47,13 +51,12 @@ class _CustomCheckboxTileState extends State<CustomCheckboxTile>
         onTap: () => _changeValue(!value),
         child: Row(
           mainAxisSize: MainAxisSize.min,
-          children: <Widget>[_checkbox, _expanded],
+          children: <Widget>[_checkbox, widget.customChild ?? _expanded],
         ),
       );
 
   Widget get _checkbox => ConstrainedBox(
-        constraints:
-            BoxConstraints.loose(Size.fromHeight(context.height * 4.5)),
+        constraints: BoxConstraints.loose(Size.fromHeight(context.height * 4)),
         child: Checkbox(
           value: widget.forcedValue ?? value,
           overlayColor: all<Color>(context.primaryLightColor),
@@ -77,7 +80,7 @@ class _CustomCheckboxTileState extends State<CustomCheckboxTile>
   Widget get _expanded {
     final bool selected = widget.forcedValue ?? value;
     return BaseText(
-      widget.text,
+      widget.text ?? '',
       textAlign: TextAlign.left,
       style: TextStyles(context).subBodyStyle(
         color: selected ? context.primaryColor : null,

@@ -1,35 +1,28 @@
 import 'package:flutter/material.dart';
 
+import '../../constants/enums/view-enums/sizes.dart';
+import '../../extensions/context/responsiveness_extensions.dart';
+import '../../extensions/context/theme_extensions.dart';
 import '../../managers/navigation/navigation_manager.dart';
+import '../../theme/color/l_colors.dart';
+import '../buttons/default_icon_button.dart';
 import '../icons/base_icon.dart';
 import '../text/base_text.dart';
 
 /// Default App Bar extends [AppBar]
 /// with its required functions.
-class DefaultAppBar extends AppBar implements PreferredSizeWidget {
+class DefaultAppBar extends StatelessWidget implements PreferredSizeWidget {
   /// Default app bar constructor.
-  DefaultAppBar({
+  const DefaultAppBar({
     this.size,
     this.color,
-    this.actionsList,
+    this.actionsList = const <Widget>[],
     this.titleIcon,
     this.titleText,
     this.showBack = false,
     this.textStyle,
     Key? key,
-  }) : super(
-          backgroundColor: color,
-          automaticallyImplyLeading: false,
-          centerTitle: false,
-          actions: _actions(actionsList),
-          title: _title(titleIcon, titleText, showBack, textStyle),
-          titleSpacing: _horizontalPadding,
-          key: key,
-        );
-
-  /// Overrides the [preferredSize] field with a given height value [size].
-  @override
-  Size get preferredSize => Size.fromHeight(size ?? 100);
+  }) : super(key: key);
 
   /// Size of the app bar.
   final double? size;
@@ -38,7 +31,7 @@ class DefaultAppBar extends AppBar implements PreferredSizeWidget {
   final Color? color;
 
   /// List of actions on the app bar.
-  final List<Widget>? actionsList;
+  final List<Widget> actionsList;
 
   /// Icon of the title.
   final IconData? titleIcon;
@@ -52,42 +45,44 @@ class DefaultAppBar extends AppBar implements PreferredSizeWidget {
   /// Style of the title text.
   final TextStyle? textStyle;
 
-  static Widget _title(IconData? titleIcon, String? titleText,
-          bool showBackIcon, TextStyle? textStyle) =>
-      Row(
-        children: <Widget>[
-          if (showBackIcon) Expanded(child: _backButton),
-          if (titleIcon != null) Expanded(child: SizedBaseIcon(titleIcon)),
-          if (titleText != null)
-            Expanded(flex: 9, child: _titleTextWidget(titleText, textStyle))
-        ],
-      );
-
-  static Widget _titleTextWidget(String titleText, TextStyle? textStyle) =>
-      Align(
+  Widget _titleTextWidget(BuildContext context) => Align(
         alignment: Alignment.centerLeft,
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 10),
-          child: BaseText(titleText, fontSizeFactor: 7, style: textStyle),
+          padding: context.horizontalPadding(Sizes.extremeLow),
+          child:
+              BaseText(titleText!, fontSizeFactor: 6.5, color: AppColors.white),
         ),
       );
 
-  static IconButton get _backButton => IconButton(
-        icon: const BaseIcon(Icons.chevron_left_outlined, sizeFactor: 7.5),
-        splashRadius: 20,
-        padding: EdgeInsets.zero,
-        onPressed: () => NavigationManager.instance.popRoute(),
+  Widget _backButton(BuildContext context) => FittedBox(
+        fit: BoxFit.scaleDown,
+        child: DefaultIconButton(
+          onPressed: () => NavigationManager.instance.popRoute(),
+          icon: Icons.chevron_left_outlined,
+          color: AppColors.white,
+        ),
       );
 
-  static const double _horizontalPadding = 12;
+  @override
+  Size get preferredSize => Size.fromHeight(size ?? 100);
 
-  static List<Widget>? _actions(List<Widget>? actionsList) => actionsList ==
-          null
-      ? null
-      : <Widget>[
-          FittedBox(fit: BoxFit.scaleDown, child: Row(children: actionsList)),
-          const SizedBox(width: _horizontalPadding)
-        ];
+  @override
+  Widget build(BuildContext context) => SafeArea(
+        child: Container(
+          color: context.primaryColor,
+          padding: context.horizontalPadding(Sizes.med),
+          child: Row(
+            children: <Widget>[
+              if (showBack) _backButton(context),
+              if (titleIcon != null)
+                BaseIcon(titleIcon!, sizeFactor: 6.5, color: AppColors.white),
+              SizedBox(width: context.responsiveSize * 2),
+              if (titleText != null) Expanded(child: _titleTextWidget(context)),
+              ...actionsList,
+            ],
+          ),
+        ),
+      );
 
   /// Copies the given [DefaultAppBar] with the one we have.
   DefaultAppBar copyWithSize(double newSize) => DefaultAppBar(

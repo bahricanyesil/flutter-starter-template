@@ -29,5 +29,7 @@
   "instagram": "Instagram",
   "twitter": "Twitter",
   "title": "Flutter Starter Template",
-  "add_item": "Add Item"
+  "add_item": "Add Item",
+  "splash_error": "Something unexpected happened!\nClick below button to retry.",
+  "retry": "Retry"
 }

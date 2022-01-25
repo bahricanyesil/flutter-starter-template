@@ -18,18 +18,22 @@ class _SettingsLanguageRowState extends State<_SettingsLanguageRow> {
   }
 
   @override
-  Widget build(BuildContext context) => Row(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: List<CustomCheckboxTile>.generate(
-          SettingsTexts.languageOptions.length,
-          (int i) {
-            final String langCode = SettingsTexts.languageOptions[i];
-            return CustomCheckboxTile(
-              onTap: (bool val) => _onTap(val, langCode, i),
-              forcedValue: selectedIndex == i,
-              text: langCode,
-            );
-          },
+  Widget build(BuildContext context) => Padding(
+        padding: context.horizontalPadding(Sizes.high),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: List<CustomCheckboxTile>.generate(
+            SettingsTexts.languageOptions.length,
+            (int i) {
+              final String langCode = SettingsTexts.languageOptions[i];
+              return CustomCheckboxTile(
+                onTap: (bool val) => _onTap(val, langCode, i),
+                forcedValue: selectedIndex == i,
+                customChild: _languageOption(selectedIndex == i, langCode),
+              );
+            },
+          ),
         ),
       );
 
@@ -40,4 +44,20 @@ class _SettingsLanguageRowState extends State<_SettingsLanguageRow> {
       setState(() => selectedIndex = i);
     }
   }
+
+  Widget _languageOption(bool selected, String langCode) => Row(
+        children: <Widget>[
+          Image.asset(langCode.langPng, height: context.height * 2.2),
+          SizedBox(width: context.width * 2),
+          BaseText(
+            langCode,
+            textAlign: TextAlign.left,
+            style: TextStyles(context).subBodyStyle(
+              color: selected ? context.primaryColor : null,
+              fontWeight: selected ? FontWeight.w600 : null,
+              fontSizeFactor: selected ? 5.1 : null,
+            ),
+          )
+        ],
+      );
 }

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../extensions/context/responsiveness_extensions.dart';
 import '../../helpers/material_state_helper.dart';
+import '../../theme/color/l_colors.dart';
 import '../text/base_text.dart';
 
 /// Custom elevated button specific to text widgets.
@@ -25,9 +26,11 @@ class ElevatedTextButton extends StatelessWidget with MaterialStateHelper {
         style: ButtonStyle(
           padding: all<EdgeInsets>(
             EdgeInsets.symmetric(
-                horizontal: context.width * 4, vertical: context.height),
+              horizontal: context.width * 4,
+              vertical: context.height,
+            ),
           ),
         ),
-        child: BaseText(text),
+        child: BaseText(text, color: AppColors.white),
       );
 }

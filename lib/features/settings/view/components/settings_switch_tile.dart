@@ -34,40 +34,47 @@ class _SettingsSwitchTileState extends State<_SettingsSwitchTile> {
   @override
   Widget build(BuildContext context) => Theme(
         data: ThemeData(highlightColor: context.primaryLightColor),
-        child: SwitchListTile(
-          title: _leading,
-          value: isSwitched,
-          contentPadding: context.verticalPadding(Sizes.extremeLow),
-          activeTrackColor: context.primaryLightColor.darken(.1),
-          inactiveTrackColor: context.primaryLightColor.lighten(.03),
-          inactiveThumbColor: context.primaryColor,
-          activeColor: context.primaryColor.darken(.01),
-          onChanged: (bool val) {
-            context.read<ThemeProvider>().switchTheme();
-            setState(() => isSwitched = !isSwitched);
-          },
+        child: Padding(
+          padding: context.allPadding(Sizes.low),
+          child: Row(
+            children: <Widget>[
+              _icon,
+              SizedBox(width: context.responsiveSize * 1.4),
+              Expanded(child: _titleAndSubtitle),
+              SizedBox(width: context.responsiveSize * 1.4),
+              _switch,
+            ],
+          ),
         ),
       );
 
-  Widget get _leading => Row(
-        children: <Widget>[
-          Padding(
-            padding: context.horizontalPadding(Sizes.low),
-            child: widget.icon,
-          ),
-          _titleAndSubtitle,
-        ],
+  Widget get _icon => Padding(
+        padding: context.rightPadding(Sizes.extremeLow),
+        child: widget.icon,
       );
 
   Widget get _titleAndSubtitle => Padding(
         padding: context.leftPadding(Sizes.low),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            widget.title,
-            SizedBox(height: context.height * .6),
-            widget.subtitle
-          ],
+          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisSize: MainAxisSize.min,
+          children: <Widget>[widget.title, widget.subtitle],
+        ),
+      );
+
+  Widget get _switch => Transform.scale(
+        scale: context.responsiveSize / 3,
+        child: Switch(
+          value: isSwitched,
+          onChanged: (bool val) {
+            context.read<ThemeProvider>().switchTheme();
+            setState(() => isSwitched = !isSwitched);
+          },
+          activeTrackColor: context.primaryLightColor.darken(.1),
+          inactiveTrackColor: context.primaryLightColor.lighten(.03),
+          inactiveThumbColor: context.primaryColor,
+          activeColor: context.primaryColor.darken(.01),
         ),
       );
 }

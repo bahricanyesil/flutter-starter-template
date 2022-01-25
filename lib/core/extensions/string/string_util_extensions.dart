@@ -6,6 +6,9 @@ extension StringUtilExtensions on String {
   /// Returns the icon asset path for the given name.
   String get iconPng => 'assets/images/icons/$this.png';
 
+  /// Returns the icon asset path for the given language option.
+  String get langPng => 'assets/images/languages/$this.png';
+
   /// Puts comma for every 3 digits before the decimal points.
   String thousandComma({int fraction = 4}) {
     int dotIndex = indexOf('.');

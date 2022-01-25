@@ -40,10 +40,13 @@ class _ListItemState<T> extends State<_ListItem<T>> {
           gradient: LinearGradient(
             begin: Alignment.centerRight,
             end: Alignment.centerLeft,
-            colors: <Color>[_color ?? context.primaryColor, AppColors.white],
+            colors: <Color>[
+              _color ?? context.primaryColor,
+              context.primaryLightColor.darken(.05)
+            ],
 
             /// Dummy for now.
-            stops: selected ? <double>[1, 0] : <double>[1, 3],
+            stops: selected ? <double>[1, 0] : <double>[.2, 1],
           ),
         ),
         child: Padding(

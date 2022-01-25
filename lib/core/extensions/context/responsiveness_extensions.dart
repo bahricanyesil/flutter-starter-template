@@ -21,7 +21,7 @@ extension ResponsivenessExtensions on BuildContext {
       min(height * 16, width * 9) / (isLandscape ? 24 : 12);
 
   /// Customized extreme low height value.
-  double get extremeLowHeight => height * .8;
+  double get extremeLowHeight => height * .9;
 
   /// Customized extreme low width value.
   double get extremeLowWidth => width * 1;
@@ -42,19 +42,19 @@ extension ResponsivenessExtensions on BuildContext {
   double get medHeight => height * 4;
 
   /// Customized medium width value.
-  double get medWidth => width * 5;
+  double get medWidth => width * 4;
 
   /// Customized medium-high height value.
-  double get medHighHeight => height * 7;
+  double get medHighHeight => height * 6;
 
   /// Customized medium-high width value.
-  double get medHighWidth => width * 7;
+  double get medHighWidth => width * 6;
 
   /// Customized high height value.
-  double get highHeight => height * 10;
+  double get highHeight => height * 8;
 
   /// Customized high width value.
-  double get highWidth => width * 10;
+  double get highWidth => width * 8;
 
   /// Returns padding from all edges acc. to the given [sizeType].
   EdgeInsets allPadding(Sizes sizeType) {
@@ -134,7 +134,10 @@ extension ResponsivenessExtensions on BuildContext {
         verticalValue = highHeight;
         break;
     }
-    return <double>[horizontalValue, verticalValue];
+    return <double>[
+      horizontalValue / (isLandscape ? 1.9 : 1),
+      verticalValue / (isLandscape ? 1.9 : 1),
+    ];
   }
 
   /// Maximum possible height for the screen.

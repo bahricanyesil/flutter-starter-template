@@ -13,7 +13,6 @@ import '../../../core/widgets/widgets_shelf.dart';
 import '../../../product/constants/enums/product_enums_shelf.dart';
 import '../../../product/managers/local-storage/settings/settings_local_manager.dart';
 import '../constants/settings_texts.dart';
-import '../utilities/listen_settings_value.dart';
 import '../view-model/settings_view_model.dart';
 
 part 'components/settings_item.dart';

@@ -57,7 +57,7 @@ class BaseText extends StatelessWidget {
         alignment: textAlign.alignment,
         child: Text(
           _text(context),
-          style: _style(context),
+          style: _defaultStyle(context).merge(style),
           textAlign: textAlign,
           overflow: TextOverflow.clip,
         ),
@@ -68,12 +68,6 @@ class BaseText extends StatelessWidget {
     return translatedText.length > maxLength
         ? translatedText.substring(0, maxLength)
         : translatedText;
-  }
-
-  TextStyle _style(BuildContext context) {
-    final bool custom = color != null || context.watch<ThemeProvider>().isDark;
-    return style ??
-        (custom ? _defaultStyle(context) : _defaultStyle(context).dark());
   }
 
   TextStyle _defaultStyle(BuildContext context) =>

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../../core/constants/durations/durations.dart';
 
 import '../../../core/constants/enums/view-enums/sizes.dart';
 import '../../../core/extensions/context/responsiveness_extensions.dart';
@@ -28,26 +29,32 @@ class _SplashScreenState extends State<SplashScreen> with SplashTexts {
   }
 
   @override
-  Widget build(BuildContext context) =>
-      FutureBuilder<bool>(future: _initialize, builder: _builder);
-
-  Widget _builder(BuildContext context, AsyncSnapshot<bool> snapshot) {
-    if (snapshot.hasData && !_retrying) {
-      return const HomeScreen();
-    } else if (snapshot.hasError && !_retrying) {
-      return _ErrorScreen(onPressed: _onRetry);
-    }
-    return const Scaffold(body: LoadingIndicator());
-  }
+  Widget build(BuildContext context) => FutureBuilder<bool>(
+      future: _initialize,
+      builder: (BuildContext context, AsyncSnapshot<bool> snapshot) {
+        if (snapshot.hasData && !_retrying) {
+          return const HomeScreen();
+        } else if (snapshot.hasError && !_retrying) {
+          return _ErrorScreen(onPressed: _onRetry);
+        }
+        return const Scaffold(body: LoadingIndicator());
+      });
 
   void _onRetry() {
-    _initialize = _retryInitialization();
     setState(() => _retrying = true);
+    _initialize = _retryInitialization();
   }
 
-  Future<bool> _initializeApp() async => false;
+  Future<bool> _initializeApp() async {
+    // Example Error
+    // await Future<void>.delayed(Durations.slowMed);
+    // throw Error();
+    await Future<void>.delayed(Durations.tooFast);
+    return true;
+  }
 
   Future<bool> _retryInitialization() async {
+    await Future<void>.delayed(Durations.slowMed);
     _retrying = false;
     return true;
   }

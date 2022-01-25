@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_starter_template/core/theme/color/l_colors.dart';
-import '../../../product/constants/enums/app_themes.dart';
 
+import '../../../product/constants/enums/app_themes.dart';
 import '../../../product/constants/enums/settings_enums.dart';
 import '../../../product/managers/local-storage/settings/settings_local_manager.dart';
 import '../../../product/theme/dark_theme.dart';
 import '../../../product/theme/light_theme.dart';
 import '../../extensions/string/type_conversion_extensions.dart';
+import '../../theme/color/l_colors.dart';
 
 /// Provider of theme, manages theme actions.
 class ThemeProvider extends ChangeNotifier {

@@ -1,13 +1,17 @@
 part of '../settings_screen.dart';
 
-class _SettingsItem extends StatelessWidget
-    with SettingsTexts, ListenSettingsValue {
+class _SettingsItem extends StatelessWidget with SettingsTexts {
   const _SettingsItem({required this.settings, Key? key}) : super(key: key);
   final SettingsOptions settings;
 
   @override
   Widget build(BuildContext context) => Theme(
-        data: Theme.of(context).copyWith(dividerColor: Colors.transparent),
+        data: Theme.of(context).copyWith(
+          dividerColor: Colors.transparent,
+          highlightColor: context.primaryLightColor,
+          hoverColor: context.primaryLightColor
+              .lighten(context.watch<ThemeProvider>().isDark ? -.1 : .06),
+        ),
         child: ListTileTheme(
           contentPadding: EdgeInsets.zero,
           minLeadingWidth: 0,
@@ -27,6 +31,7 @@ class _SettingsItem extends StatelessWidget
         collapsedTextColor: context.primaryLightColor,
         collapsedIconColor: context.primaryLightColor,
         tilePadding: context.horizontalPadding(Sizes.low),
+        childrenPadding: context.bottomPadding(Sizes.low),
         leading: _icon,
         title: _title(context),
         subtitle: _subtitle(context),
@@ -51,8 +56,9 @@ class _SettingsItem extends StatelessWidget
   List<Widget> _socialMedia(BuildContext context) => <Widget>[
         Row(
           children: List<Widget>.generate(
-              SettingsTexts.socialMediaAccounts.length,
-              (int i) => _item(i, context)),
+            SettingsTexts.socialMediaAccounts.length,
+            (int i) => _item(i, context),
+          ),
         )
       ];
 

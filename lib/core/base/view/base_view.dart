@@ -66,7 +66,7 @@ class _BaseViewState<T extends BaseViewModel> extends State<BaseView<T>> {
     model = context.read<T>();
     return Scaffold(
       resizeToAvoidBottomInset: widget.resizeToAvoidBottomInset,
-      appBar: widget.appBar?.copyWithSize(context.height * 5.5),
+      appBar: widget.appBar?.copyWithSize(context.responsiveSize * 18),
       body: widget.safeArea ? SafeArea(child: _child) : _child,
       floatingActionButton: widget.floatingButton,
     );
