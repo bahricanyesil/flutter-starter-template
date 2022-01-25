@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../constants/enums/view-enums/sizes.dart';
+import '../../constants/enums/sizes.dart';
 import '../../extensions/context/responsiveness_extensions.dart';
 import '../../extensions/context/theme_extensions.dart';
 import '../../managers/navigation/navigation_manager.dart';

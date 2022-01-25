@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../../core/base/view/base_view.dart';
-import '../../../core/constants/enums/view-enums/sizes.dart';
+import '../../../core/constants/enums/sizes.dart';
 import '../../../core/decoration/text_styles.dart';
 import '../../../core/extensions/extensions_shelf.dart';
 import '../../../core/helpers/material_state_helper.dart';

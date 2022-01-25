@@ -1,7 +1,7 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
-import '../../constants/enums/view-enums/sizes.dart';
+import '../../constants/enums/sizes.dart';
 
 /// Extensions for responsive ui designs with context.
 extension ResponsivenessExtensions on BuildContext {

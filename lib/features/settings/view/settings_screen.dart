@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../../core/base/view/base_view.dart';
-import '../../../core/constants/enums/view-enums/sizes.dart';
+import '../../../core/constants/enums/sizes.dart';
 import '../../../core/decoration/text_styles.dart';
 import '../../../core/extensions/extensions_shelf.dart';
 import '../../../core/providers/providers_shelf.dart';

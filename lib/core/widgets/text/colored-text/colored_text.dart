@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../../../constants/enums/view-enums/text_color.dart';
+import '../../../constants/enums/text_color.dart';
 import '../../../decoration/text_styles.dart';
 import '../../../extensions/context/theme_extensions.dart';
 

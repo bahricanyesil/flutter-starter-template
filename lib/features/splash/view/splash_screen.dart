@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import '../../../core/constants/durations/durations.dart';
 
-import '../../../core/constants/enums/view-enums/sizes.dart';
+import '../../../core/constants/enums/sizes.dart';
 import '../../../core/extensions/context/responsiveness_extensions.dart';
 import '../../../core/widgets/widgets_shelf.dart';
 import '../../home/view/home_screen.dart';

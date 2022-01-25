@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import '../../constants/enums/view-enums/view_states.dart';
+import '../../constants/enums/view_states.dart';
 import '../../managers/navigation/navigation_manager.dart';
 
 /// Base view model class to create customized view models extending this.
