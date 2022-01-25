@@ -37,6 +37,7 @@ class _SettingsSwitchTileState extends State<_SettingsSwitchTile> {
         child: SwitchListTile(
           title: _leading,
           value: isSwitched,
+          contentPadding: context.verticalPadding(Sizes.extremeLow),
           activeTrackColor: context.primaryLightColor.darken(.1),
           inactiveTrackColor: context.primaryLightColor.lighten(.03),
           inactiveThumbColor: context.primaryColor,
@@ -62,7 +63,11 @@ class _SettingsSwitchTileState extends State<_SettingsSwitchTile> {
         padding: context.leftPadding(Sizes.low),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[widget.title, widget.subtitle],
+          children: <Widget>[
+            widget.title,
+            SizedBox(height: context.height * .6),
+            widget.subtitle
+          ],
         ),
       );
 }

@@ -2,19 +2,18 @@ import 'package:flutter/material.dart';
 
 import '../extensions/context/responsiveness_extensions.dart';
 import '../providers/providers_shelf.dart';
-import '../theme/color/l_colors.dart';
 
 /// [TextStyles] class collects all customized [TextStyle] in one file.
 class TextStyles {
   /// Default constructor for the [TextStyles].
   TextStyles(BuildContext context)
       : _context = context,
-        _isDark = context.watch<ThemeProvider>().isDark;
+        _color = context.watch<ThemeProvider>().baseColor;
 
   /// Context for the stylings.
   final BuildContext _context;
 
-  final bool _isDark;
+  final Color _color;
 
   /// Custom text style for titles in the login screen.
   /// Such as: "welcome", "loginFormTitle" and so on.
@@ -129,6 +128,4 @@ class TextStyles {
         wordSpacing: 1.5,
         decoration: decoration,
       );
-
-  Color get _color => _isDark ? AppColors.white : AppColors.black;
 }

@@ -1,10 +1,12 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import '../../../core/base/view/base_view.dart';
 import '../../../core/constants/enums/view-enums/sizes.dart';
 import '../../../core/decoration/text_styles.dart';
 import '../../../core/extensions/extensions_shelf.dart';
+import '../../../core/helpers/material_state_helper.dart';
 import '../../../core/managers/navigation/navigation_shelf.dart';
 import '../../../core/theme/color/l_colors.dart';
 import '../../../core/widgets/widgets_shelf.dart';
@@ -15,13 +17,15 @@ import '../view-model/home_view_model.dart';
 part 'components/list_item.dart';
 
 /// Home Screen of the app.
-class HomeScreen extends StatelessWidget with HomeTexts, ListenHomeValue {
+class HomeScreen extends StatelessWidget
+    with HomeTexts, ListenHomeValue, MaterialStateHelper {
   /// Default constructor for home screen.
   const HomeScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) => BaseView<HomeViewModel>(
         bodyBuilder: _bodyBuilder,
+        floatingButton: _floatingActionButton(context),
         appBar: DefaultAppBar(
           titleIcon: Icons.auto_graph_outlined,
           titleText: HomeTexts.title,
@@ -42,14 +46,28 @@ class HomeScreen extends StatelessWidget with HomeTexts, ListenHomeValue {
   Widget _bodyBuilder(BuildContext context) => Padding(
         padding: EdgeInsets.symmetric(
             horizontal: context.medWidth, vertical: context.lowHeight),
-        child: _body(context, <Widget>[]),
+        child: _body(context),
       );
 
-  Widget _body(BuildContext context, List<Widget> children) => Container(
-        margin: context.verticalPadding(Sizes.low),
-        alignment: Alignment.center,
-        child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[...children]),
+  Widget _body(BuildContext context) {
+    final List<String> _texts = listenDummy(context);
+    return Padding(
+      padding: context.bottomPadding(Sizes.medHigh),
+      child: ListView.builder(
+        itemCount: _texts.length,
+        physics: const BouncingScrollPhysics(),
+        shrinkWrap: true,
+        itemBuilder: (BuildContext ctx, int i) => Padding(
+          padding: context.topPadding(Sizes.low),
+          child: _ListItem<String>(data: _texts[i]),
+        ),
+      ),
+    );
+  }
+
+  Widget _floatingActionButton(BuildContext context) => TextButton(
+        onPressed: context.read<HomeViewModel>().addItem,
+        style: ButtonStyle(padding: all(context.allPadding(Sizes.lowMed))),
+        child: const BaseText(HomeTexts.addItem),
       );
 }

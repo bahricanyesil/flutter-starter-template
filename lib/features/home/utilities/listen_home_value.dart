@@ -9,4 +9,10 @@ mixin ListenHomeValue {
   T listenValue<T>(
           BuildContext context, T Function(HomeViewModel model) func) =>
       context.select<HomeViewModel, T>(func);
+
+  /// Listens dummy texts list in the [HomeViewModel].
+  List<String> listenDummy(BuildContext context) {
+    listenValue(context, (HomeViewModel model) => model.dummyTexts.length);
+    return context.read<HomeViewModel>().dummyTexts;
+  }
 }

@@ -6,6 +6,7 @@ import '../../extensions/context/responsiveness_extensions.dart';
 import '../../theme/color/l_colors.dart';
 
 /// Custom loading indicator to use accross the app.
+/// Inspired by https://pub.dev/packages/flutter_spinkit
 class LoadingIndicator extends StatelessWidget {
   /// Default constructor for [LoadingIndicator].
   const LoadingIndicator({this.sizeFactor = 40, Key? key}) : super(key: key);
@@ -17,13 +18,11 @@ class LoadingIndicator extends StatelessWidget {
   Widget build(BuildContext context) => Center(
         child: SizedBox.fromSize(
           size: Size.square(_size(context)),
-          child: _stack(context),
+          child: Stack(
+            children:
+                List<Widget>.generate(12, (int i) => _listElement(context, i)),
+          ),
         ),
-      );
-
-  Widget _stack(BuildContext context) => Stack(
-        children:
-            List<Widget>.generate(12, (int i) => _listElement(context, i)),
       );
 
   Widget _listElement(BuildContext context, int i) {

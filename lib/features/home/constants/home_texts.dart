@@ -6,4 +6,7 @@ import '../view/home_screen.dart';
 mixin HomeTexts on Widget {
   /// Text key for the title of the screen.
   static const String title = 'title';
+
+  /// Text key for the add item CTA.
+  static const String addItem = 'add_item';
 }

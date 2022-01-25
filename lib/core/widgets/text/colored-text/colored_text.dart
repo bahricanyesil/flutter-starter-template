@@ -59,7 +59,9 @@ class ColoredText extends StatelessWidget {
       }
       coloredIndex = _minColoredIndex(tempText);
     }
-    textsWithColors.add(_TextColors(tempText, TextColor.black));
+    if (tempText != '') {
+      textsWithColors.add(_TextColors(tempText, TextColor.black));
+    }
     return textsWithColors;
   }
 

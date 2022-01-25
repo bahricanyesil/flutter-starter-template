@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_starter_template/core/theme/color/l_colors.dart';
 import '../../../product/constants/enums/app_themes.dart';
 
 import '../../../product/constants/enums/settings_enums.dart';
@@ -57,4 +58,7 @@ class ThemeProvider extends ChangeNotifier {
 
   /// Returns a bool that represents whether the current theme is dark.
   bool get isDark => _themeEnum == AppThemes.dark;
+
+  /// Returns the base color according to the current theme.
+  Color get baseColor => isDark ? AppColors.white : AppColors.black;
 }

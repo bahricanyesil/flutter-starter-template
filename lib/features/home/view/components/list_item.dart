@@ -3,13 +3,13 @@ part of '../home_screen.dart';
 class _ListItem<T> extends StatefulWidget {
   const _ListItem({
     required this.data,
-    required this.selectedColor,
+    this.selectedColor,
     this.isSelected = false,
     Key? key,
   }) : super(key: key);
   final T data;
   final bool isSelected;
-  final Color selectedColor;
+  final Color? selectedColor;
 
   @override
   State<_ListItem<T>> createState() => _ListItemState<T>();
@@ -40,21 +40,23 @@ class _ListItemState<T> extends State<_ListItem<T>> {
           gradient: LinearGradient(
             begin: Alignment.centerRight,
             end: Alignment.centerLeft,
-            colors: <Color>[_color, AppColors.white],
+            colors: <Color>[_color ?? context.primaryColor, AppColors.white],
 
             /// Dummy for now.
             stops: selected ? <double>[1, 0] : <double>[1, 3],
           ),
         ),
         child: Padding(
-          padding: context.horizontalPadding(Sizes.low),
-          child: Row(children: List<Widget>.generate(3, _item)),
+          padding: context.allPadding(Sizes.low),
+          child: Row(children: List<Widget>.generate(1, _item)),
         ),
       );
 
-  Color get _color => widget.selectedColor.lighten(.08);
+  Color? get _color => widget.selectedColor?.lighten(.08);
 
-  Widget _item(int k) => const Expanded(child: Text('Item'));
+  Widget _item(int k) => Expanded(
+      child: BaseText(widget.data.toString(),
+          flatText: true, color: AppColors.white));
 
   void _onHover(_) => setState(() => isHovering = true);
   void _onExitHover(_) => setState(() => isHovering = false);

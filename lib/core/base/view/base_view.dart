@@ -11,6 +11,7 @@ class BaseView<T extends BaseViewModel> extends StatefulWidget {
   /// Default constructor for [BaseView].
   const BaseView({
     required this.bodyBuilder,
+    this.floatingButton,
     this.customDispose,
     this.customInitState,
     this.appBar,
@@ -21,6 +22,9 @@ class BaseView<T extends BaseViewModel> extends StatefulWidget {
 
   /// Function to build the body.
   final Widget Function(BuildContext) bodyBuilder;
+
+  /// Custom floating action button in the scaffold.
+  final Widget? floatingButton;
 
   /// Custom dispose method to call on dispose.
   final VoidCallback? customDispose;
@@ -64,6 +68,7 @@ class _BaseViewState<T extends BaseViewModel> extends State<BaseView<T>> {
       resizeToAvoidBottomInset: widget.resizeToAvoidBottomInset,
       appBar: widget.appBar?.copyWithSize(context.height * 5.5),
       body: widget.safeArea ? SafeArea(child: _child) : _child,
+      floatingActionButton: widget.floatingButton,
     );
   }
 

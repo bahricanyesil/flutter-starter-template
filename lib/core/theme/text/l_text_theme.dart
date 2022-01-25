@@ -22,16 +22,16 @@ abstract class ITextTheme {
 
   /// Complete [TextTheme] data.
   TextTheme get data => TextTheme(
-        bodyText1: bodyText1.copyWith(color: AppColors.white),
-        bodyText2: bodyText2.copyWith(color: AppColors.white),
-        headline1: headline1.copyWith(color: AppColors.white),
-        headline2: headline2.copyWith(color: AppColors.white),
-        headline3: headline3.copyWith(color: AppColors.white),
-        headline4: headline4.copyWith(color: AppColors.white),
-        headline5: headline5.copyWith(color: AppColors.white),
-        headline6: headline6.copyWith(color: AppColors.white),
-        subtitle1: subtitle1.copyWith(color: AppColors.white),
-        subtitle2: subtitle2.copyWith(color: AppColors.white),
+        bodyText1: bodyText1.copyWith(color: primaryTextColor),
+        bodyText2: bodyText2.copyWith(color: primaryTextColor),
+        headline1: headline1.copyWith(color: primaryTextColor),
+        headline2: headline2.copyWith(color: primaryTextColor),
+        headline3: headline3.copyWith(color: primaryTextColor),
+        headline4: headline4.copyWith(color: primaryTextColor),
+        headline5: headline5.copyWith(color: primaryTextColor),
+        headline6: headline6.copyWith(color: primaryTextColor),
+        subtitle1: subtitle1.copyWith(color: primaryTextColor),
+        subtitle2: subtitle2.copyWith(color: primaryTextColor),
       );
 
   /// Style of the label texts.

@@ -5,7 +5,7 @@ import '../../extensions/color/color_extensions.dart';
 import '../../extensions/context/responsiveness_extensions.dart';
 import '../../extensions/context/theme_extensions.dart';
 import '../../helpers/material_state_helper.dart';
-import '../../theme/color/l_colors.dart';
+import '../../providers/providers_shelf.dart';
 import '../text/base_text.dart';
 
 /// Callback of the checkbox.
@@ -57,15 +57,22 @@ class _CustomCheckboxTileState extends State<CustomCheckboxTile>
         child: Checkbox(
           value: widget.forcedValue ?? value,
           overlayColor: all<Color>(context.primaryLightColor),
-          fillColor: all<Color?>((widget.forcedValue ?? value)
-              ? context.primaryColor
-              : AppColors.white.darken()),
+          fillColor: all<Color?>(
+              (widget.forcedValue ?? value) ? context.primaryColor : _color),
           splashRadius: 17,
           onChanged: (bool? newValue) {
             if (newValue != null) _changeValue(newValue);
           },
         ),
       );
+
+  Color get _color {
+    final Color baseColor = context.watch<ThemeProvider>().baseColor;
+    if (context.watch<ThemeProvider>().isDark) {
+      return baseColor.darken();
+    }
+    return baseColor.lighten();
+  }
 
   Widget get _expanded {
     final bool selected = widget.forcedValue ?? value;

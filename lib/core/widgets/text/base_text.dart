@@ -71,17 +71,14 @@ class BaseText extends StatelessWidget {
   }
 
   TextStyle _style(BuildContext context) {
-    final bool isDark = context.watch<ThemeProvider>().isDark;
+    final bool custom = color != null || context.watch<ThemeProvider>().isDark;
     return style ??
-        (color != null || isDark
-                ? _defaultStyle(context)
-                : _defaultStyle(context).dark())
-            .merge(style);
+        (custom ? _defaultStyle(context) : _defaultStyle(context).dark());
   }
 
   TextStyle _defaultStyle(BuildContext context) =>
       TextStyles(context).normalStyle(
-        color: color ?? AppColors.white,
+        color: color ?? context.watch<ThemeProvider>().baseColor,
         fontSizeFactor: fontSizeFactor,
         fontWeight: fontWeight,
       );

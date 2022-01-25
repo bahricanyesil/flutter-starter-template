@@ -7,6 +7,7 @@ class CustomDivider extends Divider {
   const CustomDivider({Key? key})
       : super(
           key: key,
+          height: 1.5,
           indent: 5,
           endIndent: 5,
           color: AppColors.primaryColor,
