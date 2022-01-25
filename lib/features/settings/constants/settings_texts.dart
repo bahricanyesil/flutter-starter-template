@@ -39,6 +39,9 @@ mixin SettingsTexts {
           .map((MapEntry<String, String> e) =>
               '${Uri.encodeComponent(e.key)}=${Uri.encodeComponent(e.value)}')
           .join('&');
+
+  /// Made with 💙 by Bahrican Yesil.
+  static const String madeBy = 'made_by';
 }
 
 /// Model for social media accounts.

@@ -31,5 +31,6 @@
   "title": "Flutter Starter Template",
   "add_item": "Add Item",
   "splash_error": "Something unexpected happened!\nClick below button to retry.",
-  "retry": "Retry"
+  "retry": "Retry",
+  "made_by": "Made with 💙 by Bahrican Yesil"
 }

@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 
 import '../../decoration/text_styles.dart';
 import '../../extensions/context/language_helpers.dart';
-import '../../extensions/text-style/decoration_extensions.dart';
 import '../../extensions/text-style/text_align_extensions.dart';
 import '../../providers/providers_shelf.dart';
 import '../../theme/color/l_colors.dart';

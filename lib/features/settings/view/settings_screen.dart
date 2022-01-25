@@ -37,14 +37,22 @@ class SettingsScreen extends StatelessWidget with SettingsTexts {
         ),
       );
 
-  Widget _bodyBuilder(BuildContext context) => ListView.builder(
-        itemCount: SettingsOptions.values.length,
-        padding: context.allPadding(Sizes.med),
-        itemBuilder: (BuildContext context, int index) => Column(
-          children: <Widget>[
-            _SettingsItem(settings: SettingsOptions.values[index]),
-            const CustomDivider(),
-          ],
-        ),
-      );
+  Widget _bodyBuilder(BuildContext context) {
+    final int optionLength = SettingsOptions.values.length;
+    return ListView.builder(
+      itemCount: optionLength + 1,
+      padding: context.allPadding(Sizes.med),
+      itemBuilder: (BuildContext context, int index) => index == optionLength
+          ? Padding(
+              padding: context.topPadding(Sizes.lowMed),
+              child: const BaseText(SettingsTexts.madeBy, fontSizeFactor: 5.5),
+            )
+          : Column(
+              children: <Widget>[
+                _SettingsItem(settings: SettingsOptions.values[index]),
+                const CustomDivider(),
+              ],
+            ),
+    );
+  }
 }

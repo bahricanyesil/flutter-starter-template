@@ -31,5 +31,6 @@
   "title": "Flutter Başlangıç Şablonu",
   "add_item": "Yeni Ekle",
   "splash_error": "Beklenmeyen bir şeyler oldu!\nYeniden denemek için butona tıkla.",
-  "retry": "Yeniden Dene"
+  "retry": "Yeniden Dene",
+  "made_by": "Bahrican Yesil tarafından 💙 ile yapıldı"
 }
