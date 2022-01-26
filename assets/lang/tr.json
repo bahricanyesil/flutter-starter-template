@@ -32,5 +32,14 @@
   "add_item": "Yeni Ekle",
   "splash_error": "Beklenmeyen bir şeyler oldu!\nYeniden denemek için butona tıkla.",
   "retry": "Yeniden Dene",
-  "made_by": "Bahrican Yesil tarafından 💙 ile yapıldı"
+  "made_by": "Bahrican Yesil tarafından 💙 ile yapıldı",
+  "username": "Kullanıcı Adı",
+  "email_hint": "Email",
+  "confirm_password_hint": "Şifreyi Doğrula",
+  "already_have_an_account": "Zaten Bir Hesabınız Mı Var?",
+  "choose_language_title": "Dil Seçin",
+  "dialog_button_text": "Tamam",
+  "not_have_an_account": "Bir Hesabın Yok Mu?",
+  "password_hint": "Şifre",
+  "password_matching_error": "Girdiğiniz şifreler eşleşmiyor, lütfen kontrol edin."
 }

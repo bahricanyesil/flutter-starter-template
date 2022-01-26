@@ -8,4 +8,7 @@ mixin NavigationConstants {
 
   /// Settings screen path configuration.
   static const String settings = '/settings';
+
+  /// Login screen path configuration.
+  static const String login = '/login';
 }

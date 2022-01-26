@@ -5,7 +5,7 @@
   "sign_up_form_title": "Create an Account",
   "sign_up_use_email": "or use your email for registration:",
   "welcome_back": "Welcome Back!",
-  "welcome_back_description": "You have already know that this template is so helpful!",
+  "welcome_back_description": "You have already known that this template is so helpful!",
   "sign_in": "Sign In",
   "sign_in_form_title": "Sign in to Template",
   "sign_in_use_email": "or use your email account:",
@@ -32,5 +32,14 @@
   "add_item": "Add Item",
   "splash_error": "Something unexpected happened!\nClick below button to retry.",
   "retry": "Retry",
-  "made_by": "Made with 💙 by Bahrican Yesil"
+  "made_by": "Made with 💙 by Bahrican Yesil",
+  "username": "Username",
+  "email_hint": "Email",
+  "confirm_password_hint": "Confirm Password",
+  "already_have_an_account": "Already Have An Account?",
+  "choose_language_title": "Choose a Language",
+  "dialog_button_text": "OK",
+  "not_have_an_account": "Not Have An Account?",
+  "password_hint": "Password",
+  "password_matching_error": "The passwords you entered do not match, check again."
 }

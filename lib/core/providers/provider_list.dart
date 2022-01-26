@@ -22,6 +22,9 @@ class ProviderList {
 
   static final List<SingleChildWidget> _viewModelProviders =
       <SingleChildWidget>[
+    ChangeNotifierProvider<LoginViewModel>(
+      create: (BuildContext context) => LoginViewModel(),
+    ),
     ChangeNotifierProvider<HomeViewModel>(
       create: (BuildContext context) => HomeViewModel(),
     ),

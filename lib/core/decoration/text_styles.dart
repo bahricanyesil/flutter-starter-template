@@ -17,20 +17,31 @@ class TextStyles {
 
   /// Custom text style for titles in the login screen.
   /// Such as: "welcome", "loginFormTitle" and so on.
-  TextStyle titleStyle({Color? color, TextDecoration? decoration}) => TextStyle(
-        fontSize: _context.responsiveSize * 6.6,
+  TextStyle titleStyle({
+    Color? color,
+    TextDecoration? decoration,
+    double? fontSizeFactor,
+    double? wordSpacing,
+    double? letterSpacing,
+  }) =>
+      TextStyle(
+        fontSize: _context.responsiveSize * (fontSizeFactor ?? 6.6),
         color: color ?? Theme.of(_context).primaryColor,
         fontWeight: FontWeight.bold,
-        wordSpacing: 3.5,
-        letterSpacing: 1.3,
+        wordSpacing: wordSpacing ?? 3.5,
+        letterSpacing: letterSpacing ?? 1.3,
         decoration: decoration,
       );
 
   /// Custom text style for body texts in the login screen.
   /// Such as: "welcomeDescription", "RoundedButton" action text and so on.
-  TextStyle bodyStyle({Color? color, FontWeight? fontWeight, double? height}) =>
+  TextStyle bodyStyle(
+          {Color? color,
+          FontWeight? fontWeight,
+          double? height,
+          double? fontSizeFactor}) =>
       TextStyle(
-        fontSize: _context.responsiveSize * 5.6,
+        fontSize: _context.responsiveSize * (fontSizeFactor ?? 5.6),
         color: color ?? _color,
         fontWeight: fontWeight ?? FontWeight.w400,
         wordSpacing: 1.3,

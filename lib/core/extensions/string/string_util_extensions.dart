@@ -9,6 +9,9 @@ extension StringUtilExtensions on String {
   /// Returns the icon asset path for the given language option.
   String get langPng => 'assets/images/languages/$this.png';
 
+  /// Returns the gif asset path for the given text.
+  String get gif => 'assets/images/gifs/$this.gif';
+
   /// Puts comma for every 3 digits before the decimal points.
   String thousandComma({int fraction = 4}) {
     int dotIndex = indexOf('.');

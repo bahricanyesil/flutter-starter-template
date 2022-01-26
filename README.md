@@ -22,17 +22,44 @@ This template has been developed by Bahrican Yesil with real-time app experience
 <!-- FEATURES:START -->
 - [Multi-Language](https://github.com/bahricanyesil/flutter-starter-template#multi-language)
 - [Multi-Theme](https://github.com/bahricanyesil/flutter-starter-template#multi-theme)
-- [Initial App](https://github.com/bahricanyesil/flutter-starter-template#initial-app)
-- [Base](https://github.com/bahricanyesil/flutter-starter-template#base)
+- [Initial App - Mobile/Web](https://github.com/bahricanyesil/flutter-starter-template#initial-app)
+- [Base Model/View/View-Model](https://github.com/bahricanyesil/flutter-starter-template#base)
 - [Constants and Decoration](https://github.com/bahricanyesil/flutter-starter-template#constants-and-decoration)
 - [Extensions](https://github.com/bahricanyesil/flutter-starter-template#extensions)
-- [Managers](https://github.com/bahricanyesil/flutter-starter-template#managers)
+- [Managers - Storage, Navigation and Network](https://github.com/bahricanyesil/flutter-starter-template#managers)
 - [Providers](https://github.com/bahricanyesil/flutter-starter-template#providers)
 - [Widgets](https://github.com/bahricanyesil/flutter-starter-template#widgets)
 - [Splash](https://github.com/bahricanyesil/flutter-starter-template#splash)
 - [Example Settings Screen](https://github.com/bahricanyesil/flutter-starter-template#example-settings-screen)
 - [Example Home Screen](https://github.com/bahricanyesil/flutter-starter-template#example-home-screen)
+- [Animated Login Screen](https://github.com/bahricanyesil/flutter-starter-template#animated-login)
 <!-- FEATURES:END -->
+
+<br />
+
+## [Multi-Language](#multi-language)
+
+- Multi-language support is implemented with [flutter_localizations SDK](https://docs.flutter.dev/development/accessibility-and-localization/internationalization) by following the base guideleness in the given link.
+- You can refer to [this article](https://medium.com/flutter-community/flutter-internationalization-the-easy-way-using-provider-and-json-c47caa4212b2) to know more about the implementation details. Most of the things are similar to that approach.
+- First of all, `WidgetsFlutterBinding.ensureInitialized();` line is added as the initial line of the main function. Refer to [this stackoverflow post](https://stackoverflow.com/questions/63873338/what-does-widgetsflutterbinding-ensureinitialized-do) to learn the details of this line. 
+- Secondly, according to the steps which are also indicated in the medium post, created an `AppLocalizations` class with `_AppLocalizationsDelegate`. Loading the corresponding json file for the current language, translating the key value, and etc. are performed with the help of this localization class.
+- Then, created a provider class to manage the language changes, notify accordingly, store and fetch the last selected language and so on.
+- Added an extra extension on "BuildContext" to translate texts with a shortcut. You can use `context.tr([key])` to get the translated value of the given key.
+- Added supported locale info and other required parameters to the "MaterialApp" in the initial app files.
+- Created example "tr.json" and "en.json" files to store key-value pairs for Turkish and English languages under the 'assets/lang/' path.
+
+<br />
+
+## [Multi-Theme](#multi-theme)
+
+- Multi-theme support is implemented by firstly defining base abstract classes in the core folder. These abstract classes provide generic structure for any project that will be customizing them by extending.
+- **Base Abstract Classes**:
+  - **IColors**: Contains the base color parameters for the theme
+  (e.g. scaffoldBackgroundColor, primaryColorLight)
+  - **ITextTheme**: Contains the TextTheme customized according to the given primary and secondary text colors.
+  - **ITheme**: Using the IColors and ITextTheme class instances, creates a complete `ThemeData`.
+- An example use of these abstract classes for dark and light themes are provided under the 'product/theme/' path.
+- Created a ThemeProvider similar to LanguageProvider to manage theme changes, notify accordingly, store and fetch the last selected theme preference and so on. 
 
 <br />
 

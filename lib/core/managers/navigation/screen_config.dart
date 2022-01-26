@@ -29,6 +29,11 @@ class ScreenConfig {
       : path = NavigationConstants.settings,
         builder = (() => const SettingsScreen());
 
+  /// Screen config for the [LoginScreen]
+  ScreenConfig.login()
+      : path = NavigationConstants.login,
+        builder = (() => const LoginScreen());
+
   /// Path of the page, will be the url on web.
   final String path;
 
