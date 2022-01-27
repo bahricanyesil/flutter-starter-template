@@ -33,7 +33,7 @@ extension ResponsivenessExtensions on BuildContext {
   double get lowWidth => width * 2;
 
   /// Customized low-medium height value.
-  double get lowMedHeight => height * 2.3;
+  double get lowMedHeight => height * 2.5;
 
   /// Customized low-medium width value.
   double get lowMedWidth => width * 2.5;

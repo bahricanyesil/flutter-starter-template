@@ -19,7 +19,7 @@ dependencies:
   # UI-Style
   cupertino_icons: ^1.0.2
   google_fonts: ^2.1.0
-  animated_login: ^1.2.0
+  animated_login: ^1.3.0
 
   # State Management
   provider: ^6.0.1
@@ -36,6 +36,9 @@ dependencies:
 
   # Helpers
   url_launcher: ^6.0.18
+
+  # Network
+  async: ^2.8.2
 
 dev_dependencies:
   flutter_test:

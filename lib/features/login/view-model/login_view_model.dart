@@ -1,8 +1,10 @@
 import 'dart:async';
 
 import 'package:animated_login/animated_login.dart';
+import 'package:async/async.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_starter_template/core/managers/navigation/navigation_shelf.dart';
 
 import '../../../core/base/view-model/base_view_model.dart';
 import '../../../core/extensions/context/language_helpers.dart';
@@ -22,6 +24,9 @@ class LoginViewModel extends BaseViewModel {
     notifyListeners();
   }
 
+  /// Cancelable operation
+  CancelableOperation<dynamic>? operation;
+
   /// All language options available in the app.
   List<LanguageOption> languageOptions(BuildContext context) {
     const List<Locale> locales = LanguageProvider.supportedLocales;
@@ -40,17 +45,17 @@ class LoginViewModel extends BaseViewModel {
   /// Social login options, you should provide callback function and icon path.
   /// Icon paths should be the full path in the assets
   /// Don't forget to also add the icon folder to the "pubspec.yaml" file.
-  /// TODO: Icon paths
   List<SocialLogin> get socialLogins => <SocialLogin>[
-        SocialLogin(callback: _googleLogin, iconPath: 'google'.iconPng),
-        SocialLogin(callback: _facebookLogin, iconPath: 'facebook'.iconPng),
-        SocialLogin(callback: _linkedinLogin, iconPath: 'linkedin'.iconPng),
+        SocialLogin(
+            callback: () async => _socialCallback('Google'),
+            iconPath: 'google'.iconPng),
+        SocialLogin(
+            callback: () async => _socialCallback('Facebook'),
+            iconPath: 'facebook'.iconPng),
+        SocialLogin(
+            callback: () async => _socialCallback('LinkedIn'),
+            iconPath: 'linkedin'.iconPng),
       ];
-
-  /// TODO: Social login services
-  Future<String?> _googleLogin() async => '';
-  Future<String?> _facebookLogin() async => '';
-  Future<String?> _linkedinLogin() async => '';
 
   /// Callback to change language on user action.
   Future<void> languageChange(
@@ -62,12 +67,57 @@ class LoginViewModel extends BaseViewModel {
     }
   }
 
+  /// Returns the current language of the app.
   LanguageOption? currentLanguage(BuildContext context) {
     final LanguageOptions lang = context.watch<LanguageProvider>().language;
     final LanguageOption? packageLang = languageOptions(context)
         .firstWhereOrNull((LanguageOption opt) =>
             opt.code.toLowerCase() == lang.name.toLowerCase());
     return packageLang;
+  }
+
+  Future<String?> authOperation(Future<String?> func) async {
+    await operation?.cancel();
+    operation = CancelableOperation<String?>.fromFuture(func);
+    final String? res = await operation?.valueOrCancellation();
+    if ((operation?.isCompleted ?? false) && res == null) {
+      // print('SUCCESS');
+    }
+    return res;
+  }
+
+  /// Login action that will be performed on click to action button in login mode.
+  Future<String?> onLogin(LoginData loginData) async {
+    await Future<void>.delayed(const Duration(seconds: 2));
+    return null;
+  }
+
+  /// Sign up action that will be performed on click to action button in sign up mode.
+  Future<String?> onSignup(SignUpData signupData) async {
+    await Future<void>.delayed(const Duration(seconds: 2));
+    return null;
+  }
+
+  Future<String?> _socialCallback(String type) async {
+    await operation?.cancel();
+    operation = CancelableOperation<String?>.fromFuture(_socialLogin(type));
+    final String? res = await operation?.valueOrCancellation();
+    if ((operation?.isCompleted ?? false) && res == null) {
+      // print('Success);
+    }
+    return res;
+  }
+
+  /// Social login callback example.
+  Future<String?> _socialLogin(String type) async {
+    await Future.delayed(const Duration(seconds: 2));
+    return null;
+  }
+
+  Future<String?> onForgotPassword(String email, BuildContext context) async {
+    await operation?.cancel();
+    await NavigationManager.instance.setInitialRoutePath(ScreenConfig.home());
+    return null;
   }
 
   @override
