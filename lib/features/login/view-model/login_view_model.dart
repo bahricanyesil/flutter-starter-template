@@ -4,12 +4,12 @@ import 'package:animated_login/animated_login.dart';
 import 'package:async/async.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_starter_template/core/managers/navigation/navigation_shelf.dart';
 
 import '../../../core/base/view-model/base_view_model.dart';
 import '../../../core/extensions/context/language_helpers.dart';
 import '../../../core/extensions/string/string_util_extensions.dart';
 import '../../../core/extensions/string/type_conversion_extensions.dart';
+import '../../../core/managers/navigation/navigation_shelf.dart';
 import '../../../core/providers/providers_shelf.dart';
 import '../../../product/constants/enums/language_options.dart';
 
@@ -17,15 +17,13 @@ import '../../../product/constants/enums/language_options.dart';
 class LoginViewModel extends BaseViewModel {
   /// Current authentication mode of the Login Screen.
   AuthMode currentMode = AuthMode.login;
+  late NavigationManager _navigator;
 
   /// Changes the auth mode.
   void changeAuth(AuthMode newMode) {
     currentMode = newMode;
     notifyListeners();
   }
-
-  /// Cancelable operation
-  CancelableOperation<dynamic>? operation;
 
   /// All language options available in the app.
   List<LanguageOption> languageOptions(BuildContext context) {
@@ -76,23 +74,27 @@ class LoginViewModel extends BaseViewModel {
     return packageLang;
   }
 
+  /// Cancelable operation
+  CancelableOperation<dynamic>? operation;
+
+  /// Auth operation wrapper to make it cancelable.
   Future<String?> authOperation(Future<String?> func) async {
     await operation?.cancel();
     operation = CancelableOperation<String?>.fromFuture(func);
     final String? res = await operation?.valueOrCancellation();
     if ((operation?.isCompleted ?? false) && res == null) {
-      // print('SUCCESS');
+      await _navigateToHome();
     }
     return res;
   }
 
-  /// Login action that will be performed on click to action button in login mode.
+  /// Login action will be performed on click to action button in login mode.
   Future<String?> onLogin(LoginData loginData) async {
     await Future<void>.delayed(const Duration(seconds: 2));
     return null;
   }
 
-  /// Sign up action that will be performed on click to action button in sign up mode.
+  /// Signup action will be performed on click to action button in sign up mode.
   Future<String?> onSignup(SignUpData signupData) async {
     await Future<void>.delayed(const Duration(seconds: 2));
     return null;
@@ -103,23 +105,29 @@ class LoginViewModel extends BaseViewModel {
     operation = CancelableOperation<String?>.fromFuture(_socialLogin(type));
     final String? res = await operation?.valueOrCancellation();
     if ((operation?.isCompleted ?? false) && res == null) {
-      // print('Success);
+      await _navigateToHome();
     }
     return res;
   }
 
   /// Social login callback example.
   Future<String?> _socialLogin(String type) async {
-    await Future.delayed(const Duration(seconds: 2));
+    await Future<void>.delayed(const Duration(seconds: 2));
     return null;
   }
 
+  /// Function to perform when clicked on forgot password
   Future<String?> onForgotPassword(String email, BuildContext context) async {
     await operation?.cancel();
-    await NavigationManager.instance.setInitialRoutePath(ScreenConfig.home());
+    await _navigateToHome();
     return null;
   }
 
+  Future<void> _navigateToHome() async =>
+      _navigator.setNewRoutePath(ScreenConfig.home());
+
   @override
-  FutureOr<void> init() {}
+  FutureOr<void> init() {
+    _navigator = NavigationManager.instance;
+  }
 }

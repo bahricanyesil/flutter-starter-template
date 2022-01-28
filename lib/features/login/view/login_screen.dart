@@ -1,5 +1,4 @@
 import 'package:animated_login/animated_login.dart';
-import 'package:async/async.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -44,6 +43,7 @@ class LoginScreen extends StatelessWidget
       selectedLanguage: model.currentLanguage(context),
       initialMode: listenAuthMode(context),
       onAuthModeChange: model.changeAuth,
+      changeLangDefaultOnPressed: () async => model.operation?.cancel(),
     );
   }
 }

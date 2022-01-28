@@ -4,7 +4,7 @@ import '../../../core/constants/durations/durations.dart';
 import '../../../core/constants/enums/sizes.dart';
 import '../../../core/extensions/context/responsiveness_extensions.dart';
 import '../../../core/widgets/widgets_shelf.dart';
-import '../../login/view/login_screen.dart';
+import '../../home/view/home_screen.dart';
 import '../constants/splash_texts.dart';
 
 part './error_splash_screen.dart';
@@ -33,7 +33,7 @@ class _SplashScreenState extends State<SplashScreen> with SplashTexts {
       future: _initialize,
       builder: (BuildContext context, AsyncSnapshot<bool> snapshot) {
         if (snapshot.hasData && !_retrying) {
-          return const LoginScreen();
+          return const HomeScreen();
         } else if (snapshot.hasError && !_retrying) {
           return _ErrorScreen(onPressed: _onRetry);
         }

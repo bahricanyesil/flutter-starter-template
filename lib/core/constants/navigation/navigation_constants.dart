@@ -1,14 +1,11 @@
 /// Collection of navigation path constants.
 mixin NavigationConstants {
-  /// Root screen path configuration.
-  static const String root = '/';
+  /// Login screen path configuration.
+  static const String login = '/';
 
   /// Home screen path configuration.
   static const String home = '/home';
 
   /// Settings screen path configuration.
   static const String settings = '/settings';
-
-  /// Login screen path configuration.
-  static const String login = '/login';
 }

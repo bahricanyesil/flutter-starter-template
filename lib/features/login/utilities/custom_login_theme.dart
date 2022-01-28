@@ -10,12 +10,22 @@ mixin CustomLoginTheme {
         formFieldHoverColor: context.primaryLightColor.lighten(.08),
         formFieldBackgroundColor: Colors.transparent,
         errorTextStyle: const TextStyle(color: AppColors.error),
-        formElementsSpacing: context.height * 2.4,
-        // dialogTheme: _dialogTheme(context).copyWith(
-        //   languagedialogTheme:
-        //       _dialogTheme(context).languageDialogTheme.copyWith(),
-        // ),
+        formElementsSpacing: context.responsiveSize * 2.4,
+        spacingFormAndAction: context.responsiveSize * 4,
+        dialogTheme: _dialogTheme(context)
+            .copyWith(languageDialogTheme: _copyLanguageDialogTheme(context)),
+        inputPadding:
+            EdgeInsets.symmetric(vertical: context.responsiveSize * 4.5),
+        loadingSocialButtonColor: context.primaryColor,
+        loadingButtonColor: AppColors.white,
+        loadingButtonSize: context.responsiveSize * 6,
       );
+
+  LanguageDialogTheme? _copyLanguageDialogTheme(BuildContext context) =>
+      _dialogTheme(context).languageDialogTheme?.copyWith(
+            dialogOptionSize:
+                Size(context.responsiveSize * 60, context.height * 7),
+          );
 
   /// You can adjust the colors, text styles, button styles, borders
   /// according to your design preferences for *MOBILE* view.

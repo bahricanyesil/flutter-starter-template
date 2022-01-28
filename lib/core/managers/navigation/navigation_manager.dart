@@ -1,30 +1,28 @@
-import 'dart:async';
-
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 import 'screen_config.dart';
 
-/// Custom navigation manager
+/// Custom navigation manager.
 class NavigationManager extends RouterDelegate<ScreenConfig>
     with
         // ignore: prefer_mixin
         ChangeNotifier,
         PopNavigatorRouterDelegateMixin<ScreenConfig> {
-  /// Singleton instance of [NavigationManager].
+  /// Singleton navigation manager.
   factory NavigationManager() => _instance;
-  NavigationManager._() {
-    unawaited(setInitialRoutePath(ScreenConfig.defaultScreen()));
-  }
-  static final NavigationManager _instance = NavigationManager._();
-  final GlobalKey<NavigatorState> _navigatorKey = GlobalKey<NavigatorState>();
+  NavigationManager._();
 
-  /// Getter for navigation manager instance
+  final GlobalKey<NavigatorState> _navigatorKey = GlobalKey<NavigatorState>();
+  static final NavigationManager _instance = NavigationManager._();
+
+  /// Returns the singleton instance of [NavigationManager].
   static NavigationManager get instance => _instance;
 
   @override
   GlobalKey<NavigatorState> get navigatorKey => _navigatorKey;
 
+  /// The pages in the routing stack.
   final List<Page<dynamic>> _pages = <Page<dynamic>>[];
 
   @override
@@ -39,32 +37,8 @@ class NavigationManager extends RouterDelegate<ScreenConfig>
       );
 
   @override
-  Future<void> setInitialRoutePath(ScreenConfig configuration) async {
-    _pages.clear();
-    _addPage(configuration);
-    return SynchronousFuture<void>(null);
-  }
-
-  @override
-  Future<void> setRestoredRoutePath(ScreenConfig configuration) async {
-    /// Checks if new screen already exists in the history.
-    for (final Page<dynamic> page in _pages) {
-      /// If the screen exists, removes all the screens after it.
-      if ((page.arguments as ScreenConfig?) == configuration) {
-        final int index = _pages.indexOf(page);
-        _pages.removeRange(index + 1, _pages.length);
-        notifyListeners();
-        return SynchronousFuture<void>(null);
-      }
-    }
-
-    /// Adds new screen to the history.
-    _addPageHelper(configuration);
-    return SynchronousFuture<void>(null);
-  }
-
-  @override
   Future<void> setNewRoutePath(ScreenConfig configuration) async {
+    _pages.clear();
     _addPage(configuration);
     return SynchronousFuture<void>(null);
   }
@@ -80,9 +54,6 @@ class NavigationManager extends RouterDelegate<ScreenConfig>
     return SynchronousFuture<bool>(false);
   }
 
-  /// Gets the initial root screen.
-  ScreenConfig? get initialScreen => _pages.first.arguments as ScreenConfig?;
-
   /// Adds a new page to the current page path.
   void _addPage(ScreenConfig newScreen) {
     if (_canAdd(newScreen)) _addPageHelper(newScreen);
@@ -96,11 +67,6 @@ class NavigationManager extends RouterDelegate<ScreenConfig>
     }
   }
 
-  bool _canAdd(ScreenConfig newScreen) {
-    if (_pages.isEmpty) return true;
-    return (_pages.last.arguments as ScreenConfig?)?.path != newScreen.path;
-  }
-
   void _addPageHelper(ScreenConfig newScreen) {
     _pages.add(MaterialPage<dynamic>(
       child: newScreen.builder(),
@@ -111,11 +77,21 @@ class NavigationManager extends RouterDelegate<ScreenConfig>
     notifyListeners();
   }
 
-  /// Removes all pages until there is left one (initial) page.
-  void popUntilOneLeft() {
-    if (_pages.isEmpty) return;
-    _pages.removeRange(1, _pages.length);
+  /// Removes the given screen.
+  void removePage(ScreenConfig screen) {
+    final int index =
+        _pages.indexWhere((Page<dynamic> e) => e.name == screen.path);
+    if (index == -1) return;
+    _pages.removeAt(index);
     notifyListeners();
+  }
+
+  bool _onPopPage(Route<dynamic> route, dynamic result) {
+    final bool didPop = route.didPop(result);
+    if (!didPop) return false;
+    _pages.remove(route.settings);
+    notifyListeners();
+    return true;
   }
 
   /// Removes the pages until the specified page.
@@ -129,13 +105,17 @@ class NavigationManager extends RouterDelegate<ScreenConfig>
     return true;
   }
 
-  bool _onPopPage(Route<dynamic> route, dynamic result) {
-    final bool didPop = route.didPop(result);
-    if (!didPop) return false;
-    _pages.remove(route.settings);
+  /// Removes all pages until there is left one (initial) page.
+  void popUntilOneLeft() {
+    if (!_canPop) return;
+    _pages.removeRange(1, _pages.length);
     notifyListeners();
-    return true;
   }
 
   bool get _canPop => _pages.length > 1;
+
+  bool _canAdd(ScreenConfig newScreen) {
+    if (_pages.isEmpty) return true;
+    return (_pages.last.arguments as ScreenConfig?)?.path != newScreen.path;
+  }
 }

@@ -12,33 +12,35 @@ class ScreenConfig {
   const ScreenConfig({
     required this.path,
     required this.builder,
+    this.arguments = const <String, dynamic>{},
   });
 
-  /// Screen config for default screen, in this case it is [SplashScreen].
-  ScreenConfig.defaultScreen()
-      : path = NavigationConstants.root,
-        builder = (() => const SplashScreen());
-
   /// Screen config for the [HomeScreen].
-  ScreenConfig.home()
+  ScreenConfig.home({Map<String, dynamic> args = const <String, dynamic>{}})
       : path = NavigationConstants.home,
-        builder = (() => const HomeScreen());
+        builder = (() => const SplashScreen()),
+        arguments = args;
 
   /// Screen config for the [SettingsScreen]
-  ScreenConfig.settings()
+  ScreenConfig.settings({Map<String, dynamic> args = const <String, dynamic>{}})
       : path = NavigationConstants.settings,
-        builder = (() => const SettingsScreen());
+        builder = (() => const SettingsScreen()),
+        arguments = args;
 
   /// Screen config for the [LoginScreen]
-  ScreenConfig.login()
+  ScreenConfig.login({Map<String, dynamic> args = const <String, dynamic>{}})
       : path = NavigationConstants.login,
-        builder = (() => const LoginScreen());
+        builder = (() => const LoginScreen()),
+        arguments = args;
 
   /// Path of the page, will be the url on web.
   final String path;
 
-  /// Builder method to navivgate to the page.
+  /// Builder method to navigate to the page.
   final Widget Function() builder;
+
+  /// Arguments will be passed to the new screen.
+  final Map<String, dynamic> arguments;
 
   @override
   bool operator ==(Object other) {
